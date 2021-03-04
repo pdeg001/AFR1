@@ -13,6 +13,7 @@ Sub Class_Globals
 	Private qry As String
 	Private lbl As Label
 	Private edt As EditText
+	Private i18nReturnvalue As String
 End Sub
 
 Public Sub Initialize (act As Activity)
@@ -20,6 +21,8 @@ Public Sub Initialize (act As Activity)
 End Sub
 
 Private Sub GetI18nString(i18NString As String) As String
+	Log(i18NString)
+	
 	qry = $"SELECT message_value FROM i18n_messages
 WHERE 
 LOWER(message_language) = ?
@@ -27,14 +30,20 @@ AND
 message_key = ?"$
 
 	rs = sql.ExecQuery2(qry, Array As String(locale.ToLowerCase, i18NString))
-
-	If rs.RowCount <> 0 Then
-		Do While rs.NextRow
-			Return rs.GetString("message_value")
-		Loop
-	Else
+	i18nReturnvalue = sql.ExecQuerySingleResult2(qry, Array As String(locale.ToLowerCase, i18NString))
+	Log($"i18nReturnValue : ${i18nReturnvalue}"$)
+	If i18nReturnvalue = Null Then
 		Return "i18N Unknown"
+	Else
+		Return i18nReturnvalue
 	End If
+'	If rs.RowCount <> 0 Then
+'		Do While rs.NextRow
+'			Return rs.GetString("message_value")
+'		Loop
+'	Else
+'		Return "i18N Unknown"
+'	End If
 End Sub
 
 Public Sub GetViewsSetLocale

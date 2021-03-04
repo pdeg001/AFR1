@@ -582,7 +582,7 @@ End Sub
 'Check if the device has a connection to the internet
 Private Sub CheckInetConnected
 	Wait For (clsInetConnected.CheckConnected) Complete (result As Boolean)
-	If result = False Then
+	If result = True Then 'Treu for testing
 		Activity.LoadLayout("main_no_internet")
 	Else
 		Activity.LoadLayout("main")
