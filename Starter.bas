@@ -14,7 +14,6 @@ Sub Process_Globals
 	Private rp As RuntimePermissions
 	Public dbI18n, i18nXls As String
 	Private clsI18nXls As i18nXlsToDb
-	Public clsI18N as i18n
 	
 	Public locale, country As String
 	Public i18nSql As SQL
