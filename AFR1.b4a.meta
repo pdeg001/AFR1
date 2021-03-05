@@ -13,6 +13,6 @@ ModuleClosedNodes1=
 ModuleClosedNodes2=
 ModuleClosedNodes3=
 ModuleClosedNodes4=
-NavigationStack=Main,Activity_Create,27,0,i18n,GetFlag,53,0,i18n,Initialize,11,0,i18n,Class_Globals,9,6,i18n,GetViewsSetLocale,45,6,Visual Designer,main_no_internet.bal,-100,6,Visual Designer,main.bal,-100,1,i18n,GetI18nString,28,6,Main,CheckInetConnected,48,4,Starter,Process_Globals,11,4
+NavigationStack=Visual Designer,main.bal,-100,1,i18n,GetI18nString,22,6,i18n,Class_Globals,10,6,Starter,Process_Globals,10,6,i18n,Initialize,13,0,i18n,GetViewsSetLocale,42,6,Main,Activity_Create,27,0,Main,CheckInetConnected,50,4,i18n,GetFlag,62,4
 SelectedBuild=0
 VisibleModules=4,2,3
