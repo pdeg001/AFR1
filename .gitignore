@@ -24,7 +24,7 @@
 hs_err_pid*
 
 #B4a
-Objects/*
+Objects/
 /Objects/*
 /Objects/bin/*
 /Objects/b4xlibs/*
