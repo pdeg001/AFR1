@@ -41,145 +41,148 @@ File133=lb.png
 File134=lc.png
 File135=li.png
 File136=lk.png
-File137=lr.png
-File138=ls.png
-File139=lt.png
+File137=loadingpanel.bal
+File138=lr.png
+File139=ls.png
 File14=au.png
-File140=lu.png
-File141=lv.png
-File142=ly.png
-File143=ma.png
-File144=main.bal
-File145=main_no_internet.bal
-File146=mc.png
-File147=md.png
-File148=me.png
-File149=mf.png
+File140=lt.png
+File141=lu.png
+File142=lv.png
+File143=ly.png
+File144=ma.png
+File145=main.bal
+File146=main_no_internet.bal
+File147=mc.png
+File148=md.png
+File149=me.png
 File15=aw.png
-File150=mg.png
-File151=mh.png
-File152=mk.png
-File153=ml.png
-File154=mm.png
-File155=mn.png
-File156=mo.png
-File157=mp.png
-File158=mq.png
-File159=mr.png
+File150=mf.png
+File151=mg.png
+File152=mh.png
+File153=mk.png
+File154=ml.png
+File155=mm.png
+File156=mn.png
+File157=mo.png
+File158=mp.png
+File159=mq.png
 File16=ax.png
-File160=ms.png
-File161=mt.png
-File162=mu.png
-File163=mv.png
-File164=mw.png
-File165=mx.png
-File166=my.png
-File167=mz.png
-File168=na.png
-File169=nc.png
+File160=mr.png
+File161=ms.png
+File162=mt.png
+File163=mu.png
+File164=mv.png
+File165=mw.png
+File166=mx.png
+File167=my.png
+File168=mz.png
+File169=na.png
 File17=az.png
-File170=ne.png
-File171=nf.png
-File172=ng.png
-File173=ni.png
-File174=nl.png
-File175=no.png
-File176=np.png
-File177=nr.png
-File178=nu.png
-File179=nz.png
+File170=nc.png
+File171=ne.png
+File172=nf.png
+File173=ng.png
+File174=ni.png
+File175=nl.png
+File176=no.png
+File177=np.png
+File178=nr.png
+File179=nu.png
 File18=ba.png
-File180=om.png
-File181=pa.png
-File182=pe.png
-File183=pf.png
-File184=pg.png
-File185=ph.png
-File186=pk.png
-File187=pl.png
-File188=pm.png
-File189=pn.png
+File180=nz.png
+File181=om.png
+File182=pa.png
+File183=pe.png
+File184=pf.png
+File185=pg.png
+File186=ph.png
+File187=pk.png
+File188=pl.png
+File189=pm.png
 File19=bb.png
-File190=pr.png
-File191=ps.png
-File192=pt.png
-File193=pw.png
-File194=py.png
-File195=qa.png
-File196=re.png
-File197=ro.png
-File198=rs.png
-File199=ru.png
+File190=pn.png
+File191=pr.png
+File192=ps.png
+File193=pt.png
+File194=pw.png
+File195=py.png
+File196=qa.png
+File197=rdodb.db
+File198=re.png
+File199=ro.png
 File2=ae.png
 File20=bd.png
-File200=rw.png
-File201=sa.png
-File202=sb.png
-File203=sc.png
-File204=sd.png
-File205=se.png
-File206=sg.png
-File207=sh.png
-File208=si.png
-File209=sj.png
+File200=rs.png
+File201=ru.png
+File202=rw.png
+File203=sa.png
+File204=sb.png
+File205=sc.png
+File206=sd.png
+File207=se.png
+File208=sg.png
+File209=sh.png
 File21=be.png
-File210=sk.png
-File211=sl.png
-File212=sm.png
-File213=sn.png
-File214=so.png
-File215=sr.png
-File216=ss.png
-File217=st.png
-File218=sv.png
-File219=sx.png
+File210=si.png
+File211=sj.png
+File212=sk.png
+File213=sl.png
+File214=sm.png
+File215=sn.png
+File216=so.png
+File217=sr.png
+File218=ss.png
+File219=st.png
 File22=bf.png
-File220=sy.png
-File221=sz.png
-File222=tc.png
-File223=td.png
-File224=tf.png
-File225=tg.png
-File226=th.png
-File227=tj.png
-File228=tk.png
-File229=tl.png
+File220=station_feb.xls
+File221=sv.png
+File222=sx.png
+File223=sy.png
+File224=sz.png
+File225=tc.png
+File226=td.png
+File227=tf.png
+File228=tg.png
+File229=th.png
 File23=bg.png
-File230=tm.png
-File231=tn.png
-File232=to.png
-File233=tr.png
-File234=tt.png
-File235=tv.png
-File236=tw.png
-File237=tz.png
-File238=ua.png
-File239=ug.png
+File230=tj.png
+File231=tk.png
+File232=tl.png
+File233=tm.png
+File234=tn.png
+File235=to.png
+File236=tr.png
+File237=tt.png
+File238=tv.png
+File239=tw.png
 File24=bh.png
-File240=um.png
-File241=us.png
-File242=uy.png
-File243=uz.png
-File244=va.png
-File245=vc.png
-File246=ve.png
-File247=veramono.ttf
-File248=veramono-bold.ttf
-File249=veramono-italic.ttf
+File240=tz.png
+File241=ua.png
+File242=ug.png
+File243=um.png
+File244=us.png
+File245=uy.png
+File246=uz.png
+File247=va.png
+File248=vc.png
+File249=ve.png
 File25=bi.png
-File250=vg.png
-File251=vi.png
-File252=vn.png
-File253=vu.png
-File254=wf.png
-File255=ws.png
-File256=xk.png
-File257=ye.png
-File258=yt.png
-File259=za.png
+File250=veramono.ttf
+File251=veramono-bold.ttf
+File252=veramono-italic.ttf
+File253=vg.png
+File254=vi.png
+File255=vn.png
+File256=vu.png
+File257=wf.png
+File258=ws.png
+File259=xk.png
 File26=bj.png
-File260=zm.png
-File261=zw.png
+File260=ye.png
+File261=yt.png
+File262=za.png
+File263=zm.png
+File264=zw.png
 File27=bl.png
 File28=bm.png
 File29=bn.png
@@ -302,7 +305,7 @@ FileGroup133=flags
 FileGroup134=flags
 FileGroup135=flags
 FileGroup136=flags
-FileGroup137=flags
+FileGroup137=Default Group
 FileGroup138=flags
 FileGroup139=flags
 FileGroup14=flags
@@ -310,9 +313,9 @@ FileGroup140=flags
 FileGroup141=flags
 FileGroup142=flags
 FileGroup143=flags
-FileGroup144=Forms\main
+FileGroup144=flags
 FileGroup145=Forms\main
-FileGroup146=flags
+FileGroup146=Forms\main
 FileGroup147=flags
 FileGroup148=flags
 FileGroup149=flags
@@ -368,7 +371,7 @@ FileGroup193=flags
 FileGroup194=flags
 FileGroup195=flags
 FileGroup196=flags
-FileGroup197=flags
+FileGroup197=database
 FileGroup198=flags
 FileGroup199=flags
 FileGroup2=flags
@@ -395,7 +398,7 @@ FileGroup217=flags
 FileGroup218=flags
 FileGroup219=flags
 FileGroup22=flags
-FileGroup220=flags
+FileGroup220=database
 FileGroup221=flags
 FileGroup222=flags
 FileGroup223=flags
@@ -424,13 +427,13 @@ FileGroup243=flags
 FileGroup244=flags
 FileGroup245=flags
 FileGroup246=flags
-FileGroup247=Fonts
-FileGroup248=Fonts
-FileGroup249=Fonts
+FileGroup247=flags
+FileGroup248=flags
+FileGroup249=flags
 FileGroup25=flags
-FileGroup250=flags
-FileGroup251=flags
-FileGroup252=flags
+FileGroup250=Fonts
+FileGroup251=Fonts
+FileGroup252=Fonts
 FileGroup253=flags
 FileGroup254=flags
 FileGroup255=flags
@@ -441,6 +444,9 @@ FileGroup259=flags
 FileGroup26=flags
 FileGroup260=flags
 FileGroup261=flags
+FileGroup262=flags
+FileGroup263=flags
+FileGroup264=flags
 FileGroup27=flags
 FileGroup28=flags
 FileGroup29=flags
@@ -523,22 +529,30 @@ FileGroup98=flags
 FileGroup99=flags
 Group=Default Group
 Library1=core
-Library2=javaobject
-Library3=phone
-Library4=runtimepermissions
-Library5=sql
-Library6=xui
-Library7=excel
+Library10=bctextengine
+Library2=excel
+Library3=javaobject
+Library4=net
+Library5=phone
+Library6=runtimepermissions
+Library7=sql
+Library8=xui
+Library9=xui views
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />~\n~	<uses-permission android:name="android.permission.WAKE_LOCK" />~\n~	<uses-permission android:name="android.permission.INTERNET" />~\n~	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />~\n~	)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~CreateResourceFromFile(Macro, Core.NetworkClearText)~\n~~\n~AddPermission(android.permission.INTERNET)~\n~AddPermission(android.permission.VIBRATE)~\n~AddPermission(android.permission.FOREGROUND_SERVICE)~\n~AddPermission(android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)~\n~'End of default text.~\n~
-Module1=ClsCheckInternetConnection
-Module2=i18n
-Module3=i18nXlsToDb
-Module4=Starter
-NumberOfFiles=261
-NumberOfLibraries=7
-NumberOfModules=4
+Module1=afrDb
+Module2=ClsCheckInternetConnection
+Module3=FtpGetData
+Module4=i18nGetSetViews
+Module5=i18nXlsToDb
+Module6=ImportData
+Module7=LoadingIndicator
+Module8=Starter
+NumberOfFiles=264
+NumberOfLibraries=10
+NumberOfModules=8
 Version=10.6
 @EndOfDesignText@
+#IgnoreWarnings: 9
 #Region  Project Attributes 
 	#ApplicationLabel: AdFree Radio
 	#VersionCode: 30052051
@@ -553,20 +567,33 @@ Version=10.6
 #End Region
 
 Sub Process_Globals
+	Type i18n(countryTl As String)
+	Type stationList(station_name As String, station_descr As String, _
+					station_genre As String, station_country As String, _
+					station_language As String, station_url1 As String, _
+					station_url2 As String, station_url3 As String)
 	Private xui As XUI
+	
 End Sub
 
 Sub Globals
-	Private clsI18n As i18n
+	Private clsI18n As i18nGetSetViews
+	Private clsDb As afrDb
 	Private clsInetConnected As ClsCheckInternetConnection
+	Private clsFtp As FtpGetData
+	Private clsLoading As LoadingIndicator
+	
 	Private imgFlag As ImageView
 	Private btnCloseApp As Button
 	Private lblHeader As Label
+	Private EditText1 As EditText
+	Private B4XFloatTextField1 As B4XFloatTextField
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	clsInetConnected.Initialize
-	clsI18n.Initialize(Activity)
+	clsI18n.Initialize
+	clsDb.Initialize
 	CheckInetConnected
 End Sub
 
@@ -578,17 +605,54 @@ Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
 
-
 'Check if the device has a connection to the internet
 Private Sub CheckInetConnected
 	Wait For (clsInetConnected.CheckConnected) Complete (result As Boolean)
-	If result = True Then 'Treu for testing
+	
+	Starter.hasInternet = result
+	
+	If result = False Then
 		Activity.LoadLayout("main_no_internet")
 	Else
 		Activity.LoadLayout("main")
 	End If
 	
-	clsI18n.GetViewsSetLocale
+	clsI18n.GetViewsSeti18N(Activity)
 	imgFlag.Bitmap = clsI18n.GetFlag
+	
+	If Starter.hasInternet Then
+		InitAfr
+	End If
+	
+End Sub
+
+Private Sub InitAfr
+	clsLoading.Initialize(Activity)
+	GetStationList
+End Sub
+
+Private Sub GetStationList
+	Dim lastStationDownload As String = clsDb.GetParamValue("laststationdownload")
+	
+	'STATIONS LIJST NOT YET DOWNLOADED
+	If lastStationDownload = "0" Then
+		Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.get_station_list"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_yes"), "", clsI18n.GetI18nValueFromString("i18n.btn_no"), Null, False)
+		Wait For Msgbox_Result (Result As Int)
+		If Result = DialogResponse.NEGATIVE Then
+			Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.application_will_be_closed"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_ok"), "", "", Null, False)
+			Wait For Msgbox_Result (Result As Int)
+			Starter.closeApplication
+		End If
+		clsFtp.Initialize
+		clsFtp.DownloadList
+	End If
+End Sub
+
+Public Sub UpdateLoadingIndicator(msg As String)
+	clsLoading.ShowIndicator(msg)
+	If msg = clsI18n.GetI18nValueFromString("i18n.download_done") Then
+		Sleep(2000)
+		clsLoading.HideIndicator
+	End If
 	
 End Sub

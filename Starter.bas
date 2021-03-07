@@ -12,12 +12,15 @@ Version=9.9
 
 Sub Process_Globals
 	Private rp As RuntimePermissions
-	Public dbI18n, i18nXls As String
+	Public dbI18n, i18nXls, dbRdo As String
 	Private clsI18nXls As i18nXlsToDb
+	Private lstCountry As List
 	
 	Public locale, country As String
-	Public i18nSql As SQL
+	Public i18nSql, rdoSql As SQL
 	Public filesFolder As String
+	Public doy As String ="pdegrootafr", moy As String ="hkWpXtB1!", ftp As String = "ftp.pdeg.nl"
+	Public hasInternet As Boolean
 End Sub
 
 Sub Service_Create
@@ -41,13 +44,18 @@ Sub Service_Destroy
 End Sub
 
 Private Sub InitStarter
+	lstCountry.Initialize
+	lstCountry.Add(Createi18n("EN"))
+	lstCountry.Add(Createi18n("NL"))
 	dbI18n = "i18n.db"
 	i18nXls = "afr_i18n.xls"
+	dbRdo = "rdodb.db"
 	
 	FindLocale2
 	SetFilesFolder
 	GetSetI18nFiles
 	InitI18nSql
+	InitRdoDb
 	
 	clsI18nXls.Initialize
 	clsI18nXls.GetXml
@@ -55,11 +63,14 @@ End Sub
 
 Private Sub GetSetI18nFiles
 '	If File.Exists(filesFolder, dbI18n) = False Then
-		File.Copy(File.DirAssets, dbI18n, filesFolder, dbI18n)
+	File.Copy(File.DirAssets, dbI18n, filesFolder, dbI18n)
 '	End If
 '	If File.Exists(filesFolder, i18nXls) = False Then
-		File.Copy(File.DirAssets, i18nXls, filesFolder, i18nXls)
+	File.Copy(File.DirAssets, i18nXls, filesFolder, i18nXls)
 '	End If
+	If File.Exists(filesFolder, dbRdo) = False Then
+		File.Copy(File.DirAssets, dbRdo, filesFolder, dbRdo)
+	End If
 End Sub
 
 Private Sub SetFilesFolder
@@ -70,9 +81,16 @@ Public Sub InitI18nSql
 	If i18nSql.IsInitialized = False Then
 		i18nSql.Initialize(filesFolder, dbI18n, False)
 	End If
+	
 End Sub
 
-Private Sub FindLocale2' As String
+Public Sub InitRdoDb
+	If rdoSql.IsInitialized = False Then
+		rdoSql.Initialize(filesFolder, dbRdo, False)
+	End If
+End Sub
+
+Private Sub FindLocale2
 	Dim jo As JavaObject
 	jo = jo.InitializeStatic("java.util.Locale").RunMethod("getDefault", Null)
 	locale = jo.RunMethod("getLanguage", Null)
@@ -81,4 +99,17 @@ End Sub
 
 Private Sub GetSeti18nXls
 	clsI18nXls.GetXml
+End Sub
+
+Public Sub Createi18n (countryTl As String) As i18n
+	Dim t1 As i18n
+	t1.Initialize
+	t1.countryTl = countryTl
+	Return t1
+End Sub
+
+Public Sub closeApplication
+	Dim jo As JavaObject
+	jo.InitializeContext
+	jo.RunMethod("finishAffinity", Null)
 End Sub
