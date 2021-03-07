@@ -34,7 +34,7 @@ public class main extends Activity implements B4AActivity{
 		super.onCreate(savedInstanceState);
         mostCurrent = this;
 		if (processBA == null) {
-			processBA = new BA(this.getApplicationContext(), null, null, "nl.pdeg.irp1", "nl.pdeg.irp1.main");
+			processBA = new anywheresoftware.b4a.ShellBA(this.getApplicationContext(), null, null, "nl.pdeg.irp1", "nl.pdeg.irp1.main");
 			processBA.loadHtSubs(this.getClass());
 	        float deviceScale = getApplicationContext().getResources().getDisplayMetrics().density;
 	        BALayout.setDeviceScale(deviceScale);
@@ -335,89 +335,78 @@ public class main extends Activity implements B4AActivity{
             
     }
 
-public anywheresoftware.b4a.keywords.Common __c = null;
-public static anywheresoftware.b4a.objects.B4XViewWrapper.XUI _xui = null;
-public nl.pdeg.irp1.i18ngetsetviews _clsi18n = null;
-public nl.pdeg.irp1.afrdb _clsdb = null;
-public nl.pdeg.irp1.clscheckinternetconnection _clsinetconnected = null;
-public nl.pdeg.irp1.ftpgetdata _clsftp = null;
-public nl.pdeg.irp1.loadingindicator _clsloading = null;
-public nl.pdeg.irp1.importdata _clsimportdata = null;
-public anywheresoftware.b4a.objects.ImageViewWrapper _imgflag = null;
-public anywheresoftware.b4a.objects.ButtonWrapper _btncloseapp = null;
-public anywheresoftware.b4a.objects.LabelWrapper _lblheader = null;
-public anywheresoftware.b4a.objects.EditTextWrapper _edittext1 = null;
-public nl.pdeg.irp1.b4xfloattextfield _b4xfloattextfield1 = null;
-public b4a.example.dateutils _dateutils = null;
-public nl.pdeg.irp1.starter _starter = null;
-public nl.pdeg.irp1.xuiviewsutils _xuiviewsutils = null;
-public nl.pdeg.irp1.httputils2service _httputils2service = null;
-public nl.pdeg.irp1.b4xcollections _b4xcollections = null;
 
+
+public static void initializeProcessGlobals() {
+    
+    if (main.processGlobalsRun == false) {
+	    main.processGlobalsRun = true;
+		try {
+		        		
+        } catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+    }
+}
 public static boolean isAnyActivityVisible() {
     boolean vis = false;
 vis = vis | (main.mostCurrent != null);
 return vis;}
-public static class _i18n{
-public boolean IsInitialized;
-public String countryTl;
-public void Initialize() {
-IsInitialized = true;
-countryTl = "";
+
+private static BA killProgramHelper(BA ba) {
+    if (ba == null)
+        return null;
+    anywheresoftware.b4a.BA.SharedProcessBA sharedProcessBA = ba.sharedProcessBA;
+    if (sharedProcessBA == null || sharedProcessBA.activityBA == null)
+        return null;
+    return sharedProcessBA.activityBA.get();
 }
-@Override
-		public String toString() {
-			return BA.TypeToString(this, false);
-		}}
-public static class _stationlist{
-public boolean IsInitialized;
-public String station_name;
-public String station_descr;
-public String station_genre;
-public String station_country;
-public String station_language;
-public String station_url1;
-public String station_url2;
-public String station_url3;
-public void Initialize() {
-IsInitialized = true;
-station_name = "";
-station_descr = "";
-station_genre = "";
-station_country = "";
-station_language = "";
-station_url1 = "";
-station_url2 = "";
-station_url3 = "";
+public static void killProgram() {
+     {
+            Activity __a = null;
+            if (main.previousOne != null) {
+				__a = main.previousOne.get();
+			}
+            else {
+                BA ba = killProgramHelper(main.mostCurrent == null ? null : main.mostCurrent.processBA);
+                if (ba != null) __a = ba.activity;
+            }
+            if (__a != null)
+				__a.finish();}
+
+BA.applicationContext.stopService(new android.content.Intent(BA.applicationContext, starter.class));
 }
-@Override
-		public String toString() {
-			return BA.TypeToString(this, false);
-		}}
+public anywheresoftware.b4a.keywords.Common __c = null;
+public static anywheresoftware.b4a.objects.B4XViewWrapper.XUI _xui = null;
+public nl.pdeg.irp1.i18n _clsi18n = null;
+public nl.pdeg.irp1.clscheckinternetconnection _clsinetconnected = null;
+public anywheresoftware.b4a.objects.ImageViewWrapper _imgflag = null;
+public anywheresoftware.b4a.objects.ButtonWrapper _btncloseapp = null;
+public anywheresoftware.b4a.objects.LabelWrapper _lblheader = null;
+public nl.pdeg.irp1.starter _starter = null;
 public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 40;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 41;BA.debugLine="clsInetConnected.Initialize";
-mostCurrent._clsinetconnected._initialize /*String*/ (processBA);
- //BA.debugLineNum = 42;BA.debugLine="clsI18n.Initialize";
-mostCurrent._clsi18n._initialize /*String*/ (mostCurrent.activityBA);
- //BA.debugLineNum = 43;BA.debugLine="clsDb.Initialize";
-mostCurrent._clsdb._initialize /*String*/ (processBA);
- //BA.debugLineNum = 44;BA.debugLine="CheckInetConnected";
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_create", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_create", new Object[] {_firsttime}));}
+RDebugUtils.currentLine=131072;
+ //BA.debugLineNum = 131072;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+RDebugUtils.currentLine=131073;
+ //BA.debugLineNum = 131073;BA.debugLine="clsInetConnected.Initialize";
+mostCurrent._clsinetconnected._initialize /*String*/ (null,processBA);
+RDebugUtils.currentLine=131074;
+ //BA.debugLineNum = 131074;BA.debugLine="clsI18n.Initialize(Activity)";
+mostCurrent._clsi18n._initialize /*String*/ (null,mostCurrent.activityBA,mostCurrent._activity);
+RDebugUtils.currentLine=131075;
+ //BA.debugLineNum = 131075;BA.debugLine="CheckInetConnected";
 _checkinetconnected();
- //BA.debugLineNum = 45;BA.debugLine="End Sub";
-return "";
-}
-public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 51;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 53;BA.debugLine="End Sub";
-return "";
-}
-public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 47;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 49;BA.debugLine="End Sub";
+RDebugUtils.currentLine=131076;
+ //BA.debugLineNum = 131076;BA.debugLine="End Sub";
 return "";
 }
 public static void  _checkinetconnected() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "checkinetconnected", false))
+	 {Debug.delegate(mostCurrent.activityBA, "checkinetconnected", null); return;}
 ResumableSub_CheckInetConnected rsub = new ResumableSub_CheckInetConnected(null);
 rsub.resume(processBA, null);
 }
@@ -430,6 +419,7 @@ boolean _result = false;
 
 @Override
 public void resume(BA ba, Object[] result) throws Exception{
+RDebugUtils.currentModule="main";
 
     while (true) {
         switch (state) {
@@ -439,24 +429,24 @@ return;
 case 0:
 //C
 this.state = 1;
- //BA.debugLineNum = 57;BA.debugLine="Wait For (clsInetConnected.CheckConnected) Comple";
-anywheresoftware.b4a.keywords.Common.WaitFor("complete", processBA, this, parent.mostCurrent._clsinetconnected._checkconnected /*anywheresoftware.b4a.keywords.Common.ResumableSubWrapper*/ ());
-this.state = 11;
+RDebugUtils.currentLine=327681;
+ //BA.debugLineNum = 327681;BA.debugLine="Wait For (clsInetConnected.CheckConnected) Comple";
+anywheresoftware.b4a.keywords.Common.WaitFor("complete", processBA, new anywheresoftware.b4a.shell.DebugResumableSub.DelegatableResumableSub(this, "main", "checkinetconnected"), parent.mostCurrent._clsinetconnected._checkconnected /*anywheresoftware.b4a.keywords.Common.ResumableSubWrapper*/ (null));
+this.state = 7;
 return;
-case 11:
+case 7:
 //C
 this.state = 1;
 _result = (Boolean) result[0];
 ;
- //BA.debugLineNum = 59;BA.debugLine="Starter.hasInternet = result";
-parent.mostCurrent._starter._hasinternet /*boolean*/  = _result;
- //BA.debugLineNum = 61;BA.debugLine="If result = False Then";
+RDebugUtils.currentLine=327682;
+ //BA.debugLineNum = 327682;BA.debugLine="If result = True Then 'Treu for testing";
 if (true) break;
 
 case 1:
 //if
 this.state = 6;
-if (_result==anywheresoftware.b4a.keywords.Common.False) { 
+if (_result==anywheresoftware.b4a.keywords.Common.True) { 
 this.state = 3;
 }else {
 this.state = 5;
@@ -465,282 +455,53 @@ this.state = 5;
 case 3:
 //C
 this.state = 6;
- //BA.debugLineNum = 62;BA.debugLine="Activity.LoadLayout(\"main_no_internet\")";
+RDebugUtils.currentLine=327683;
+ //BA.debugLineNum = 327683;BA.debugLine="Activity.LoadLayout(\"main_no_internet\")";
 parent.mostCurrent._activity.LoadLayout("main_no_internet",mostCurrent.activityBA);
  if (true) break;
 
 case 5:
 //C
 this.state = 6;
- //BA.debugLineNum = 64;BA.debugLine="Activity.LoadLayout(\"main\")";
+RDebugUtils.currentLine=327685;
+ //BA.debugLineNum = 327685;BA.debugLine="Activity.LoadLayout(\"main\")";
 parent.mostCurrent._activity.LoadLayout("main",mostCurrent.activityBA);
  if (true) break;
 
 case 6:
 //C
-this.state = 7;
-;
- //BA.debugLineNum = 67;BA.debugLine="clsI18n.GetViewsSeti18N(Activity)";
-parent.mostCurrent._clsi18n._getviewsseti18n /*String*/ (parent.mostCurrent._activity);
- //BA.debugLineNum = 68;BA.debugLine="imgFlag.Bitmap = clsI18n.GetFlag";
-parent.mostCurrent._imgflag.setBitmap((android.graphics.Bitmap)(parent.mostCurrent._clsi18n._getflag /*anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper*/ ().getObject()));
- //BA.debugLineNum = 70;BA.debugLine="If Starter.hasInternet Then";
-if (true) break;
-
-case 7:
-//if
-this.state = 10;
-if (parent.mostCurrent._starter._hasinternet /*boolean*/ ) { 
-this.state = 9;
-}if (true) break;
-
-case 9:
-//C
-this.state = 10;
- //BA.debugLineNum = 71;BA.debugLine="InitAfr";
-_initafr();
- if (true) break;
-
-case 10:
-//C
 this.state = -1;
 ;
- //BA.debugLineNum = 74;BA.debugLine="End Sub";
+RDebugUtils.currentLine=327688;
+ //BA.debugLineNum = 327688;BA.debugLine="clsI18n.GetViewsSetLocale";
+parent.mostCurrent._clsi18n._getviewssetlocale /*String*/ (null);
+RDebugUtils.currentLine=327689;
+ //BA.debugLineNum = 327689;BA.debugLine="imgFlag.Bitmap = clsI18n.GetFlag";
+parent.mostCurrent._imgflag.setBitmap((android.graphics.Bitmap)(parent.mostCurrent._clsi18n._getflag /*anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper*/ (null).getObject()));
+RDebugUtils.currentLine=327691;
+ //BA.debugLineNum = 327691;BA.debugLine="End Sub";
 if (true) break;
 
             }
         }
     }
 }
-public static void  _complete(boolean _result) throws Exception{
-}
-public static void  _getstationlist() throws Exception{
-ResumableSub_GetStationList rsub = new ResumableSub_GetStationList(null);
-rsub.resume(processBA, null);
-}
-public static class ResumableSub_GetStationList extends BA.ResumableSub {
-public ResumableSub_GetStationList(nl.pdeg.irp1.main parent) {
-this.parent = parent;
-}
-nl.pdeg.irp1.main parent;
-String _laststationdownload = "";
-int _result = 0;
-
-@Override
-public void resume(BA ba, Object[] result) throws Exception{
-
-    while (true) {
-        switch (state) {
-            case -1:
-return;
-
-case 0:
-//C
-this.state = 1;
- //BA.debugLineNum = 82;BA.debugLine="Dim lastStationDownload As String = clsDb.GetPara";
-_laststationdownload = parent.mostCurrent._clsdb._getparamvalue /*String*/ ("laststationdownload");
- //BA.debugLineNum = 85;BA.debugLine="If lastStationDownload = \"0\" Then";
-if (true) break;
-
-case 1:
-//if
-this.state = 8;
-if ((_laststationdownload).equals("0")) { 
-this.state = 3;
-}if (true) break;
-
-case 3:
-//C
-this.state = 4;
- //BA.debugLineNum = 86;BA.debugLine="Msgbox2Async(clsI18n.GetI18nValueFromString(\"i18";
-anywheresoftware.b4a.keywords.Common.Msgbox2Async(BA.ObjectToCharSequence(parent.mostCurrent._clsi18n._geti18nvaluefromstring /*String*/ ("i18n.get_station_list")),BA.ObjectToCharSequence(anywheresoftware.b4a.keywords.Common.Application.getLabelName()),parent.mostCurrent._clsi18n._geti18nvaluefromstring /*String*/ ("i18n.btn_yes"),"",parent.mostCurrent._clsi18n._geti18nvaluefromstring /*String*/ ("i18n.btn_no"),(anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper(), (android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null)),processBA,anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 87;BA.debugLine="Wait For Msgbox_Result (Result As Int)";
-anywheresoftware.b4a.keywords.Common.WaitFor("msgbox_result", processBA, this, null);
-this.state = 9;
-return;
-case 9:
-//C
-this.state = 4;
-_result = (Integer) result[0];
-;
- //BA.debugLineNum = 88;BA.debugLine="If Result = DialogResponse.NEGATIVE Then";
-if (true) break;
-
-case 4:
-//if
-this.state = 7;
-if (_result==anywheresoftware.b4a.keywords.Common.DialogResponse.NEGATIVE) { 
-this.state = 6;
-}if (true) break;
-
-case 6:
-//C
-this.state = 7;
- //BA.debugLineNum = 89;BA.debugLine="Msgbox2Async(clsI18n.GetI18nValueFromString(\"i1";
-anywheresoftware.b4a.keywords.Common.Msgbox2Async(BA.ObjectToCharSequence(parent.mostCurrent._clsi18n._geti18nvaluefromstring /*String*/ ("i18n.application_will_be_closed")),BA.ObjectToCharSequence(anywheresoftware.b4a.keywords.Common.Application.getLabelName()),parent.mostCurrent._clsi18n._geti18nvaluefromstring /*String*/ ("i18n.btn_ok"),"","",(anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper(), (android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null)),processBA,anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 90;BA.debugLine="Wait For Msgbox_Result (Result As Int)";
-anywheresoftware.b4a.keywords.Common.WaitFor("msgbox_result", processBA, this, null);
-this.state = 10;
-return;
-case 10:
-//C
-this.state = 7;
-_result = (Integer) result[0];
-;
- //BA.debugLineNum = 91;BA.debugLine="Starter.closeApplication";
-parent.mostCurrent._starter._closeapplication /*String*/ ();
- if (true) break;
-
-case 7:
-//C
-this.state = 8;
-;
- //BA.debugLineNum = 93;BA.debugLine="clsFtp.Initialize";
-parent.mostCurrent._clsftp._initialize /*String*/ (mostCurrent.activityBA);
- //BA.debugLineNum = 94;BA.debugLine="clsFtp.DownloadList";
-parent.mostCurrent._clsftp._downloadlist /*void*/ ();
- if (true) break;
-
-case 8:
-//C
-this.state = -1;
-;
- //BA.debugLineNum = 96;BA.debugLine="End Sub";
-if (true) break;
-
-            }
-        }
-    }
-}
-public static void  _msgbox_result(int _result) throws Exception{
-}
-public static String  _globals() throws Exception{
- //BA.debugLineNum = 25;BA.debugLine="Sub Globals";
- //BA.debugLineNum = 26;BA.debugLine="Private clsI18n As i18nGetSetViews";
-mostCurrent._clsi18n = new nl.pdeg.irp1.i18ngetsetviews();
- //BA.debugLineNum = 27;BA.debugLine="Private clsDb As afrDb";
-mostCurrent._clsdb = new nl.pdeg.irp1.afrdb();
- //BA.debugLineNum = 28;BA.debugLine="Private clsInetConnected As ClsCheckInternetConne";
-mostCurrent._clsinetconnected = new nl.pdeg.irp1.clscheckinternetconnection();
- //BA.debugLineNum = 29;BA.debugLine="Private clsFtp As FtpGetData";
-mostCurrent._clsftp = new nl.pdeg.irp1.ftpgetdata();
- //BA.debugLineNum = 30;BA.debugLine="Private clsLoading As LoadingIndicator";
-mostCurrent._clsloading = new nl.pdeg.irp1.loadingindicator();
- //BA.debugLineNum = 31;BA.debugLine="Private clsImportData As ImportData";
-mostCurrent._clsimportdata = new nl.pdeg.irp1.importdata();
- //BA.debugLineNum = 33;BA.debugLine="Private imgFlag As ImageView";
-mostCurrent._imgflag = new anywheresoftware.b4a.objects.ImageViewWrapper();
- //BA.debugLineNum = 34;BA.debugLine="Private btnCloseApp As Button";
-mostCurrent._btncloseapp = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 35;BA.debugLine="Private lblHeader As Label";
-mostCurrent._lblheader = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 36;BA.debugLine="Private EditText1 As EditText";
-mostCurrent._edittext1 = new anywheresoftware.b4a.objects.EditTextWrapper();
- //BA.debugLineNum = 37;BA.debugLine="Private B4XFloatTextField1 As B4XFloatTextField";
-mostCurrent._b4xfloattextfield1 = new nl.pdeg.irp1.b4xfloattextfield();
- //BA.debugLineNum = 38;BA.debugLine="End Sub";
+public static String  _activity_pause(boolean _userclosed) throws Exception{
+RDebugUtils.currentModule="main";
+RDebugUtils.currentLine=262144;
+ //BA.debugLineNum = 262144;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+RDebugUtils.currentLine=262146;
+ //BA.debugLineNum = 262146;BA.debugLine="End Sub";
 return "";
 }
-public static String  _initafr() throws Exception{
- //BA.debugLineNum = 76;BA.debugLine="Private Sub InitAfr";
- //BA.debugLineNum = 77;BA.debugLine="clsLoading.Initialize(Activity)";
-mostCurrent._clsloading._initialize /*String*/ (mostCurrent.activityBA,mostCurrent._activity);
- //BA.debugLineNum = 78;BA.debugLine="GetStationList";
-_getstationlist();
- //BA.debugLineNum = 79;BA.debugLine="End Sub";
+public static String  _activity_resume() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_resume", false))
+	 {return ((String) Debug.delegate(mostCurrent.activityBA, "activity_resume", null));}
+RDebugUtils.currentLine=196608;
+ //BA.debugLineNum = 196608;BA.debugLine="Sub Activity_Resume";
+RDebugUtils.currentLine=196610;
+ //BA.debugLineNum = 196610;BA.debugLine="End Sub";
 return "";
-}
-
-public static void initializeProcessGlobals() {
-    
-    if (main.processGlobalsRun == false) {
-	    main.processGlobalsRun = true;
-		try {
-		        b4a.example.dateutils._process_globals();
-main._process_globals();
-starter._process_globals();
-xuiviewsutils._process_globals();
-httputils2service._process_globals();
-b4xcollections._process_globals();
-		
-        } catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-    }
-}public static String  _process_globals() throws Exception{
- //BA.debugLineNum = 15;BA.debugLine="Sub Process_Globals";
- //BA.debugLineNum = 16;BA.debugLine="Type i18n(countryTl As String)";
-;
- //BA.debugLineNum = 17;BA.debugLine="Type stationList(station_name As String, station_";
-;
- //BA.debugLineNum = 21;BA.debugLine="Private xui As XUI";
-_xui = new anywheresoftware.b4a.objects.B4XViewWrapper.XUI();
- //BA.debugLineNum = 23;BA.debugLine="End Sub";
-return "";
-}
-public static void  _updateloadingindicator(String _msg) throws Exception{
-ResumableSub_UpdateLoadingIndicator rsub = new ResumableSub_UpdateLoadingIndicator(null,_msg);
-rsub.resume(processBA, null);
-}
-public static class ResumableSub_UpdateLoadingIndicator extends BA.ResumableSub {
-public ResumableSub_UpdateLoadingIndicator(nl.pdeg.irp1.main parent,String _msg) {
-this.parent = parent;
-this._msg = _msg;
-}
-nl.pdeg.irp1.main parent;
-String _msg;
-
-@Override
-public void resume(BA ba, Object[] result) throws Exception{
-
-    while (true) {
-        switch (state) {
-            case -1:
-return;
-
-case 0:
-//C
-this.state = 1;
- //BA.debugLineNum = 99;BA.debugLine="clsLoading.ShowIndicator(msg)";
-parent.mostCurrent._clsloading._showindicator /*void*/ (_msg);
- //BA.debugLineNum = 100;BA.debugLine="If msg = clsI18n.GetI18nValueFromString(\"i18n.dow";
-if (true) break;
-
-case 1:
-//if
-this.state = 4;
-if ((_msg).equals(parent.mostCurrent._clsi18n._geti18nvaluefromstring /*String*/ ("i18n.download_done"))) { 
-this.state = 3;
-}if (true) break;
-
-case 3:
-//C
-this.state = 4;
- //BA.debugLineNum = 101;BA.debugLine="Sleep(2000)";
-anywheresoftware.b4a.keywords.Common.Sleep(mostCurrent.activityBA,this,(int) (2000));
-this.state = 5;
-return;
-case 5:
-//C
-this.state = 4;
-;
- //BA.debugLineNum = 102;BA.debugLine="clsLoading.HideIndicator";
-parent.mostCurrent._clsloading._hideindicator /*anywheresoftware.b4a.keywords.Common.ResumableSubWrapper*/ ();
- //BA.debugLineNum = 103;BA.debugLine="clsImportData.Initialize";
-parent.mostCurrent._clsimportdata._initialize /*String*/ (processBA);
- //BA.debugLineNum = 104;BA.debugLine="clsImportData.ProcessXls(\"station.xls\")";
-parent.mostCurrent._clsimportdata._processxls /*String*/ ("station.xls");
- if (true) break;
-
-case 4:
-//C
-this.state = -1;
-;
- //BA.debugLineNum = 107;BA.debugLine="End Sub";
-if (true) break;
-
-            }
-        }
-    }
 }
 }
