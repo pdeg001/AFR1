@@ -28,6 +28,6 @@ ModuleClosedNodes6=
 ModuleClosedNodes7=
 ModuleClosedNodes8=
 ModuleClosedNodes9=8
-NavigationStack=Main,Process_Globals,16,0,ImportData,Class_Globals,3,6,Visual Designer,main.bal,-100,2,selectCountry,Process_Globals,7,0,selectCountry,Globals,11,0,Visual Designer,selectCountry.bal,-100,6,selectCountry,Activity_Create,14,2,ImportData,Initialize,6,4
+NavigationStack=Main,Process_Globals,16,0,Visual Designer,main.bal,-100,2,selectCountry,Process_Globals,7,0,selectCountry,Globals,11,0,Visual Designer,selectCountry.bal,-100,6,selectCountry,Activity_Create,14,2,FtpGetData,Class_Globals,0,0,i18nXlsToDb,Class_Globals,0,0,ImportData,Initialize,6,4,ImportData,CreatestationList,79,0,ImportData,Class_Globals,0,6
 SelectedBuild=0
 VisibleModules=9,3,7,4,6,5,8
