@@ -28,6 +28,6 @@ ModuleClosedNodes6=
 ModuleClosedNodes7=
 ModuleClosedNodes8=
 ModuleClosedNodes9=8
-NavigationStack=selectCountry,Process_Globals,7,0,selectCountry,Globals,11,0,Visual Designer,selectCountry.bal,-100,6,selectCountry,Activity_Create,14,2,i18nXlsToDb,Class_Globals,0,0,ImportData,Class_Globals,3,6,FtpGetData,FTP_DownloadCompleted,37,0,FtpGetData,Class_Globals,2,0,ImportData,CreatestationList,80,0,ImportData,Initialize,10,4
+NavigationStack=selectCountry,GenAbbrev,51,6,selectCountry,GenAbbrevCountries,45,6,selectCountry,Process_Globals,9,6,selectCountry,Globals,10,0,Main,InitAfr,83,6,Visual Designer,selectCountry.bal,-100,6,Visual Designer,pnlCountryAbbrev.bal,-100,6,Main,GetStationList,99,4,selectCountry,Activity_Create,21,6,selectCountry,clvCountryAbbrev_ItemClick,62,6
 SelectedBuild=0
 VisibleModules=9,3,7,4,6,5,8
