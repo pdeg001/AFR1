@@ -16,7 +16,7 @@ Sub Process_Globals
 	Private clsI18nXls As i18nXlsToDb
 	Private lstCountry As List
 	
-	Public locale, country As String
+	Public locale, country, defaultCountry As String
 	Public i18nSql, rdoSql As SQL
 	Public filesFolder As String
 	Public doy As String ="pdegrootafr", moy As String ="hkWpXtB1!", ftp As String = "ftp.pdeg.nl"
@@ -61,13 +61,26 @@ Private Sub InitStarter
 	clsI18nXls.GetXml
 End Sub
 
+Public Sub GetDefaultCountry
+	If File.Exists(filesFolder, "defCountry.pdg") Then
+		defaultCountry = File.ReadString(filesFolder, "defCountry.pdg")
+	End If
+End Sub
+
+Public Sub SetDefaultCountry(strCountry As String)
+	If File.Exists(filesFolder, "defCountry.pdg") Then
+		File.WriteString(filesFolder, "defCountry.pdg", strCountry)
+		defaultCountry = strCountry
+	End If
+End Sub
+
 Private Sub GetSetI18nFiles
-'	If File.Exists(filesFolder, dbI18n) = False Then
-	File.Copy(File.DirAssets, dbI18n, filesFolder, dbI18n)
-'	End If
-'	If File.Exists(filesFolder, i18nXls) = False Then
-	File.Copy(File.DirAssets, i18nXls, filesFolder, i18nXls)
-'	End If
+	If File.Exists(filesFolder, dbI18n) = False Then
+		File.Copy(File.DirAssets, dbI18n, filesFolder, dbI18n)
+	End If
+	If File.Exists(filesFolder, i18nXls) = False Then
+		File.Copy(File.DirAssets, i18nXls, filesFolder, i18nXls)
+	End If
 	If File.Exists(filesFolder, dbRdo) = False Then
 		File.Copy(File.DirAssets, dbRdo, filesFolder, dbRdo)
 	End If

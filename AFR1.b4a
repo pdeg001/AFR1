@@ -101,90 +101,91 @@ File188=pl.png
 File189=pm.png
 File19=bb.png
 File190=pn.png
-File191=pnlCountryAbbrev.bal
-File192=pr.png
-File193=ps.png
-File194=pt.png
-File195=pw.png
-File196=py.png
-File197=qa.png
-File198=rdodb.db
-File199=re.png
+File191=pnlCountry.bal
+File192=pnlCountryAbbrev.bal
+File193=pr.png
+File194=ps.png
+File195=pt.png
+File196=pw.png
+File197=py.png
+File198=qa.png
+File199=rdodb.db
 File2=ae.png
 File20=bd.png
-File200=ro.png
-File201=rs.png
-File202=ru.png
-File203=rw.png
-File204=sa.png
-File205=sb.png
-File206=sc.png
-File207=sd.png
-File208=se.png
-File209=selectCountry.bal
+File200=re.png
+File201=ro.png
+File202=rs.png
+File203=ru.png
+File204=rw.png
+File205=sa.png
+File206=sb.png
+File207=sc.png
+File208=sd.png
+File209=se.png
 File21=be.png
-File210=sg.png
-File211=sh.png
-File212=si.png
-File213=sj.png
-File214=sk.png
-File215=sl.png
-File216=sm.png
-File217=sn.png
-File218=so.png
-File219=sr.png
+File210=selectCountry.bal
+File211=sg.png
+File212=sh.png
+File213=si.png
+File214=sj.png
+File215=sk.png
+File216=sl.png
+File217=sm.png
+File218=sn.png
+File219=so.png
 File22=bf.png
-File220=ss.png
-File221=st.png
-File222=station_feb.xls
-File223=sv.png
-File224=sx.png
-File225=sy.png
-File226=sz.png
-File227=tc.png
-File228=td.png
-File229=tf.png
+File220=sr.png
+File221=ss.png
+File222=st.png
+File223=station_feb.xls
+File224=sv.png
+File225=sx.png
+File226=sy.png
+File227=sz.png
+File228=tc.png
+File229=td.png
 File23=bg.png
-File230=tg.png
-File231=th.png
-File232=tj.png
-File233=tk.png
-File234=tl.png
-File235=tm.png
-File236=tn.png
-File237=to.png
-File238=tr.png
-File239=tt.png
+File230=tf.png
+File231=tg.png
+File232=th.png
+File233=tj.png
+File234=tk.png
+File235=tl.png
+File236=tm.png
+File237=tn.png
+File238=to.png
+File239=tr.png
 File24=bh.png
-File240=tv.png
-File241=tw.png
-File242=tz.png
-File243=ua.png
-File244=ug.png
-File245=um.png
-File246=us.png
-File247=uy.png
-File248=uz.png
-File249=va.png
+File240=tt.png
+File241=tv.png
+File242=tw.png
+File243=tz.png
+File244=ua.png
+File245=ug.png
+File246=um.png
+File247=us.png
+File248=uy.png
+File249=uz.png
 File25=bi.png
-File250=vc.png
-File251=ve.png
-File252=veramono.ttf
-File253=veramono-bold.ttf
-File254=veramono-italic.ttf
-File255=vg.png
-File256=vi.png
-File257=vn.png
-File258=vu.png
-File259=wf.png
+File250=va.png
+File251=vc.png
+File252=ve.png
+File253=veramono.ttf
+File254=veramono-bold.ttf
+File255=veramono-italic.ttf
+File256=vg.png
+File257=vi.png
+File258=vn.png
+File259=vu.png
 File26=bj.png
-File260=ws.png
-File261=xk.png
-File262=ye.png
-File263=yt.png
-File264=za.png
-File265=zm.png
-File266=zw.png
+File260=wf.png
+File261=ws.png
+File262=xk.png
+File263=ye.png
+File264=yt.png
+File265=za.png
+File266=zm.png
+File267=zw.png
 File27=bl.png
 File28=bm.png
 File29=bn.png
@@ -368,14 +369,14 @@ FileGroup189=flags
 FileGroup19=flags
 FileGroup190=flags
 FileGroup191=Forms\country\countryClv
-FileGroup192=flags
+FileGroup192=Forms\country\countryClv
 FileGroup193=flags
 FileGroup194=flags
 FileGroup195=flags
 FileGroup196=flags
 FileGroup197=flags
-FileGroup198=database
-FileGroup199=flags
+FileGroup198=flags
+FileGroup199=database
 FileGroup2=flags
 FileGroup20=flags
 FileGroup200=flags
@@ -387,9 +388,9 @@ FileGroup205=flags
 FileGroup206=flags
 FileGroup207=flags
 FileGroup208=flags
-FileGroup209=Forms\country
+FileGroup209=flags
 FileGroup21=flags
-FileGroup210=flags
+FileGroup210=Forms\country
 FileGroup211=flags
 FileGroup212=flags
 FileGroup213=flags
@@ -402,8 +403,8 @@ FileGroup219=flags
 FileGroup22=flags
 FileGroup220=flags
 FileGroup221=flags
-FileGroup222=database
-FileGroup223=flags
+FileGroup222=flags
+FileGroup223=database
 FileGroup224=flags
 FileGroup225=flags
 FileGroup226=flags
@@ -435,10 +436,10 @@ FileGroup249=flags
 FileGroup25=flags
 FileGroup250=flags
 FileGroup251=flags
-FileGroup252=Fonts
+FileGroup252=flags
 FileGroup253=Fonts
 FileGroup254=Fonts
-FileGroup255=flags
+FileGroup255=Fonts
 FileGroup256=flags
 FileGroup257=flags
 FileGroup258=flags
@@ -451,6 +452,7 @@ FileGroup263=flags
 FileGroup264=flags
 FileGroup265=flags
 FileGroup266=flags
+FileGroup267=flags
 FileGroup27=flags
 FileGroup28=flags
 FileGroup29=flags
@@ -552,7 +554,7 @@ Module6=ImportData
 Module7=LoadingIndicator
 Module8=selectCountry
 Module9=Starter
-NumberOfFiles=266
+NumberOfFiles=267
 NumberOfLibraries=10
 NumberOfModules=9
 Version=10.6
@@ -635,7 +637,7 @@ Private Sub InitAfr
 	clsLoading.Initialize(Activity)
 	wait for (GetStationList) Complete (result As Boolean)
 	
-	Sleep(3000)
+'	Sleep(3000)
 	StartActivity(selectCountry)
 	Activity.Finish
 	
@@ -649,12 +651,13 @@ Private Sub GetStationList As ResumableSub
 		Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.get_station_list"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_yes"), "", clsI18n.GetI18nValueFromString("i18n.btn_no"), Null, False)
 		Wait For Msgbox_Result (Result As Int)
 		If Result = DialogResponse.NEGATIVE Then
-			Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.application_will_be_closed"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_ok"), "", "", Null, False)
-			Wait For Msgbox_Result (Result As Int)
-			Starter.closeApplication
+'			Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.application_will_be_closed"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_ok"), "", "", Null, False)
+'			Wait For Msgbox_Result (Result As Int)
+'			Starter.closeApplication
+		Else
+			clsFtp.Initialize
+			clsFtp.DownloadList
 		End If
-		clsFtp.Initialize
-		clsFtp.DownloadList
 	End If
 	Return True
 End Sub

@@ -11,19 +11,25 @@ Version=10.6
 
 Sub Process_Globals
 	Private xui As XUI
+	
 End Sub
 
 Sub Globals
 	Private clsI18n As i18nGetSetViews
-
+	Private clsDb As afrDb
 	Private clvCountryAbbrev As CustomListView
 	Private lblHeader As Label
 	Private lblCountryAbbrev As Label
 	Private pnlAbbrev As Panel
+	Private lblCountry As Label
+	Private pnlSelectCountry As Panel
+	Private swDefault As B4XSwitch
+	Private clvCountries As CustomListView
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("selectCountry")
+	clsDb.Initialize
 	clsI18n.Initialize
 	clsI18n.GetViewsSeti18N(Activity)
 	GenAbbrevCountries
@@ -58,13 +64,73 @@ End Sub
 
 Private Sub GenAbbrev(abbrev As String) As Panel
 	Dim pnl As B4XView = xui.CreatePanel("")
-	pnl.SetLayoutAnimated(2dip, 0, 0, 80dip, 40dip)
+	pnl.SetLayoutAnimated(0, 2dip, 0, 80dip, 45dip)
 	pnl.LoadLayout("pnlCountryAbbrev")
 	lblCountryAbbrev.Text = abbrev
 	
 	Return pnl
 End Sub
 
-Private Sub clvCountryAbbrev_ItemClick (Index As Int, Value As Object)
-	ToastMessageShow($"GA NU DE LANDEN IN "${Value}" INLEZEN"$, False)
+Private Sub lblCountryAbbrev_Click
+	Dim sndr As Label = Sender
+	Dim lst As List
+	Dim abbrev() As String = Regex.Split("-", sndr.Text)
+	
+	SelectedAbbrevBgColor(sndr)
+	
+	clvCountries.Clear
+	lst = clsDb.GetCountriesByFirstLetter(abbrev)
+	
+	For Each v As String In lst
+		clvCountries.Add(GenCountryList(v), "")
+	Next
+	
 End Sub
+
+Private Sub GenCountryList(countryName As String) As Panel
+	Dim pnl As B4XView = xui.CreatePanel("")
+	pnl.SetLayoutAnimated(0, 0, 0, clvCountries.AsView.Width, 65dip)
+	pnl.LoadLayout("pnlCountry")
+	lblCountry.Text = countryName
+	If countryName = Starter.defaultCountry Then
+		swDefault.Value = True
+	End If
+	swDefault.mHaptic = True
+	Return pnl
+	
+End Sub
+
+Private Sub SelectedAbbrevBgColor(lbl As Label)
+	Dim pnl As Panel = lbl.Parent
+	Dim pnl1 As Panel
+	Dim pLbl As Label
+	
+	pLbl.Initialize("")
+	For i = 0 To clvCountryAbbrev.Size -1
+		pnl = clvCountryAbbrev.GetPanel(i)
+		For Each vl As View In pnl.GetAllViewsRecursive
+			If vl Is Label Then
+				pLbl = vl
+				pLbl.Color = Colors.Transparent
+			End If
+		Next
+	Next
+	
+	lbl.Color = Colors.LightGray
+End Sub
+
+
+Private Sub swDefault_ValueChanged (Value As Boolean)
+	Dim sw As B4XSwitch = Sender
+	Dim v As View
+	
+	
+	For i = 0 To sw.mBase.NumberOfViews -1
+		v = sw.mBase.GetView(i)
+		If v Is Label Then
+			Dim lbl As Label = v
+			Starter.SetDefaultCountry(lbl.Text)
+		End If
+	Next
+End Sub
+
