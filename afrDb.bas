@@ -68,3 +68,55 @@ Public Sub GetCountriesByFirstLetter(cntLetter() As String) As List
 	rs.Close
 	Return lst
 End Sub
+
+Public Sub GetStationByQuery(find As String) As List
+	IsDbInitialized
+	Dim lstStation As List
+	
+	qry = $"SELECT
+rdo_id
+,stname
+,genre
+,description
+,language
+, stream1, stream2, stream3
+,(case when stream1 = '-' then 0 else 1 end)+(case when stream2 = '-' then 0 else 1 end)+(case when stream3 = '-' then 0 else 1 end) as countstream
+FROM rdolist
+WHERE stname like ? AND country = ?
+ORDER BY stname"$
+
+	rs = sql.ExecQuery2(qry, Array As String($"%${find}%"$, Starter.defaultCountry))
+	lstStation.Initialize
+	
+	Do While rs.NextRow
+		lstStation.Add(CreatestationList(rs.GetString("rdo_id"), _
+										 rs.GetString("stname"), _
+										 rs.GetString("description"), _
+										 rs.GetString("genre"), _
+										 "", _
+										 rs.GetString("language"), _
+										 rs.GetString("stream1"), _
+										 rs.GetString("stream2"), _
+										 rs.GetString("stream3"), _
+										 rs.GetString("countstream")))
+	Loop
+	
+	rs.Close
+	Return lstStation
+End Sub
+
+Public Sub CreatestationList (id As String, station_name As String, station_descr As String, station_genre As String, station_country As String, station_language As String, station_url1 As String, station_url2 As String, station_url3 As String, streamCount As String) As stationList
+	Dim t1 As stationList
+	t1.Initialize
+	t1.id = id
+	t1.station_name = station_name
+	t1.station_descr = station_descr
+	t1.station_genre = station_genre
+	t1.station_country = station_country
+	t1.station_language = station_language
+	t1.station_url1 = station_url1
+	t1.station_url2 = station_url2
+	t1.station_url3 = station_url3
+	t1.streamCount = streamCount
+	Return t1
+End Sub

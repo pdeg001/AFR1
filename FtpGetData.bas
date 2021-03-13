@@ -18,25 +18,26 @@ Public Sub Initialize
 	ftp.Initialize("FTP","ftp.pdeg.nl", 21, "pdegrootafr", "hkWpXtB1!")
 End Sub
 
-Public Sub DownloadList
+Public Sub DownloadList As ResumableSub
 	Dim sf As Object = ftp.DownloadFile(fileName, False, Starter.filesFolder, fileName)
 	Wait For (sf) FTP_DownloadCompleted (ServerPath As String, Success As Boolean)
 	ftp.Close
 	Log("DONE")
-	CallSub2(Main, "UpdateLoadingIndicator", clsI18n.GetI18nValueFromString("i18n.download_done"))
-	
+'	CallSub2(Main, "UpdateLoadingIndicator", clsI18n.GetI18nValueFromString("i18n.download_done"))
+	Return True
 End Sub
 
-Sub FTP_DownloadProgress (ServerPath As String, TotalDownloaded As Long, Total As Long)
-	Dim s As String
-	s = $"${Round(TotalDownloaded / 1000)} KB"$
-	If Total > 0 Then s = s & " out of " & Round(Total / 1000) & "KB"
-	'Log(s)
-	dlCount = dlCount +1
-	If dlCount Mod 35 = 0 Then
-		CallSub2(Main, "UpdateLoadingIndicator", s)
-	End If
-End Sub
+'Sub FTP_DownloadProgress (ServerPath As String, TotalDownloaded As Long, Total As Long)
+'	Dim s As String
+'	s = $"${Round(TotalDownloaded / 1000)} KB"$
+'	If Total > 0 Then s = s & " out of " & Round(Total / 1000) & "KB"
+'	'Log(s)
+'	dlCount = dlCount +1
+'	If dlCount Mod 35 = 0 Then
+'		'CallSub2(Main, "UpdateLoadingIndicator", s)
+'	End If
+'End Sub
+
 Sub FTP_DownloadCompleted (ServerPath As String, Success As Boolean)
 	If Success Then
 		clsImportData.Initialize

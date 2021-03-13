@@ -48,6 +48,13 @@
 		</service>
 		<receiver android:name=".starter$starter_BR">
 		</receiver>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".searchstation"
+			android:label="AdFree Radio"
+			android:screenOrientation="portrait">
+		</activity>
 		<service android:name=".httputils2service">
 		</service>
 		<receiver android:name=".httputils2service$httputils2service_BR">
