@@ -165,8 +165,8 @@ End Sub
 
 Private Sub swDefault_ValueChanged (Value As Boolean)
 	Dim sw As B4XSwitch = Sender
-	Dim pnl As Panel
 	Dim index As Int = clvCountries.GetItemFromView(sw.mBase)
+	
 	
 	'SET ALL SWITCHES OFF
 	SwValuesToFalse
@@ -175,16 +175,18 @@ Private Sub swDefault_ValueChanged (Value As Boolean)
 		ShowSelectedCountry
 		Return
 	End If
-	
 	sw.Value = Value
-	pnl.Initialize("")
-	pnl = clvCountries.GetPanel(index)
+	Dim pnl As Panel = clvCountries.GetPanel(index)
 	
 	For Each v As View In pnl.GetAllViewsRecursive
-		If v.Tag = "countryName" Then
-			Dim lbl As Label = v
-			Starter.SetDefaultCountry(lbl.Text)
-			Exit
+		If v.Tag Is B4XSwitch Then Continue
+
+		If v Is Label Then
+			If v.Tag = "countryName" Then
+				Dim lbl As Label = v
+				Starter.SetDefaultCountry(lbl.Text)
+				Exit
+			End If
 		End If
 	Next
 	ShowSelectedCountry
