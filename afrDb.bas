@@ -49,6 +49,22 @@ Private Sub AddParam(param_name As String)
 	qry = "INSERT INTO params (param_name, param_value) VALUES (?, ?);"
 	
 	sql.ExecNonQuery2(qry, Array As String(param_name, 0))
+End Sub
+
+Public Sub GetCountriesByFirstLetter(cntLetter() As String) As List
+	Dim lst As List
+	lst.Initialize
+	IsDbInitialized
+
+	qry = $"SELECT DISTINCT(country) FROM rdolist 
+	WHERE country LIKE ? OR country LIKE ?
+	ORDER BY country"$
+	rs = Starter.rdoSql.ExecQuery2(qry, Array As String($"${cntLetter(0)}%"$, $"${cntLetter(1)}%"$))
 	
+	Do While rs.NextRow
+		lst.Add(rs.GetString("country"))
+	Loop
 	
+	rs.Close
+	Return lst
 End Sub

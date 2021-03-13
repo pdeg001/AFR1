@@ -66,10 +66,6 @@ Public Sub GetViewsSeti18N (act As Activity)
 	Next
 End Sub
 
-Public Sub GetI18nValueFromString(value As String) as String
+Public Sub GetI18nValueFromString(value As String) As String
 	Return	GetI18nString(value)
-End Sub
-
-Public Sub GetFlag As Bitmap
-	Return LoadBitmap(File.DirAssets, $"${Starter.country.ToLowerCase}.png"$)
 End Sub

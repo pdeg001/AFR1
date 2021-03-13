@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="nl.pdeg.irp1"
 	android:versionCode="30052051"
-	android:versionName="1.00"
+	android:versionName="1.01"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29"/>
@@ -17,6 +17,7 @@
 		<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK"/>
 	<uses-permission android:name="android.permission.VIBRATE"/>
 	<uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
 	<application
@@ -36,9 +37,20 @@
 			</intent-filter>
 			
 		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".selectcountry"
+			android:label="AdFree Radio"
+			android:screenOrientation="portrait">
+		</activity>
 		<service android:name=".starter">
 		</service>
 		<receiver android:name=".starter$starter_BR">
+		</receiver>
+		<service android:name=".httputils2service">
+		</service>
+		<receiver android:name=".httputils2service$httputils2service_BR">
 		</receiver>
 	</application>
 </manifest>
