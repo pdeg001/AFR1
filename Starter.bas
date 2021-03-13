@@ -56,6 +56,7 @@ Private Sub InitStarter
 	GetSetI18nFiles
 	InitI18nSql
 	InitRdoDb
+	GetDefaultCountry
 	
 	clsI18nXls.Initialize
 	clsI18nXls.GetXml
@@ -68,19 +69,17 @@ Public Sub GetDefaultCountry
 End Sub
 
 Public Sub SetDefaultCountry(strCountry As String)
-	If File.Exists(filesFolder, "defCountry.pdg") Then
-		File.WriteString(filesFolder, "defCountry.pdg", strCountry)
-		defaultCountry = strCountry
-	End If
+	File.WriteString(filesFolder, "defCountry.pdg", strCountry)
+	defaultCountry = strCountry
 End Sub
 
 Private Sub GetSetI18nFiles
-	If File.Exists(filesFolder, dbI18n) = False Then
+'	If File.Exists(filesFolder, dbI18n) = False Then
 		File.Copy(File.DirAssets, dbI18n, filesFolder, dbI18n)
-	End If
-	If File.Exists(filesFolder, i18nXls) = False Then
+'	End If
+'	If File.Exists(filesFolder, i18nXls) = False Then
 		File.Copy(File.DirAssets, i18nXls, filesFolder, i18nXls)
-	End If
+'	End If
 	If File.Exists(filesFolder, dbRdo) = False Then
 		File.Copy(File.DirAssets, dbRdo, filesFolder, dbRdo)
 	End If
