@@ -16,7 +16,10 @@ End Sub
 Sub Globals
 	Private clsI18n As i18nGetSetViews
 	Private clsDb As afrDb
-
+	Private lstStation As List
+	Private pnlStreamsPos As Int
+	
+	
 	Private lblHeader As Label
 	Private ftSeach As B4XFloatTextField
 	Private lblDescription As Label
@@ -42,6 +45,17 @@ Sub Globals
 	Private lblDefaultCountry As Label
 	Private lblChoosenCountry As Label
 	Private lblSearch As Label
+	Private pnlStreams As Panel
+	Private lblClickStationName As Label
+	Private lblClickStationGenre As Label
+	Private lblClickStationLanguage As Label
+	Private lblStream1 As Label
+	Private lblStream2 As Label
+	Private lblStream3 As Label
+	Private lblKeepStream1 As Label
+	Private lblKeepStream2 As Label
+	Private lblKeepStream3 As Label
+	Private pnlStationStream As Panel
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -49,6 +63,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	clsDb.Initialize
 	Activity.LoadLayout("searchStation")
 	lblStationFound.Visible = False
+	pnlStreams.Top = Activity.Height+300dip
+	pnlStreamsPos = pnlStreams.Top
 	InitTabView
 	clsI18n.GetViewsSeti18N(Activity)
 	TabI18n
@@ -64,6 +80,16 @@ End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
 
+End Sub
+
+Sub Activity_KeyPress (KeyCode As Int) As Boolean
+	If KeyCode = KeyCodes.KEYCODE_BACK Then
+		If pnlStreams.Top < 10dip Then
+			pnlStreams_Click
+			Return True			
+		End If
+	End If
+	Return True
 End Sub
 
 Private Sub InitTabView
@@ -124,7 +150,7 @@ Private Sub ftSeach_EnterPressed
 	Sleep(10)
 	lblStationFound.Visible = False
 	clvStation.Clear
-	Dim lstStation As List = clsDb.GetStationByQuery(ftSeach.Text)
+	lstStation = clsDb.GetStationByQuery(ftSeach.Text)
 	Dim rowNo As Int = 1
 	
 	For Each station As stationList In lstStation
@@ -155,7 +181,22 @@ Private Sub CreateStationList(station As stationList, rowNo As String) As Panel
 End Sub
 
 Private Sub pnlStation_Click
+	Dim clickedStation As stationList
+	Dim pnl As Panel = Sender
+	Dim pnlParent As Panel = pnl.Parent
+	Dim stationId As String = pnlParent.Tag
 	
+	For Each station As stationList In lstStation
+		If station.id = stationId Then
+			clickedStation = station
+			Exit
+		End If
+	Next
+	lblClickStationName.Text = station.station_name
+	lblClickStationGenre.Text = station.station_genre
+	lblClickStationLanguage.Text = station.station_language
+	
+	pnlStreams.SetLayoutAnimated(500, 0dip, 0dip, Activity.Width, Activity.Height)
 End Sub
 
 Private Sub TabSearch_PageSelected (Position As Int)
@@ -234,5 +275,13 @@ Private Sub lblSearch_Click
 	If lblSearch.TextColor = 0xFF008EFF Then
 		ftSeach_EnterPressed
 	End If
+	
+End Sub
+
+Private Sub pnlStreams_Click
+	pnlStreams.SetLayoutAnimated(500, 0dip, Activity.Height+300dip, Activity.Width, Activity.Height)
+End Sub
+
+Private Sub pnlStationStream_Click
 	
 End Sub

@@ -74,7 +74,6 @@ End Sub
 Public Sub GetStationByQuery(find As String) As List
 	IsDbInitialized
 	Dim lstStation As List
-	Dim findOp As String
 	
 	find = $"%${find}%"$
 	

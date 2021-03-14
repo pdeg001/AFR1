@@ -5,18 +5,19 @@ File11=pnlCountry.bal
 File12=pnlCountryAbbrev.bal
 File13=pnlGenre.bal
 File14=pnlLanguage.bal
-File15=pnlStation.bal
-File16=rdodb.db
-File17=searchStation.bal
-File18=selectCountry.bal
-File19=station_feb.xls
+File15=pnlShowStream.bal
+File16=pnlStation.bal
+File17=rdodb.db
+File18=searchStation.bal
+File19=selectCountry.bal
 File2=galanogrotesquemedium.ttf
-File20=tabGenre.bal
-File21=tabLanguage.bal
-File22=tabStations.bal
-File23=veramono.ttf
-File24=veramono-bold.ttf
-File25=veramono-italic.ttf
+File20=station_feb.xls
+File21=tabGenre.bal
+File22=tabLanguage.bal
+File23=tabStations.bal
+File24=veramono.ttf
+File25=veramono-bold.ttf
+File26=veramono-italic.ttf
 File3=galanogrotesqueregular.ttf
 File4=galanogrotesquesemibold.ttf
 File5=i18n.db
@@ -31,17 +32,18 @@ FileGroup12=Forms\country\countryClv
 FileGroup13=Forms\searchStation
 FileGroup14=Forms\searchStation
 FileGroup15=Forms\searchStation
-FileGroup16=database
-FileGroup17=Forms\searchStation
-FileGroup18=Forms\country
-FileGroup19=database
+FileGroup16=Forms\searchStation
+FileGroup17=database
+FileGroup18=Forms\searchStation
+FileGroup19=Forms\country
 FileGroup2=Fonts
-FileGroup20=Forms\searchStation\searchTab
+FileGroup20=database
 FileGroup21=Forms\searchStation\searchTab
 FileGroup22=Forms\searchStation\searchTab
-FileGroup23=Fonts
+FileGroup23=Forms\searchStation\searchTab
 FileGroup24=Fonts
 FileGroup25=Fonts
+FileGroup26=Fonts
 FileGroup3=Fonts
 FileGroup4=Fonts
 FileGroup5=database
@@ -64,7 +66,7 @@ Library6=net
 Library7=phone
 Library8=reflection
 Library9=runtimepermissions
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~CreateResourceFromFile(Macro, Core.NetworkClearText~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#0098FF</item>~\n~        <item name="colorPrimaryDark">#007CF5</item>~\n~        <item name="colorAccent">#AAAA00</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~		<item name="android:windowTranslucentNavigation">false</item>~\n~     	<item name="android:windowTranslucentStatus">true</item>~\n~    </style>~\n~</resources>~\n~)~\n~AddPermission(android.permission.INTERNET)~\n~AddPermission(android.permission.VIBRATE)~\n~AddPermission(android.permission.FOREGROUND_SERVICE)~\n~AddPermission(android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)~\n~#AdditionalJar: com.android.support:support-v4~\n~~\n~'********* TabStrip ***********************~\n~CreateResource(drawable, background_tab.xml,~\n~<selector xmlns:android="http://schemas.android.com/apk/res/android"~\n~   android:exitFadeDuration="@android:integer/config_shortAnimTime">~\n~  <item android:state_pressed="true" android:drawable="@color/background_tab_pressed" />~\n~  <item android:state_focused="true" android:drawable="@color/background_tab_pressed"/>~\n~  <item android:drawable="@android:color/transparent"/>~\n~</selector>)~\n~CreateResource(values, colors.xml,~\n~<resources>~\n~  <color name="background_tab_pressed">#6633B5E5</color>~\n~</resources>)~\n~'******************************************
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~CreateResourceFromFile(Macro, Core.NetworkClearText)~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#0098FF</item>~\n~        <item name="colorPrimaryDark">#007CF5</item>~\n~        <item name="colorAccent">#AAAA00</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~		<item name="android:windowTranslucentNavigation">false</item>~\n~     	<item name="android:windowTranslucentStatus">true</item>~\n~    </style>~\n~</resources>~\n~)~\n~AddPermission(android.permission.INTERNET)~\n~AddPermission(android.permission.VIBRATE)~\n~AddPermission(android.permission.FOREGROUND_SERVICE)~\n~AddPermission(android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)~\n~#AdditionalJar: com.android.support:support-v4~\n~~\n~'********* TabStrip ***********************~\n~CreateResource(drawable, background_tab.xml,~\n~<selector xmlns:android="http://schemas.android.com/apk/res/android"~\n~   android:exitFadeDuration="@android:integer/config_shortAnimTime">~\n~  <item android:state_pressed="true" android:drawable="@color/background_tab_pressed" />~\n~  <item android:state_focused="true" android:drawable="@color/background_tab_pressed"/>~\n~  <item android:drawable="@android:color/transparent"/>~\n~</selector>)~\n~CreateResource(values, colors.xml,~\n~<resources>~\n~  <color name="background_tab_pressed">#6633B5E5</color>~\n~</resources>)~\n~'******************************************
 Module1=afrDb
 Module10=Starter
 Module2=ClsCheckInternetConnection
@@ -75,7 +77,7 @@ Module6=ImportData
 Module7=LoadingIndicator
 Module8=searchStation
 Module9=selectCountry
-NumberOfFiles=25
+NumberOfFiles=26
 NumberOfLibraries=14
 NumberOfModules=10
 Version=10.6
@@ -191,7 +193,6 @@ Private Sub GetStationList As ResumableSub
 		ProgressDialogShow2("Processing stationlist", False)
 		Sleep(10)
 		wait for (clsImportData.ProcessXls) Complete (done As Boolean)
-		Log($"Duration : ${DateTime.Now-sTime}ms"$)
 		ProgressDialogHide
 	End If
 	'End If
