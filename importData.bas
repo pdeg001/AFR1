@@ -15,17 +15,16 @@ Public Sub Initialize
 End Sub
 
 
-Public Sub ProcessXls(fileName As String)
+Public Sub ProcessXls As ResumableSub
 	Dim workbook As ReadableWorkbook
 	Dim sheet As ReadableSheet
 	lstStation.Initialize
-	workbook.Initialize(Starter.filesFolder, fileName)
+	workbook.Initialize(Starter.filesFolder, Starter.xlsFileName)
 	sheet = workbook.GetSheet(0)
 	
 	For row = 1 To sheet.RowsCount -1
 		stName = sheet.GetCellValue(0, row)
 		If stName = "-" Or stName.IndexOf("http") > -1 Then
-			Log(stName)
 			Continue
 		End If
 		lstStation.Add(CreatestationList(sheet.GetCellValue(0, row), _
@@ -37,11 +36,15 @@ Public Sub ProcessXls(fileName As String)
 										  sheet.GetCellValue(6, row), _
 										  sheet.GetCellValue(7, row)))
 	Next
-	File.Delete(Starter.filesFolder, fileName)
-	AddStationsToDb
+	Log($"xls done"$)
+	wait for (AddStationsToDb) Complete (result As Boolean)
+	Log($"db done"$)
+	File.Delete(Starter.filesFolder, Starter.xlsFileName)
+	Log($"all done"$)
+	Return True
 End Sub
 
-Private Sub AddStationsToDb
+Private Sub AddStationsToDb As ResumableSub
 	Dim qry As String
 	sql.BeginTransaction
 	sql.ExecNonQuery("DELETE FROM rdolist")
@@ -67,6 +70,7 @@ Private Sub AddStationsToDb
 	sql.EndTransaction
 	Log($"END : $Time{DateTime.Now}"$)
 	
+	Return True
 End Sub
 
 

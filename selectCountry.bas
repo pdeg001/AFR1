@@ -208,25 +208,29 @@ Private Sub SwValuesToFalse
 End Sub
 
 Private Sub ShowSelectedCountryList
-	If Starter.defaultCountry = "" Then Return
-	
-	Dim countryFirstLetter As String = Starter.defaultCountry.SubString2(0,1)
-	Dim pnl As Panel
+	Dim countryFirstLetter As String
+	Dim pnlElevate As Panel
 	Dim lbl As Label
 	Dim panelFound As Boolean
 	Dim i As Int
 	Dim lblText As String
-	pnl.Initialize("")
 	lbl.Initialize("")
+	
+	If Starter.defaultCountry = "" Then
+		countryFirstLetter = "A"
+	Else
+		countryFirstLetter = Starter.defaultCountry.SubString2(0,1)
+	End If
 	
 	'loop country abbrev clv, to get countryLetterIndex
 	For i = 0 To clvCountryAbbrev.Size -1
-		pnl = clvCountryAbbrev.GetPanel(i)
+		Dim pnl As Panel = clvCountryAbbrev.GetPanel(i)
 		For Each v As View In pnl.GetAllViewsRecursive
 			If v Is Label Then
 				lbl = v
 				If lbl.Text.IndexOf(countryFirstLetter) <> -1 Then
 					lblText = lbl.Text
+					pnlElevate = lbl.Parent
 					panelFound = True
 					Exit
 				End If
@@ -237,9 +241,10 @@ Private Sub ShowSelectedCountryList
 
 	If panelFound Then
 		GetCountryList(lblText, pnl)
-		clvCountryAbbrev.ScrollToItem(i)
-		pnl.SetElevationAnimated(200, 5dip)
-		clvCountryAbbrev.Refresh
+		Sleep(0)
+		clvCountryAbbrev.ScrollToItem(clvCountryAbbrev.GetItemFromView(pnlElevate))
+		pnlElevate.SetElevationAnimated(200, 5dip)
+		'clvCountryAbbrev.Refresh
 	End If
 End Sub
 

@@ -41,6 +41,7 @@ Sub Globals
 	Private lblRemoveLaguage As Label
 	Private lblDefaultCountry As Label
 	Private lblChoosenCountry As Label
+	Private lblSearch As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -54,6 +55,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	GetGenre
 	GetLanguage
 	lblChoosenCountry.Text = Starter.defaultCountry
+	ftSeach.TextField.RequestFocus
 End Sub
 
 Sub Activity_Resume
@@ -114,6 +116,12 @@ Private Sub GenLanguageList(language As lanugageList) As Panel
 End Sub
 
 Private Sub ftSeach_EnterPressed
+	If ftSeach.Text = "" And clsDb.findGenre = "" And clsDb.findLanguage = "" Then
+		Return
+	End If
+	
+	ProgressDialogShow2(clsI18n.GetI18nValueFromString("i18n.seaching_stations"), False)
+	Sleep(10)
 	lblStationFound.Visible = False
 	clvStation.Clear
 	Dim lstStation As List = clsDb.GetStationByQuery(ftSeach.Text)
@@ -126,7 +134,8 @@ Private Sub ftSeach_EnterPressed
 	clvStation.Refresh
 	lblStationFound.Text = $"${clsI18n.GetI18nValueFromString("i18n.found_count")} ${lstStation.Size}"$
 	lblStationFound.SetVisibleAnimated(1000, True)
-	TabSearch.ScrollTo(0, True)
+	TabSearch.ScrollTo(0, False)
+	ProgressDialogHide
 End Sub
 
 Private Sub CreateStationList(station As stationList, rowNo As String) As Panel
@@ -175,15 +184,17 @@ Private Sub pnlGenre_Click
 			Dim lbl As Label = v
 			lblChoosenGenre.Text = lbl.Text
 			clsDb.findGenre = lbl.Text
-			lblRemoveGenre.TextColor = 0xff008EFF
+			lblRemoveGenre.TextColor = 0xFFFF0000
 		End If
 	Next
+	EnableSearch
 End Sub
 
 Private Sub lblRemoveGenre_Click
 	lblChoosenGenre.Text = ""
 	clsDb.findGenre = ""
 	lblRemoveGenre.TextColor = lblGenre.TextColor
+	EnableSearch
 End Sub
 
 Private Sub pnlLanguage_Click
@@ -194,13 +205,34 @@ Private Sub pnlLanguage_Click
 			Dim lbl As Label = v
 			lblChoosenLanguage.Text = lbl.Text
 			clsDb.findLanguage = lbl.Text
-			lblRemoveLaguage.TextColor = 0xff008EFF
+			lblRemoveLaguage.TextColor = 0xFFFF0000
 		End If
 	Next
+	EnableSearch
 End Sub
 
 Private Sub lblRemoveLaguage_Click
 	lblChoosenLanguage.Text = ""
 	clsDb.findLanguage = ""
 	lblRemoveLaguage.TextColor = lblLanguage.TextColor
+	EnableSearch
+End Sub
+
+Private Sub ftSeach_TextChanged (Old As String, New As String)
+	EnableSearch
+End Sub
+
+Private Sub EnableSearch
+	If ftSeach.Text <> "" Or clsDb.findGenre <> "" Or clsDb.findLanguage <> "" Then
+		lblSearch.TextColor = 0xFF008EFF
+	Else
+		lblSearch.TextColor = lblGenre.TextColor	
+	End If
+End Sub
+
+Private Sub lblSearch_Click
+	If lblSearch.TextColor = 0xFF008EFF Then
+		ftSeach_EnterPressed
+	End If
+	
 End Sub

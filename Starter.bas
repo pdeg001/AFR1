@@ -17,6 +17,7 @@ Sub Process_Globals
 	Private lstCountry As List
 	Private clsDb As afrDb
 	
+	Public xlsFileName As String = "station.xls"
 	Public lstGenre, lstLanguage As List
 	Public locale, country, defaultCountry As String
 	Public i18nSql, rdoSql As SQL

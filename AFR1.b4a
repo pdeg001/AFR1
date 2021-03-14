@@ -111,6 +111,7 @@ Sub Globals
 	Private clsInetConnected As ClsCheckInternetConnection
 	Private clsFtp As FtpGetData
 	Private clsLoading As LoadingIndicator
+	Private clsImportData As ImportData
 	
 	Private btnCloseApp As Button
 	Private lblHeader As Label
@@ -122,6 +123,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	clsInetConnected.Initialize
 	clsI18n.Initialize
 	clsDb.Initialize
+	clsImportData.Initialize
 	CheckInetConnected
 End Sub
 
@@ -169,18 +171,28 @@ Private Sub GetStationList As ResumableSub
 	Dim lastStationDownload As String = clsDb.GetParamValue("laststationdownload")
 	
 	'STATIONS LIJST NOT YET DOWNLOADED
-	If lastStationDownload = "0" Then
-		Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.get_station_list"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_yes"), "", clsI18n.GetI18nValueFromString("i18n.btn_no"), Null, False)
-		Wait For Msgbox_Result (Result As Int)
-		If Result = DialogResponse.NEGATIVE Then
+	'If lastStationDownload = "01" Then
+	Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.get_station_list"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_yes"), "", clsI18n.GetI18nValueFromString("i18n.btn_no"), Null, False)
+	Wait For Msgbox_Result (Result As Int)
+	If Result = DialogResponse.NEGATIVE Then
 '			Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.application_will_be_closed"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_ok"), "", "", Null, False)
 '			Wait For Msgbox_Result (Result As Int)
 '			Starter.closeApplication
-		Else
-			clsFtp.Initialize
-			wait for (clsFtp.DownloadList) Complete (done As Boolean)
-		End If
+		Return True
+	Else
+		ProgressDialogShow2("Downloading stationlist", False)
+		Sleep(10)
+		Dim sTime As Long = DateTime.Now
+		clsFtp.Initialize
+		wait for (clsFtp.DownloadList) Complete (done As Boolean)
+		ProgressDialogHide
+		ProgressDialogShow2("Processing stationlist", False)
+		Sleep(10)
+		wait for (clsImportData.ProcessXls) Complete (done As Boolean)
+		Log($"Duration : ${DateTime.Now-sTime}ms"$)
+		ProgressDialogHide
 	End If
+	'End If
 	Return True
 End Sub
 
@@ -192,7 +204,6 @@ Public Sub UpdateLoadingIndicator(msg As String)
 	End If
 	
 End Sub
-
 
 Public Sub CreatelanugageList (language As String) As lanugageList
 	Dim t1 As lanugageList

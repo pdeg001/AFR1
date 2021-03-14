@@ -9,7 +9,7 @@ Sub Class_Globals
 	Private qry As String
 	Private rs As ResultSet
 	
-	Public findGenre, findLanguage As String
+	Public findGenre="", findLanguage="" As String
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -74,6 +74,9 @@ End Sub
 Public Sub GetStationByQuery(find As String) As List
 	IsDbInitialized
 	Dim lstStation As List
+	Dim findOp As String
+	
+	find = $"%${find}%"$
 	
 	qry = $"SELECT
 rdo_id
@@ -84,10 +87,19 @@ rdo_id
 , stream1, stream2, stream3
 ,(case when stream1 = '-' then 0 else 1 end)+(case when stream2 = '-' then 0 else 1 end)+(case when stream3 = '-' then 0 else 1 end) as countstream
 FROM rdolist
-WHERE stname like ? AND country = ?
+WHERE stname LIKE ? And country = ?"$
+If findGenre.Length > 0 Then
+	qry = $"${qry}
+	AND genre = '${findGenre}'"$
+	End If
+	If findLanguage.Length > 0 Then
+		qry = $"${qry}
+	AND language = '${findLanguage}'"$
+	End If
+qry = $"${qry}
 ORDER BY stname"$
 
-	rs = sql.ExecQuery2(qry, Array As String($"%${find}%"$, Starter.defaultCountry))
+	rs = sql.ExecQuery2(qry, Array As String($"${find}"$, Starter.defaultCountry))
 	lstStation.Initialize
 	
 	Do While rs.NextRow
