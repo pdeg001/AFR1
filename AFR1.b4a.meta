@@ -31,6 +31,6 @@ ModuleClosedNodes6=
 ModuleClosedNodes7=
 ModuleClosedNodes8=5,6,7
 ModuleClosedNodes9=2,3,5,6,7,8,9,10,12,13,14,15,16,18
-NavigationStack=searchStation,lblRemoveGenre_Click,179,1,afrDb,GetStationByQuery,90,6,afrDb,Class_Globals,5,4,Visual Designer,searchStation.bal,-100,6,searchStation,EnableSearch,212,6,searchStation,TabSearch_PageSelected,151,0,searchStation,lblSearch_Click,225,2,searchStation,pnlLanguage_Click,198,0,searchStation,pnlGenre_Click,177,1,searchStation,ftSeach_EnterPressed,116,6
+NavigationStack=searchStation,lblRemoveGenre_Click,179,1,afrDb,GetStationByQuery,90,6,afrDb,Class_Globals,5,4,searchStation,EnableSearch,212,6,searchStation,TabSearch_PageSelected,151,0,searchStation,lblSearch_Click,225,2,searchStation,pnlLanguage_Click,198,0,searchStation,pnlGenre_Click,177,1,searchStation,ftSeach_EnterPressed,116,6,Visual Designer,searchStation.bal,-100,6
 SelectedBuild=0
 VisibleModules=10,1,8
