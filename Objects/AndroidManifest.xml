@@ -37,13 +37,6 @@
 			</intent-filter>
 			
 		</activity>
-		<activity
-			android:windowSoftInputMode="stateHidden"
-			android:launchMode="singleTop"
-			android:name=".selectcountry"
-			android:label="AdFree Radio"
-			android:screenOrientation="portrait">
-		</activity>
 		<service android:name=".starter">
 		</service>
 		<receiver android:name=".starter$starter_BR">
@@ -52,6 +45,13 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".searchstation"
+			android:label="AdFree Radio"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".selectcountry"
 			android:label="AdFree Radio"
 			android:screenOrientation="portrait">
 		</activity>

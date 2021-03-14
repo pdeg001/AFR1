@@ -4,18 +4,19 @@ File10=montserratsemibold.ttf
 File11=pnlCountry.bal
 File12=pnlCountryAbbrev.bal
 File13=pnlGenre.bal
-File14=pnlStation.bal
-File15=rdodb.db
-File16=searchStation.bal
-File17=selectCountry.bal
-File18=station_feb.xls
-File19=tabGenre.bal
+File14=pnlLanguage.bal
+File15=pnlStation.bal
+File16=rdodb.db
+File17=searchStation.bal
+File18=selectCountry.bal
+File19=station_feb.xls
 File2=galanogrotesquemedium.ttf
-File20=tabLanguage.bal
-File21=tabStations.bal
-File22=veramono.ttf
-File23=veramono-bold.ttf
-File24=veramono-italic.ttf
+File20=tabGenre.bal
+File21=tabLanguage.bal
+File22=tabStations.bal
+File23=veramono.ttf
+File24=veramono-bold.ttf
+File25=veramono-italic.ttf
 File3=galanogrotesqueregular.ttf
 File4=galanogrotesquesemibold.ttf
 File5=i18n.db
@@ -29,17 +30,18 @@ FileGroup11=Forms\country\countryClv
 FileGroup12=Forms\country\countryClv
 FileGroup13=Forms\searchStation
 FileGroup14=Forms\searchStation
-FileGroup15=database
-FileGroup16=Forms\searchStation
-FileGroup17=Forms\country
-FileGroup18=database
-FileGroup19=Forms\searchStation\searchTab
+FileGroup15=Forms\searchStation
+FileGroup16=database
+FileGroup17=Forms\searchStation
+FileGroup18=Forms\country
+FileGroup19=database
 FileGroup2=Fonts
 FileGroup20=Forms\searchStation\searchTab
 FileGroup21=Forms\searchStation\searchTab
-FileGroup22=Fonts
+FileGroup22=Forms\searchStation\searchTab
 FileGroup23=Fonts
 FileGroup24=Fonts
+FileGroup25=Fonts
 FileGroup3=Fonts
 FileGroup4=Fonts
 FileGroup5=database
@@ -71,7 +73,7 @@ Module6=ImportData
 Module7=LoadingIndicator
 Module8=searchStation
 Module9=selectCountry
-NumberOfFiles=24
+NumberOfFiles=25
 NumberOfLibraries=12
 NumberOfModules=10
 Version=10.6
@@ -96,6 +98,8 @@ Sub Process_Globals
 					station_genre As String, station_country As String, _
 					station_language As String, station_url1 As String, _
 					station_url2 As String, station_url3 As String, streamCount As String)
+	Type genreList(genre As String)	
+	Type lanugageList(language As String)			
 					
 	Private xui As XUI
 	
@@ -153,6 +157,8 @@ Private Sub InitAfr
 	clsLoading.Initialize(Activity)
 	wait for (GetStationList) Complete (result As Boolean)
 	
+	Starter.lstGenre = clsDb.GetGenre
+	Starter.lstLanguage = clsDb.GetLanguage
 '	Sleep(3000)
 	StartActivity(selectCountry)
 	Activity.Finish
@@ -185,4 +191,12 @@ Public Sub UpdateLoadingIndicator(msg As String)
 		clsLoading.HideIndicator
 	End If
 	
+End Sub
+
+
+Public Sub CreatelanugageList (language As String) As lanugageList
+	Dim t1 As lanugageList
+	t1.Initialize
+	t1.language = language
+	Return t1
 End Sub

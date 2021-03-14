@@ -8,6 +8,8 @@ Sub Class_Globals
 	Private sql As SQL
 	Private qry As String
 	Private rs As ResultSet
+	
+	Public findGenre, findLanguage As String
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -118,5 +120,51 @@ Public Sub CreatestationList (id As String, station_name As String, station_desc
 	t1.station_url2 = station_url2
 	t1.station_url3 = station_url3
 	t1.streamCount = streamCount
+	Return t1
+End Sub
+
+Public Sub GetGenre As List
+	Dim lstGenre As List
+	IsDbInitialized
+	qry = $"SELECT DISTINCT(genre) FROM rdolist WHERE genre <> '-' ORDER BY genre"$
+	
+	rs = sql.ExecQuery(qry)
+	lstGenre.Initialize
+	
+	Do While rs.NextRow
+		lstGenre.Add(CreategenreList(rs.GetString("genre")))
+	Loop
+	
+	rs.Close
+	Return lstGenre
+End Sub
+
+
+Public Sub CreategenreList (genre As String) As genreList
+	Dim t1 As genreList
+	t1.Initialize
+	t1.genre = genre
+	Return t1
+End Sub
+
+Public Sub GetLanguage As List
+	Dim lstLanguage As List
+	IsDbInitialized
+	
+	qry = "SELECT DISTINCT(language) FROM rdolist WHERE language <> '-' ORDER BY language"
+	rs = sql.ExecQuery(qry)
+	lstLanguage.Initialize
+	Do While rs.NextRow
+		lstLanguage.Add(CreatelanugageList(rs.GetString("language")))
+	Loop
+	
+	rs.Close
+	Return lstLanguage
+End Sub
+
+Public Sub CreatelanugageList (language As String) As lanugageList
+	Dim t1 As lanugageList
+	t1.Initialize
+	t1.language = language
 	Return t1
 End Sub
