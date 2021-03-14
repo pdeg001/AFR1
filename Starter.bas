@@ -15,7 +15,10 @@ Sub Process_Globals
 	Public dbI18n, i18nXls, dbRdo As String
 	Private clsI18nXls As i18nXlsToDb
 	Private lstCountry As List
+	Private clsDb As afrDb
 	
+	Public xlsFileName As String = "station.xls"
+	Public lstGenre, lstLanguage As List
 	Public locale, country, defaultCountry As String
 	Public i18nSql, rdoSql As SQL
 	Public filesFolder As String
@@ -47,6 +50,7 @@ Private Sub InitStarter
 	lstCountry.Initialize
 	lstCountry.Add(Createi18n("EN"))
 	lstCountry.Add(Createi18n("NL"))
+	clsDb.Initialize
 	dbI18n = "i18n.db"
 	i18nXls = "afr_i18n.xls"
 	dbRdo = "rdodb.db"
@@ -57,7 +61,6 @@ Private Sub InitStarter
 	InitI18nSql
 	InitRdoDb
 	GetDefaultCountry
-	
 	clsI18nXls.Initialize
 	clsI18nXls.GetXml
 End Sub

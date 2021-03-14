@@ -3,13 +3,20 @@ File1=afr_i18n.xls
 File10=montserratsemibold.ttf
 File11=pnlCountry.bal
 File12=pnlCountryAbbrev.bal
-File13=rdodb.db
-File14=selectCountry.bal
-File15=station_feb.xls
-File16=veramono.ttf
-File17=veramono-bold.ttf
-File18=veramono-italic.ttf
+File13=pnlGenre.bal
+File14=pnlLanguage.bal
+File15=pnlStation.bal
+File16=rdodb.db
+File17=searchStation.bal
+File18=selectCountry.bal
+File19=station_feb.xls
 File2=galanogrotesquemedium.ttf
+File20=tabGenre.bal
+File21=tabLanguage.bal
+File22=tabStations.bal
+File23=veramono.ttf
+File24=veramono-bold.ttf
+File25=veramono-italic.ttf
 File3=galanogrotesqueregular.ttf
 File4=galanogrotesquesemibold.ttf
 File5=i18n.db
@@ -21,13 +28,20 @@ FileGroup1=database
 FileGroup10=Fonts
 FileGroup11=Forms\country\countryClv
 FileGroup12=Forms\country\countryClv
-FileGroup13=database
-FileGroup14=Forms\country
-FileGroup15=database
-FileGroup16=Fonts
-FileGroup17=Fonts
-FileGroup18=Fonts
+FileGroup13=Forms\searchStation
+FileGroup14=Forms\searchStation
+FileGroup15=Forms\searchStation
+FileGroup16=database
+FileGroup17=Forms\searchStation
+FileGroup18=Forms\country
+FileGroup19=database
 FileGroup2=Fonts
+FileGroup20=Forms\searchStation\searchTab
+FileGroup21=Forms\searchStation\searchTab
+FileGroup22=Forms\searchStation\searchTab
+FileGroup23=Fonts
+FileGroup24=Fonts
+FileGroup25=Fonts
 FileGroup3=Fonts
 FileGroup4=Fonts
 FileGroup5=database
@@ -36,29 +50,32 @@ FileGroup7=Forms\main
 FileGroup8=Forms\main
 FileGroup9=Fonts
 Group=Default Group
-Library1=core
-Library10=bctextengine
-Library2=excel
-Library3=javaobject
-Library4=net
-Library5=phone
-Library6=runtimepermissions
-Library7=sql
-Library8=xui
-Library9=xui views
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />~\n~	<uses-permission android:name="android.permission.WAKE_LOCK" />~\n~	<uses-permission android:name="android.permission.INTERNET" />~\n~	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />~\n~	)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~CreateResourceFromFile(Macro, Core.NetworkClearText)~\n~~\n~AddPermission(android.permission.INTERNET)~\n~AddPermission(android.permission.VIBRATE)~\n~AddPermission(android.permission.FOREGROUND_SERVICE)~\n~AddPermission(android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)~\n~'End of default text.~\n~
+Library1=bctextengine
+Library10=xui
+Library11=xui views
+Library12=reflection
+Library2=core
+Library3=excel
+Library4=javaobject
+Library5=net
+Library6=phone
+Library7=runtimepermissions
+Library8=sql
+Library9=tabstripviewpager
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>~\n~	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />~\n~	<uses-permission android:name="android.permission.WAKE_LOCK" />~\n~	<uses-permission android:name="android.permission.INTERNET" />~\n~	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />~\n~	)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~CreateResourceFromFile(Macro, Core.NetworkClearText)~\n~~\n~AddPermission(android.permission.INTERNET)~\n~AddPermission(android.permission.VIBRATE)~\n~AddPermission(android.permission.FOREGROUND_SERVICE)~\n~AddPermission(android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)~\n~'End of default text.~\n~~\n~#AdditionalJar: com.android.support:support-v4~\n~~\n~'********* TabStrip ***********************~\n~CreateResource(drawable, background_tab.xml,~\n~<selector xmlns:android="http://schemas.android.com/apk/res/android"~\n~   android:exitFadeDuration="@android:integer/config_shortAnimTime">~\n~  <item android:state_pressed="true" android:drawable="@color/background_tab_pressed" />~\n~  <item android:state_focused="true" android:drawable="@color/background_tab_pressed"/>~\n~  <item android:drawable="@android:color/transparent"/>~\n~</selector>)~\n~CreateResource(values, colors.xml,~\n~<resources>~\n~  <color name="background_tab_pressed">#6633B5E5</color>~\n~</resources>)~\n~'******************************************~\n~
 Module1=afrDb
+Module10=Starter
 Module2=ClsCheckInternetConnection
 Module3=FtpGetData
 Module4=i18nGetSetViews
 Module5=i18nXlsToDb
 Module6=ImportData
 Module7=LoadingIndicator
-Module8=selectCountry
-Module9=Starter
-NumberOfFiles=18
-NumberOfLibraries=10
-NumberOfModules=9
+Module8=searchStation
+Module9=selectCountry
+NumberOfFiles=25
+NumberOfLibraries=12
+NumberOfModules=10
 Version=10.6
 @EndOfDesignText@
 #IgnoreWarnings: 9
@@ -77,10 +94,13 @@ Version=10.6
 
 Sub Process_Globals
 	Type i18n(countryTl As String)
-	Type stationList(station_name As String, station_descr As String, _
+	Type stationList(id As String, station_name As String, station_descr As String, _
 					station_genre As String, station_country As String, _
 					station_language As String, station_url1 As String, _
-					station_url2 As String, station_url3 As String)
+					station_url2 As String, station_url3 As String, streamCount As String)
+	Type genreList(genre As String)	
+	Type lanugageList(language As String)			
+					
 	Private xui As XUI
 	
 End Sub
@@ -91,6 +111,7 @@ Sub Globals
 	Private clsInetConnected As ClsCheckInternetConnection
 	Private clsFtp As FtpGetData
 	Private clsLoading As LoadingIndicator
+	Private clsImportData As ImportData
 	
 	Private btnCloseApp As Button
 	Private lblHeader As Label
@@ -102,6 +123,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	clsInetConnected.Initialize
 	clsI18n.Initialize
 	clsDb.Initialize
+	clsImportData.Initialize
 	CheckInetConnected
 End Sub
 
@@ -137,6 +159,8 @@ Private Sub InitAfr
 	clsLoading.Initialize(Activity)
 	wait for (GetStationList) Complete (result As Boolean)
 	
+	Starter.lstGenre = clsDb.GetGenre
+	Starter.lstLanguage = clsDb.GetLanguage
 '	Sleep(3000)
 	StartActivity(selectCountry)
 	Activity.Finish
@@ -147,18 +171,28 @@ Private Sub GetStationList As ResumableSub
 	Dim lastStationDownload As String = clsDb.GetParamValue("laststationdownload")
 	
 	'STATIONS LIJST NOT YET DOWNLOADED
-	If lastStationDownload = "0" Then
-		Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.get_station_list"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_yes"), "", clsI18n.GetI18nValueFromString("i18n.btn_no"), Null, False)
-		Wait For Msgbox_Result (Result As Int)
-		If Result = DialogResponse.NEGATIVE Then
+	'If lastStationDownload = "01" Then
+	Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.get_station_list"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_yes"), "", clsI18n.GetI18nValueFromString("i18n.btn_no"), Null, False)
+	Wait For Msgbox_Result (Result As Int)
+	If Result = DialogResponse.NEGATIVE Then
 '			Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.application_will_be_closed"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_ok"), "", "", Null, False)
 '			Wait For Msgbox_Result (Result As Int)
 '			Starter.closeApplication
-		Else
-			clsFtp.Initialize
-			clsFtp.DownloadList
-		End If
+		Return True
+	Else
+		ProgressDialogShow2("Downloading stationlist", False)
+		Sleep(10)
+		Dim sTime As Long = DateTime.Now
+		clsFtp.Initialize
+		wait for (clsFtp.DownloadList) Complete (done As Boolean)
+		ProgressDialogHide
+		ProgressDialogShow2("Processing stationlist", False)
+		Sleep(10)
+		wait for (clsImportData.ProcessXls) Complete (done As Boolean)
+		Log($"Duration : ${DateTime.Now-sTime}ms"$)
+		ProgressDialogHide
 	End If
+	'End If
 	Return True
 End Sub
 
@@ -169,4 +203,11 @@ Public Sub UpdateLoadingIndicator(msg As String)
 		clsLoading.HideIndicator
 	End If
 	
+End Sub
+
+Public Sub CreatelanugageList (language As String) As lanugageList
+	Dim t1 As lanugageList
+	t1.Initialize
+	t1.language = language
+	Return t1
 End Sub
