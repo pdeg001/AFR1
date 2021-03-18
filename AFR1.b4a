@@ -80,7 +80,7 @@ Module9=selectCountry
 NumberOfFiles=26
 NumberOfLibraries=14
 NumberOfModules=10
-Version=10.6
+Version=10.7
 @EndOfDesignText@
 #IgnoreWarnings: 9
 #Region  Project Attributes 
