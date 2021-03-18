@@ -24,7 +24,6 @@ Public Sub DownloadList As ResumableSub
 	Dim sf As Object = ftp.DownloadFile(Starter.xlsFileName, False, Starter.filesFolder, Starter.xlsFileName)
 	Wait For (sf) FTP_DownloadCompleted (ServerPath As String, Success As Boolean)
 	ftp.Close
-	Log("ftp done")
 	Return True
 End Sub
 

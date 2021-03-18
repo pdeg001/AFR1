@@ -27,6 +27,7 @@ Public Sub ProcessXls As ResumableSub
 		If stName = "-" Or stName.IndexOf("http") > -1 Then
 			Continue
 		End If
+		
 		lstStation.Add(CreatestationList(sheet.GetCellValue(0, row), _
 										  sheet.GetCellValue(1, row), _
 										  sheet.GetCellValue(2, row), _
@@ -36,11 +37,8 @@ Public Sub ProcessXls As ResumableSub
 										  sheet.GetCellValue(6, row), _
 										  sheet.GetCellValue(7, row)))
 	Next
-	Log($"xls done"$)
 	wait for (AddStationsToDb) Complete (result As Boolean)
-	Log($"db done"$)
 	File.Delete(Starter.filesFolder, Starter.xlsFileName)
-	Log($"all done"$)
 	Return True
 End Sub
 
@@ -51,7 +49,6 @@ Private Sub AddStationsToDb As ResumableSub
 	sql.TransactionSuccessful
 	sql.EndTransaction
 	Sleep(1000)
-	Log($"START : $Time{DateTime.Now}"$)
 	
 	
 	qry = $"INSERT INTO rdolist (stname, description, genre, country, language, stream1, stream2, stream3)
@@ -59,7 +56,11 @@ Private Sub AddStationsToDb As ResumableSub
 	
 	sql.BeginTransaction
 	For Each station As stationList In lstStation
-		
+		If station.station_url1.IndexOf("m3u8") > -1 Or _
+		   station.station_url2.IndexOf("m3u8") > -1 Or _
+		   station.station_url3.IndexOf("m3u8") > -1 Then
+		   Continue
+		 End If  
 		sql.ExecNonQuery2(qry, Array As String(station.station_name, station.station_descr, _
 												station.station_genre, station.station_country, _
 												station.station_language, station.station_url1, _
@@ -68,7 +69,6 @@ Private Sub AddStationsToDb As ResumableSub
 	
 	sql.TransactionSuccessful
 	sql.EndTransaction
-	Log($"END : $Time{DateTime.Now}"$)
 	
 	Return True
 End Sub

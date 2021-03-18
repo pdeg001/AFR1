@@ -16,7 +16,10 @@ End Sub
 Sub Globals
 	Private clsI18n As i18nGetSetViews
 	Private clsDb As afrDb
-
+	Private lstStation As List
+	Private pnlStreamsPos As Int
+	
+	
 	Private lblHeader As Label
 	Private ftSeach As B4XFloatTextField
 	Private lblDescription As Label
@@ -42,6 +45,19 @@ Sub Globals
 	Private lblDefaultCountry As Label
 	Private lblChoosenCountry As Label
 	Private lblSearch As Label
+	Private pnlStreams As Panel
+	Private lblClickStationName As Label
+	Private lblClickStationGenre As Label
+	Private lblClickStationLanguage As Label
+	Private lblStream1 As Label
+	Private lblStream2 As Label
+	Private lblStream3 As Label
+	Private lblKeepStream1 As Label
+	Private lblKeepStream2 As Label
+	Private lblKeepStream3 As Label
+	Private pnlStationStream As Panel
+	Private lblLanguageHeader As Label
+	Private lblGenreHeader As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -49,6 +65,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	clsDb.Initialize
 	Activity.LoadLayout("searchStation")
 	lblStationFound.Visible = False
+	pnlStreams.Top = Activity.Height+300dip
+	pnlStreamsPos = pnlStreams.Top
 	InitTabView
 	clsI18n.GetViewsSeti18N(Activity)
 	TabI18n
@@ -64,6 +82,16 @@ End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
 
+End Sub
+
+Sub Activity_KeyPress (KeyCode As Int) As Boolean
+	If KeyCode = KeyCodes.KEYCODE_BACK Then
+		If pnlStreams.Top < 10dip Then
+			pnlStreams_Click
+			Return True			
+		End If
+	End If
+	Return True
 End Sub
 
 Private Sub InitTabView
@@ -124,7 +152,7 @@ Private Sub ftSeach_EnterPressed
 	Sleep(10)
 	lblStationFound.Visible = False
 	clvStation.Clear
-	Dim lstStation As List = clsDb.GetStationByQuery(ftSeach.Text)
+	lstStation = clsDb.GetStationByQuery(ftSeach.Text)
 	Dim rowNo As Int = 1
 	
 	For Each station As stationList In lstStation
@@ -134,7 +162,7 @@ Private Sub ftSeach_EnterPressed
 	clvStation.Refresh
 	lblStationFound.Text = $"${clsI18n.GetI18nValueFromString("i18n.found_count")} ${lstStation.Size}"$
 	lblStationFound.SetVisibleAnimated(1000, True)
-	TabSearch.ScrollTo(0, False)
+'	TabSearch.ScrollTo(0, False)
 	ProgressDialogHide
 End Sub
 
@@ -155,7 +183,18 @@ Private Sub CreateStationList(station As stationList, rowNo As String) As Panel
 End Sub
 
 Private Sub pnlStation_Click
+	Dim clickedStation As stationList
+	Dim pnl As Panel = Sender
+	Dim pnlParent As Panel = pnl.Parent
+	Dim stationId As String = pnlParent.Tag
 	
+	For Each station As stationList In lstStation
+		If station.id = stationId Then
+			clickedStation = station
+			Exit
+		End If
+	Next
+	ShowStreamPanel(clickedStation, clvStation.GetItemFromView(pnl))
 End Sub
 
 Private Sub TabSearch_PageSelected (Position As Int)
@@ -234,5 +273,81 @@ Private Sub lblSearch_Click
 	If lblSearch.TextColor = 0xFF008EFF Then
 		ftSeach_EnterPressed
 	End If
+	
+End Sub
+
+Private Sub pnlStreams_Click
+	pnlStreams.SetLayoutAnimated(400, Activity.Width+400dip, 0dip, Activity.Width, Activity.Height)
+	Sleep(400)
+	pnlStreams.SetLayoutAnimated(0, 0dip, Activity.Height+300dip, Activity.Width, Activity.Height)
+End Sub
+
+Private Sub pnlStationStream_Click
+	
+End Sub
+
+
+
+Private Sub ShowStreamPanel(station As stationList, index As Int)
+	lblClickStationName.Text = station.station_name
+	lblClickStationGenre.Text = station.station_genre
+	lblClickStationLanguage.Text = station.station_language
+	
+	'set play stream label to blue if there is a stream
+	Dim countStream As Int = GetPanelLabelValue("streamCount", index, clvStation)
+	If countStream > 0 Then
+		lblKeepStream1.TextColor = 0xFF008EFF
+		lblStream1.TextColor = 0xFF008EFF
+		lblStream1.Tag = station.station_url1
+	Else
+		lblKeepStream1.TextColor = 0xFFB0B0B0
+		lblStream1.TextColor = 0xFFB0B0B0
+	End If
+	If countStream > 1 Then
+		lblKeepStream2.TextColor = 0xFF008EFF
+		lblStream2.TextColor = 0xFF008EFF
+		lblStream2.Tag = station.station_url2
+	Else
+		lblKeepStream2.TextColor = 0xFFB0B0B0
+		lblStream2.TextColor = 0xFFB0B0B0
+	End If
+	If countStream > 2 Then
+		lblKeepStream3.TextColor = 0xFF008EFF
+		lblStream3.TextColor = 0xFF008EFF
+		lblStream3.Tag = station.station_url3
+	Else
+		lblKeepStream3.TextColor = 0xFFB0B0B0
+		lblStream3.TextColor = 0xFFB0B0B0
+	End If
+	
+	pnlStreams.SetLayoutAnimated(700, 0dip, 0dip, Activity.Width, Activity.Height)
+	Sleep(500)
+	
+	
+End Sub
+
+'E.g.
+'GetPanelLabelValue("streamCount", clvStation.GetItemFromView(pnl), clvStation)
+'if tag is not found then "-1" is returned
+Public Sub GetPanelLabelValue(lblTag As String, index As Int, clv As CustomListView) As String
+	Dim pPnl As Panel = clv.GetPanel(index)
+	Dim cPnl As Panel
+	Dim lbl As Label
+	
+	'loop clv parent panel
+	For Each v As View In pPnl.GetAllViewsRecursive
+		If v Is Panel Then
+			cPnl = v
+			'loop child panel
+			For Each v As View In cPnl.GetAllViewsRecursive
+				If v.Tag = lblTag Then
+					lbl = v
+					Return lbl.Text				
+				End If
+			Next
+		End If
+	Next
+	
+	Return "-1"
 	
 End Sub
