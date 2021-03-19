@@ -15,6 +15,7 @@ End Sub
 
 Sub Globals
 	Private clsI18n As i18nGetSetViews
+	Private clsPlayer as PlayStream
 	Private clsDb As afrDb
 	Private lstStation As List
 	Private pnlStreamsPos As Int
@@ -63,6 +64,7 @@ End Sub
 Sub Activity_Create(FirstTime As Boolean)
 	clsI18n.Initialize
 	clsDb.Initialize
+	clsPlayer.Initialize
 	Activity.LoadLayout("searchStation")
 	lblStationFound.Visible = False
 	pnlStreams.Top = Activity.Height+300dip
@@ -294,11 +296,12 @@ Private Sub ShowStreamPanel(station As stationList, index As Int)
 	lblClickStationLanguage.Text = station.station_language
 	
 	'set play stream label to blue if there is a stream
-	Dim countStream As Int = GetPanelLabelValue("streamCount", index, clvStation)
+	Dim countStream As Int = cmGenFunctions.GetPanelLabelValue("streamCount", index, clvStation)
 	If countStream > 0 Then
 		lblKeepStream1.TextColor = 0xFF008EFF
 		lblStream1.TextColor = 0xFF008EFF
 		lblStream1.Tag = station.station_url1
+		cmGenFunctions.logDebug(lblStream1.Tag)
 	Else
 		lblKeepStream1.TextColor = 0xFFB0B0B0
 		lblStream1.TextColor = 0xFFB0B0B0
@@ -326,28 +329,28 @@ Private Sub ShowStreamPanel(station As stationList, index As Int)
 	
 End Sub
 
-'E.g.
-'GetPanelLabelValue("streamCount", clvStation.GetItemFromView(pnl), clvStation)
-'if tag is not found then "-1" is returned
-Public Sub GetPanelLabelValue(lblTag As String, index As Int, clv As CustomListView) As String
-	Dim pPnl As Panel = clv.GetPanel(index)
-	Dim cPnl As Panel
-	Dim lbl As Label
-	
-	'loop clv parent panel
-	For Each v As View In pPnl.GetAllViewsRecursive
-		If v Is Panel Then
-			cPnl = v
-			'loop child panel
-			For Each v As View In cPnl.GetAllViewsRecursive
-				If v.Tag = lblTag Then
-					lbl = v
-					Return lbl.Text				
-				End If
-			Next
-		End If
-	Next
-	
-	Return "-1"
-	
+Private Sub lblStream1_Click
+	GetStreamPlay(lblStream1)
+End Sub
+
+Private Sub lblStream2_Click
+	GetStreamPlay(lblStream2)
+End Sub
+
+Private Sub lblStream3_Click
+	GetStreamPlay(lblStream3)
+End Sub
+
+Private Sub GetStreamPlay(lbl As Label)
+	If lbl.TextColor <> 0xFF008EFF Then Return
+	cmGenFunctions.logDebug(lbl.Tag)
+	clsPlayer.playStream(lbl.Tag)
+End Sub
+
+Private Sub StopStream
+	clsPlayer.StopStream
+End Sub
+
+Private Sub lblKeepStream1_Click
+	StopStream
 End Sub

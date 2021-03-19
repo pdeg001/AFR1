@@ -23,10 +23,11 @@ Sub Process_Globals
 	Public i18nSql, rdoSql As SQL
 	Public filesFolder As String
 	Public doy As String ="pdegrootafr", moy As String ="hkWpXtB1!", ftp As String = "ftp.pdeg.nl"
-	Public hasInternet As Boolean
+	Public hasInternet, enableDebugMessages As Boolean
 End Sub
 
 Sub Service_Create
+	enableDebugMessages = True
 	InitStarter
 End Sub
 
