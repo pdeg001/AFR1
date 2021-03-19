@@ -37,6 +37,6 @@ ModuleClosedNodes6=
 ModuleClosedNodes7=
 ModuleClosedNodes8=
 ModuleClosedNodes9=
-NavigationStack=Starter,InitStarter,59,0,Starter,Process_Globals,19,1,cmGenFunctions,logDebug,32,6,Starter,Service_Create,23,4,searchStation,lblKeepStream1_Click,349,6,searchStation,GetStreamPlay,339,3,Main,Activity_Create,41,0,searchStation,Activity_Create,38,0,searchStation,Globals,9,0,searchStation,Activity_KeyPress,61,1,selectCountry,lblContinue_Click,257,0
+NavigationStack=Starter,InitStarter,59,0,Starter,Process_Globals,19,1,cmGenFunctions,logDebug,32,6,Starter,Service_Create,23,4,searchStation,lblKeepStream1_Click,349,6,searchStation,GetStreamPlay,339,3,Main,Activity_Create,41,0,searchStation,Activity_Create,38,0,searchStation,Globals,9,0,searchStation,Activity_KeyPress,61,1,selectCountry,lblContinue_Click,258,0
 SelectedBuild=0
 VisibleModules=12,10,3,9,11

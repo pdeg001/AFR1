@@ -262,6 +262,7 @@ Private Sub lblContinue_Click
 		Return
 	End If
 	'Activity.Finish
+	
 	StartActivity(searchStation)
 	
 End Sub
