@@ -15,8 +15,9 @@ Sub Process_Globals
 	Public dbI18n, i18nXls, dbRdo As String
 	Private clsI18nXls As i18nXlsToDb
 	Private clsDb As afrDb
-	Public clsIcyData as GetIcyData
+	Public clsIcyData As GetIcyData
 	Private lstCountry As List
+	Private phWake As PhoneWakeState
 	
 	Public xlsFileName As String = "station.xls"
 	Public lstGenre, lstLanguage As List
@@ -130,4 +131,12 @@ Public Sub closeApplication
 	Dim jo As JavaObject
 	jo.InitializeContext
 	jo.RunMethod("finishAffinity", Null)
+End Sub
+
+Public Sub phKeepAlive
+	phWake.PartialLock
+End Sub
+
+Public Sub phReleaseKeepAlive
+	phWake.ReleasePartialLock
 End Sub

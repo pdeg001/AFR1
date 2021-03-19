@@ -60,6 +60,7 @@ Library13=sql
 Library14=tabstripviewpager
 Library15=xui
 Library16=xui views
+Library17=json
 Library2=b4xdrawer
 Library3=bctextengine
 Library4=core
@@ -83,7 +84,7 @@ Module7=i18nXlsToDb
 Module8=ImportData
 Module9=LoadingIndicator
 NumberOfFiles=26
-NumberOfLibraries=16
+NumberOfLibraries=17
 NumberOfModules=13
 Version=10.7
 @EndOfDesignText@

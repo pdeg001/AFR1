@@ -17,6 +17,7 @@ End Sub
 Public Sub playStreamUrl(streamUrl As String)
 	Starter.clsIcyData.streamUrl = streamUrl
 	If NoStreamUrlPassed = False Then Return
+	Starter.phKeepAlive
 	 
 	player.Prepare(player.CreateURISource(streamUrl))
 	player.Play
@@ -29,6 +30,7 @@ Public Sub StopStream
 	If player.IsPlaying Then 
 		player.Release
 		playStreamUrl("")
+		Starter.phReleaseKeepAlive
 	End If
 End Sub
 
