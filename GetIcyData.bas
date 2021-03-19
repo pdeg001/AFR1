@@ -28,6 +28,7 @@ Public Sub enableTimer(enable As Boolean)
 End Sub
 
 Private Sub ICYTIMER_Tick
+	
 	GetIcyDataFromUrl
 End Sub
 
@@ -53,7 +54,7 @@ Public Sub GetIcyDataFromUrl
 End Sub
 
 Private Sub IcyDataChanged(icyData As String)
-	If icyData <> "" And icyData <> lastIcyData Then
+	If icyData <> lastIcyData Then
 		cmGenFunctions.logDebug(">>> " & icyData)
 	End If
 End Sub

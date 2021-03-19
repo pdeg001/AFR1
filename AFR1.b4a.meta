@@ -40,6 +40,6 @@ ModuleClosedNodes6=
 ModuleClosedNodes7=
 ModuleClosedNodes8=
 ModuleClosedNodes9=
-NavigationStack=GetIcyData,ICYTIMER_Tick,22,2,GetIcyData,Initialize,10,1,selectCountry,lblContinue_Click,261,0,searchStation,GetStreamPlay,308,0,PlayStream,playStreamUrl,16,4,GetIcyData,enableTimer,15,6,cmGenFunctions,logDebug,35,0,GetIcyData,Class_Globals,4,4,GetIcyData,GetIcyDataFromUrl,42,0,GetIcyData,IcyDataChanged,51,6
+NavigationStack=GetIcyData,Initialize,10,6,GetIcyData,ICYTIMER_Tick,24,6,Starter,Process_Globals,11,4,Starter,Service_Create,25,0,Starter,InitStarter,49,2,PlayStream,Class_Globals,2,0,PlayStream,Initialize,9,0,PlayStream,playStreamUrl,17,1,PlayStream,NoStreamUrlPassed,44,0,GetIcyData,GetIcyDataFromUrl,46,6,GetIcyData,IcyDataChanged,50,4
 SelectedBuild=0
 VisibleModules=13,11,10,5,3

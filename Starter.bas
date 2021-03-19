@@ -14,8 +14,9 @@ Sub Process_Globals
 	Private rp As RuntimePermissions
 	Public dbI18n, i18nXls, dbRdo As String
 	Private clsI18nXls As i18nXlsToDb
-	Private lstCountry As List
 	Private clsDb As afrDb
+	Public clsIcyData as GetIcyData
+	Private lstCountry As List
 	
 	Public xlsFileName As String = "station.xls"
 	Public lstGenre, lstLanguage As List
@@ -52,6 +53,7 @@ Private Sub InitStarter
 	lstCountry.Add(Createi18n("EN"))
 	lstCountry.Add(Createi18n("NL"))
 	clsDb.Initialize
+	clsIcyData.Initialize
 	dbI18n = "i18n.db"
 	i18nXls = "afr_i18n.xls"
 	dbRdo = "rdodb.db"
