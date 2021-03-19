@@ -273,7 +273,6 @@ Private Sub ShowStreamPanel(station As stationList, index As Int)
 		lblKeepStream1.TextColor = 0xFF008EFF
 		lblStream1.TextColor = 0xFF008EFF
 		lblStream1.Tag = station.station_url1
-		cmGenFunctions.logDebug(lblStream1.Tag)
 	Else
 		lblKeepStream1.TextColor = 0xFFB0B0B0
 		lblStream1.TextColor = 0xFFB0B0B0
@@ -297,8 +296,6 @@ Private Sub ShowStreamPanel(station As stationList, index As Int)
 	
 	pnlStreams.SetLayoutAnimated(700, 0dip, 0dip, Activity.Width, Activity.Height)
 	Sleep(500)
-	
-	
 End Sub
 
 Private Sub lblStream1_Click
@@ -315,8 +312,7 @@ End Sub
 
 Private Sub GetStreamPlay(lbl As Label)
 	If lbl.TextColor <> 0xFF008EFF Then Return
-	cmGenFunctions.logDebug(lbl.Tag)
-	clsPlayer.playStream(lbl.Tag)
+	clsPlayer.playStreamUrl(lbl.Tag)
 End Sub
 
 Private Sub StopStream

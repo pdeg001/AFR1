@@ -36,7 +36,7 @@ End Sub
 
 'only show log if in debug
 Public Sub logDebug(message As String)
-	if Starter.enableDebugMessages = false then Return
+	If Starter.enableDebugMessages = False Then Return
 	#if debug
 		Dim postMsg As String = $"[Date $DateTime{DateTime.Now}] "$
 		Log($"${postMsg}${message}"$)
