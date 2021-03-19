@@ -85,7 +85,7 @@ NumberOfLibraries=15
 NumberOfModules=12
 Version=10.7
 @EndOfDesignText@
-#IgnoreWarnings: 9
+#IgnoreWarnings: 9, 16, 32
 #Region  Project Attributes 
 	#ApplicationLabel: AdFree Radio
 	#VersionCode: 30052051

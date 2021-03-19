@@ -15,50 +15,23 @@ End Sub
 
 Sub Globals
 	Private clsI18n As i18nGetSetViews
-	Private clsPlayer as PlayStream
+	Private clsPlayer As PlayStream
 	Private clsDb As afrDb
 	Private lstStation As List
-	Private pnlStreamsPos As Int
 	
-	
-	Private lblHeader As Label
+	Private pnlStreams, pnlStation, pnlGenreLanguage, pnlGenre, pnlStationStream As Panel
 	Private ftSeach As B4XFloatTextField
-	Private lblDescription As Label
-	Private lblGenre As Label
-	Private lblLanguage As Label
-	Private lblStationName As Label
-	Private lblStreamCount As Label
-	Private pnlStation As Panel
-	Private clvStation As CustomListView
-	Private lblStationFound As Label
-	Private lblNo As Label
+	Private clvStation, clvGenre, clvLanguage As CustomListView
 	Private TabSearch As TabStrip
-	Private clvGenre As CustomListView
-	Private clvLanguage As CustomListView
-	Private pnlGenreLanguage As Panel
-	Private pnlGenre As Panel
-	Private lblPnlGenre As Label
-	Private lblChoosenGenre As Label
-	Private lblChoosenLanguage As Label
-	Private lblRemoveGenre As Label
-	Private lblPnlLanguage As Label
-	Private lblRemoveLaguage As Label
-	Private lblDefaultCountry As Label
-	Private lblChoosenCountry As Label
-	Private lblSearch As Label
-	Private pnlStreams As Panel
-	Private lblClickStationName As Label
-	Private lblClickStationGenre As Label
-	Private lblClickStationLanguage As Label
-	Private lblStream1 As Label
-	Private lblStream2 As Label
-	Private lblStream3 As Label
-	Private lblKeepStream1 As Label
-	Private lblKeepStream2 As Label
-	Private lblKeepStream3 As Label
-	Private pnlStationStream As Panel
-	Private lblLanguageHeader As Label
-	Private lblGenreHeader As Label
+
+	Private lblHeader, lblDescription, lblGenre, lblLanguage, lblStationName As Label
+	Private lblStreamCount, lblStationFound, lblNo, lblPnlGenre, lblPnlLanguage As Label
+	Private lblChoosenGenre, lblChoosenLanguage, lblRemoveGenre, lblRemoveLaguage As Label
+	Private lblDefaultCountry,lblChoosenCountry, lblSearch As Label
+	Private lblClickStationName, lblClickStationGenre, lblClickStationLanguage As Label
+	Private lblStream1, lblStream2, lblStream3 As Label
+	Private lblKeepStream1, lblKeepStream2, lblKeepStream3 As Label
+	Private lblLanguageHeader, lblGenreHeader As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -68,7 +41,6 @@ Sub Activity_Create(FirstTime As Boolean)
 	Activity.LoadLayout("searchStation")
 	lblStationFound.Visible = False
 	pnlStreams.Top = Activity.Height+300dip
-	pnlStreamsPos = pnlStreams.Top
 	InitTabView
 	clsI18n.GetViewsSeti18N(Activity)
 	TabI18n
@@ -93,7 +65,7 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean
 			Return True			
 		End If
 	End If
-	Return True
+	Return False
 End Sub
 
 Private Sub InitTabView

@@ -261,7 +261,7 @@ Private Sub lblContinue_Click
 	If ftDefaultCountry.Text = clsI18n.GetI18nValueFromString("i18n.continue") Then
 		Return
 	End If
-	Activity.Finish
+	'Activity.Finish
 	StartActivity(searchStation)
 	
 End Sub
