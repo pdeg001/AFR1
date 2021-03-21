@@ -4,14 +4,16 @@ ModulesStructureVersion=1
 Type=Class
 Version=10.7
 @EndOfDesignText@
-#IgnoreWarnings: 9
+#IgnoreWarnings: 9, 12
 Sub Class_Globals
 	Private icyTimer As Timer
-	Private httpTimeOut As Int = 10*1000
-	Private icyTimerTimeOut As Int = 4*1000
-	Private lastIcyData As String
-	Private IcyDataHasChanged As Boolean
+	Private httpTimeOut As Int = 6*1000
+	Private icyTimerTimeOut As Int = 5*1000
+	Public lastIcyData As String
+	Public IcyDataHasChanged As Boolean
 	Public streamUrl As String
+	
+
 End Sub
 
 Public Sub Initialize
@@ -20,16 +22,10 @@ Public Sub Initialize
 End Sub
 
 Public Sub enableTimer(enable As Boolean)
-	cmGenFunctions.logDebug(">>")
 	icyTimer.Enabled = enable
-	If enable = False Then
-		lastIcyData = ""
-	End If
-	
 End Sub
 
 Private Sub ICYTIMER_Tick
-	
 	GetIcyDataFromUrl
 End Sub
 
@@ -37,37 +33,47 @@ Public Sub GetIcyDataFromUrl
 	Dim url As String = $"http://ice.pdeg.nl/getIcy.php?url=${streamUrl}"$
 	Dim job As HttpJob
 	
+	IcyDataHasChanged = False
 	job.Initialize("", Me)
 	job.Download(url)
 	job.GetRequest.Timeout = httpTimeOut
 	
 	Wait For (job) JobDone(job As HttpJob)
 	If job.Success Then
-		Dim icyData As String = job.GetString
+		Log("SUCCESS")
+		Dim icyData As String = job.GetString 
+
 		If icyData <> lastIcyData Then
+			lastIcyData = icyData
 			IcyDataHasChanged = True
-		lastIcyData = icyData
+			job.Release
+			IcyDataChanged(icyData)
 		Else
-			IcyDataHasChanged =False
+			job.Release
 		End If
 	Else
 		lastIcyData = ""
-		End If
-		
-	job.Release
-	Sleep(100)
-	IcyDataChanged(icyData)
+		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, "PPP")
+		job.Release
+	End If
+	
 End Sub
 
-Private Sub IcyDataChanged(icyData As String)
-	If IcyDataHasChanged Then
-		cmGenFunctions.logDebug(parseIcy(lastIcyData))
+Private Sub IcyDataChanged(icyMetaData As String)
+	cmGenFunctions.logDebug(parseIcy(icyMetaData))
+	If IcyDataHasChanged = True Then
+		'CallSub2(searchStation, "SetNowPlaying", parseIcy(lastIcyData))
+		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, parseIcy(icyMetaData))
+	Else
+		Return
+		CallSub2(searchStation, "SetNowPlaying", "")
+			
 	End If
 End Sub
 
 Public Sub parseIcy(metaData As String) As String
 	Dim icy_by, icy_name, icy_playing, icy_genre, icy_br, icy_url, icy_genre As String = ""
-	Dim icy_maint As Int = 16000
+	Dim icy_maint As Int
 	
 	Dim parser As JSONParser
 	parser.Initialize(metaData)
@@ -75,8 +81,7 @@ Public Sub parseIcy(metaData As String) As String
 	Try
 		Dim root As Map = parser.NextObject
 	Catch
-		cmGenFunctions.logDebug(LastException.Message)
-		Return "-1"
+		Return Starter.clsi18nVar.GetI18nValueFromString( "i18n.no_station_information")
 	End Try
 	
 	icy_by = root.Get("icy-by")

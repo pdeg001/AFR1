@@ -6,17 +6,22 @@ Version=10.7
 @EndOfDesignText@
 Sub Class_Globals
 	Private player As SimpleExoPlayer
-	'Private clsIcyData As GetIcyData
+	Public isPLaying As Boolean
 End Sub
 
 Public Sub Initialize
-	player.Initialize("PLAYER")
 	'clsIcyData.Initialize
+End Sub
+
+Private Sub InitializePlayer
+	player.Initialize("PLAYER")
+	
 End Sub
 
 Public Sub playStreamUrl(streamUrl As String)
 	Starter.clsIcyData.streamUrl = streamUrl
 	If NoStreamUrlPassed = False Then Return
+	InitializePlayer
 	Starter.phKeepAlive
 	 
 	player.Prepare(player.CreateURISource(streamUrl))
@@ -30,13 +35,18 @@ Public Sub StopStream
 	If player.IsPlaying Then 
 		player.Release
 		playStreamUrl("")
+		Starter.clsIcyData.lastIcyData = ""
+		Starter.clsIcyData.IcyDataHasChanged = False
+		
+		Starter.clsIcyData.enableTimer(False)
+		Sleep(200)
+		CallSubDelayed2(searchStation, "SetNowPlaying", "")
 		Starter.phReleaseKeepAlive
 	End If
 End Sub
 
 Sub PLAYER_Ready
 	cmGenFunctions.logDebug("Ready")
-	
 End Sub
 
 Sub PLAYER_Error (Message As String)

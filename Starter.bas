@@ -16,6 +16,7 @@ Sub Process_Globals
 	Private clsI18nXls As i18nXlsToDb
 	Private clsDb As afrDb
 	Public clsIcyData As GetIcyData
+	Public clsi18nVar As i18nGetSetVar
 	Private lstCountry As List
 	Private phWake As PhoneWakeState
 	
@@ -26,6 +27,8 @@ Sub Process_Globals
 	Public filesFolder As String
 	Public doy As String ="pdegrootafr", moy As String ="hkWpXtB1!", ftp As String = "ftp.pdeg.nl"
 	Public hasInternet, enableDebugMessages As Boolean
+	Public icyCallingActivity As String
+	Public icyCallingActivityCallback As String
 End Sub
 
 Sub Service_Create
@@ -65,6 +68,7 @@ Private Sub InitStarter
 	InitI18nSql
 	InitRdoDb
 	GetDefaultCountry
+	clsi18nVar.Initialize
 	clsI18nXls.Initialize
 	clsI18nXls.GetXml
 End Sub
