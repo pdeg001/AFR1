@@ -43,6 +43,6 @@ ModuleClosedNodes6=
 ModuleClosedNodes7=
 ModuleClosedNodes8=
 ModuleClosedNodes9=
-NavigationStack=PlayStream,NoStreamUrlPassed,53,0,PlayStream,StopStream,34,2,GetIcyData,parseIcy,69,2,searchStation,GetNowPlaying,323,0,Starter,Process_Globals,25,0,cmGenFunctions,logDebug,35,6,Visual Designer,searchStation.bal,-100,6,searchStation,SetNowPlaying,335,6,GetIcyData,IcyDataChanged,62,6,GetIcyData,GetIcyDataFromUrl,36,6
+NavigationStack=GetIcyData,Class_Globals,6,6,GetIcyData,enableTimer,18,1,GetIcyData,GetIcyDataFromUrl,42,6,GetIcyData,ICYTIMER_Tick,26,6,GetIcyData,parseIcy,100,6,GetIcyData,IcyDataChanged,68,6,searchStation,SetNowPlaying,327,6,searchStation,Activity_Create,49,0,searchStation,Activity_KeyPress,67,0,searchStation,InitTabView,71,6
 SelectedBuild=0
 VisibleModules=12,11,5,3,14

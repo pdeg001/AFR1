@@ -73,9 +73,9 @@ End Sub
 
 
 Private Sub InitTabView
-	TabSearch.LoadLayout("tabStations", "stations")
-	TabSearch.LoadLayout("tabGenre", "Genre")
-	TabSearch.LoadLayout("tabLanguage", "Language")
+	TabSearch.LoadLayout("tabStations", Starter.clsi18nVar.GetI18nValueFromString("i18n.stations"))
+	TabSearch.LoadLayout("tabGenre", Starter.clsi18nVar.GetI18nValueFromString("i18n.genre"))
+	TabSearch.LoadLayout("tabLanguage", Starter.clsi18nVar.GetI18nValueFromString("i18n.language"))
 	For Each lbl As Label In GetAllTabLabels(TabSearch)
 		lbl.Width=33%x
 	Next
