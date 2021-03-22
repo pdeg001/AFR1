@@ -4,6 +4,7 @@ ModulesStructureVersion=1
 Type=Activity
 Version=10.6
 @EndOfDesignText@
+'TODO : Documenteer code
 #Region  Activity Attributes 
 	#FullScreen: True
 	#IncludeTitle: False
@@ -70,7 +71,6 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean
 	End If
 	Return False
 End Sub
-
 
 Private Sub InitTabView
 	TabSearch.LoadLayout("tabStations", Starter.clsi18nVar.GetI18nValueFromString("i18n.stations"))
@@ -314,6 +314,11 @@ End Sub
 
 Private Sub GetStreamPlay(lbl As Label)
 	If lbl.TextColor <> 0xFF008EFF Then Return
+	If lbl.Text = Starter.clsi18nVar.GetI18nValueFromString("i18n.stop_stream") Then
+		StopStream
+		lbl.Text = Starter.clsi18nVar.GetI18nValueFromString("i18n.play_stream")
+		Return
+	End If
 	
 	'if stream is playing
 	SetStreamPlayingButtonText(lbl)
@@ -321,10 +326,8 @@ Private Sub GetStreamPlay(lbl As Label)
 End Sub
 
 Private Sub SetStreamPlayingButtonText(lbl As Label)
-	If cmGenFunctions.ExoPLayerIsPlaying And lbl.Text <>  Starter.clsi18nVar.GetI18nValueFromString("i18n.stop_stream") Then
-		lbl.Text = Starter.clsi18nVar.GetI18nValueFromString("i18n.stop_stream")
-	End If
-	
+	'TODO : test if stream is actually playing
+	lbl.Text = Starter.clsi18nVar.GetI18nValueFromString("i18n.stop_stream")
 End Sub
 
 Public Sub GetNowPlaying As String
