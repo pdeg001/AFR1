@@ -50,7 +50,9 @@ Sub PLAYER_Ready
 End Sub
 
 Sub PLAYER_Error (Message As String)
-	cmGenFunctions.logDebug("Error: " & Message)
+	CallSub(searchStation, "ErrorPlayingStream")
+	StopStream
+'	Log("Error: " & Message)
 End Sub
 
 Sub PLAYER_Complete

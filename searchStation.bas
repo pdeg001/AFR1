@@ -256,7 +256,7 @@ End Sub
 
 Private Sub pnlStreams_Click
 	If cmGenFunctions.ExoPLayerIsPlaying Then Return
-	
+	pnlStationStream.Tag = ""
 	pnlStreams.SetLayoutAnimated(400, Activity.Width+400dip, 0dip, Activity.Width, Activity.Height)
 	Sleep(400)
 	pnlStreams.SetLayoutAnimated(0, 0dip, Activity.Height+300dip, Activity.Width, Activity.Height)
@@ -301,14 +301,17 @@ Private Sub ShowStreamPanel(station As stationList, index As Int)
 End Sub
 
 Private Sub lblStream1_Click
+	pnlStationStream.Tag = lblStream1
 	GetStreamPlay(lblStream1)
 End Sub
 
 Private Sub lblStream2_Click
+	pnlStationStream.Tag = lblStream2
 	GetStreamPlay(lblStream2)
 End Sub
 
 Private Sub lblStream3_Click
+	pnlStationStream.Tag = lblStream3
 	GetStreamPlay(lblStream3)
 End Sub
 
@@ -352,4 +355,11 @@ End Sub
 
 Private Sub lblKeepStream1_Click
 	StopStream
+End Sub
+
+Public Sub ErrorPlayingStream
+	Dim lbl As Label = 	pnlStationStream.Tag
+	GetStreamPlay(lbl)
+	Sleep(1000)
+	SetNowPlaying("Kan stream niet afspelen")
 End Sub

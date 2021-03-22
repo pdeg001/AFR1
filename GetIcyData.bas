@@ -27,6 +27,10 @@ Public Sub enableTimer(enable As Boolean)
 End Sub
 
 Private Sub ICYTIMER_Tick
+	If cmGenFunctions.ExoPLayerIsPlaying = False Then 
+		Sleep(500)
+		Return
+	End If
 	If hasIcyData = False Then
 		If getIcyDataTries = 3 Then
 			enableTimer(False)
