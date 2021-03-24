@@ -69,7 +69,7 @@ Library6=javaobject
 Library7=json
 Library8=net
 Library9=okhttputils2
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~CreateResourceFromFile(Macro, Core.NetworkClearText)~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#0098FF</item>~\n~        <item name="colorPrimaryDark">#007CF5</item>~\n~        <item name="colorAccent">#AAAA00</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~		<item name="android:windowTranslucentNavigation">false</item>~\n~     	<item name="android:windowTranslucentStatus">true</item>~\n~    </style>~\n~</resources>~\n~)~\n~AddPermission(android.permission.INTERNET)~\n~AddPermission(android.permission.VIBRATE)~\n~AddPermission(android.permission.FOREGROUND_SERVICE)~\n~AddPermission(android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)~\n~#AdditionalJar: com.android.support:support-v4~\n~~\n~'********* TabStrip ***********************~\n~CreateResource(drawable, background_tab.xml,~\n~<selector xmlns:android="http://schemas.android.com/apk/res/android"~\n~   android:exitFadeDuration="@android:integer/config_shortAnimTime">~\n~  <item android:state_pressed="true" android:drawable="@color/background_tab_pressed" />~\n~  <item android:state_focused="true" android:drawable="@color/background_tab_pressed"/>~\n~  <item android:drawable="@android:color/transparent"/>~\n~</selector>)~\n~CreateResource(values, colors.xml,~\n~<resources>~\n~  <color name="background_tab_pressed">#6633B5E5</color>~\n~</resources>)~\n~'******************************************
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~CreateResourceFromFile(Macro, Core.NetworkClearText)~\n~'SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~'~\n~'CreateResource(values, theme.xml,~\n~'<resources>~\n~'    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~'        <item name="colorPrimary">#0098FF</item>~\n~'        <item name="colorPrimaryDark">#007CF5</item>~\n~'        <item name="colorAccent">#AAAA00</item>~\n~'        <item name="windowNoTitle">true</item>~\n~'        <item name="windowActionBar">false</item>~\n~'		<item name="android:windowTranslucentNavigation">false</item>~\n~'     	<item name="android:windowTranslucentStatus">true</item>~\n~'    </style>~\n~'</resources>~\n~')~\n~AddPermission(android.permission.INTERNET)~\n~AddPermission(android.permission.VIBRATE)~\n~AddPermission(android.permission.FOREGROUND_SERVICE)~\n~AddPermission(android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)~\n~#AdditionalJar: com.android.support:support-v4~\n~~\n~'********* TabStrip ***********************~\n~CreateResource(drawable, background_tab.xml,~\n~<selector xmlns:android="http://schemas.android.com/apk/res/android"~\n~   android:exitFadeDuration="@android:integer/config_shortAnimTime">~\n~  <item android:state_pressed="true" android:drawable="@color/background_tab_pressed" />~\n~  <item android:state_focused="true" android:drawable="@color/background_tab_pressed"/>~\n~  <item android:drawable="@android:color/transparent"/>~\n~</selector>)~\n~CreateResource(values, colors.xml,~\n~<resources>~\n~  <color name="background_tab_pressed">#6633B5E5</color>~\n~</resources>)~\n~'******************************************
 Module1=afrDb
 Module10=LoadingIndicator
 Module11=PlayStream
@@ -102,7 +102,7 @@ Version=10.7
 	#FullScreen: True
 	#IncludeTitle: False
 #End Region
-#Extends: android.support.v7.app.AppCompatActivity
+'#Extends: android.support.v7.app.AppCompatActivity
 Sub Process_Globals
 	Type i18n(countryTl As String)
 	Type stationList(id As String, station_name As String, station_descr As String, _
@@ -110,7 +110,9 @@ Sub Process_Globals
 					station_language As String, station_url1 As String, _
 					station_url2 As String, station_url3 As String, streamCount As String)
 	Type genreList(genre As String)	
-	Type lanugageList(language As String)			
+	Type lanugageList(language As String)
+'	Type icyDataList(icy_by As String, icy_name As String, icy_playing As String, icy_genre As String, _
+'				 icy_br As String, icy_url As String, icy_maint As Int)
 					
 	Private xui As XUI
 	
@@ -221,3 +223,4 @@ Public Sub CreatelanugageList (language As String) As lanugageList
 	t1.language = language
 	Return t1
 End Sub
+

@@ -11,6 +11,7 @@ Version=9.9
 #End Region
 
 Sub Process_Globals
+	Private xui As XUI
 	Private rp As RuntimePermissions
 	Public dbI18n, i18nXls, dbRdo As String
 	Private clsI18nXls As i18nXlsToDb
@@ -32,8 +33,8 @@ Sub Process_Globals
 End Sub
 
 Sub Service_Create
-	enableDebugMessages = True
-	InitStarter
+	'enableDebugMessages = True
+	InitAfr
 End Sub
 
 Sub Service_Start (StartingIntent As Intent)
@@ -52,7 +53,7 @@ Sub Service_Destroy
 
 End Sub
 
-Private Sub InitStarter
+Private Sub InitAfr
 	lstCountry.Initialize
 	lstCountry.Add(Createi18n("EN"))
 	lstCountry.Add(Createi18n("NL"))
@@ -97,7 +98,7 @@ Private Sub GetSetI18nFiles
 End Sub
 
 Private Sub SetFilesFolder
-	filesFolder = rp.GetSafeDirDefaultExternal("")
+	filesFolder = rp.GetSafeDirDefaultExternal("afr")
 End Sub
 
 Public Sub InitI18nSql

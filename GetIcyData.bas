@@ -6,6 +6,10 @@ Version=10.7
 @EndOfDesignText@
 #IgnoreWarnings: 9, 12
 Sub Class_Globals
+	Type icyDataList(icy_by As String, icy_name As String, icy_playing As String, icy_genre As String, _
+				 icy_br As String, icy_url As String, icy_maint As Int)
+	
+	Public lstIcyData As icyDataList
 	Private icyTimer As Timer
 	Private httpTimeOut As Int = 6*1000
 	Private icyTimerTimeOut As Int = 5*1000
@@ -32,7 +36,7 @@ Private Sub ICYTIMER_Tick
 		Return
 	End If
 	If hasIcyData = False Then
-		If getIcyDataTries = 3 Then
+		If getIcyDataTries >= 3 Then
 			enableTimer(False)
 			CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, Starter.clsi18nVar.GetI18nValueFromString( "i18n.no_station_information"))
 			getIcyDataTries = 0
@@ -77,12 +81,12 @@ Public Sub GetIcyDataFromUrl
 End Sub
 
 Private Sub IcyDataChanged(icyMetaData As String)
-	cmGenFunctions.logDebug(parseIcy(icyMetaData))
 	Dim icyArtist As String = parseIcy(icyMetaData)
-	If icyArtist = "err" Then Return
+	'If icyArtist = "err" Then Return
+		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, lstIcyData.icy_playing)
 	If IcyDataHasChanged = True Then
-		'CallSub2(searchStation, "SetNowPlaying", parseIcy(lastIcyData))
-		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, parseIcy(icyMetaData))
+		'the calling activity and callback must be set in Starter as string
+		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, lstIcyData.icy_playing)
 	Else
 		Return
 		CallSub2(searchStation, "SetNowPlaying", "")
@@ -92,9 +96,15 @@ End Sub
 
 Public Sub parseIcy(metaData As String) As String
 	Dim icy_by, icy_name, icy_playing, icy_genre, icy_br, icy_url, icy_genre As String = ""
-	Dim icy_maint As Int
+	Dim icy_maint As Int = 0
+	
+	ResetIcyList	 
+	
+	If CheckMetaDataValid(metaData) = "err" Then Return "err"
 	
 	Dim parser As JSONParser
+	
+	lstIcyData.Initialize
 	parser.Initialize(metaData)
 
 	Try
@@ -104,13 +114,6 @@ Public Sub parseIcy(metaData As String) As String
 	End Try
 	
 	hasIcyData = True
-	
-	If metaData.IndexOf("error") <> -1 Then
-		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, Starter.clsi18nVar.GetI18nValueFromString( "i18n.no_station_information"))
-		hasIcyData = False
-		enableTimer(False)
-		Return "err"
-	End If
 	
 	icy_by = root.Get("icy-by")
 	icy_name = root.Get("icy-name")
@@ -123,6 +126,40 @@ Public Sub parseIcy(metaData As String) As String
 		icy_maint = root.Get("icy-maint")
 	End If
 	
+	'there is icy data but icy_playing is empty
+	If icy_playing = "" Then
+		icy_playing = $"Geen 'Speelt nu' informatie gevonden"$
+	End If
+	
+	lstIcyData = CreateicyDataList(icy_br, icy_name,icy_playing, icy_genre, icy_br, icy_url, icy_maint)
 	Return icy_playing
 
+End Sub
+
+Public Sub ResetIcyList
+	lstIcyData = CreateicyDataList("", "", Starter.clsi18nVar.GetI18nValueFromString( "i18n.no_station_information"), "", "", "", 0)
+End Sub
+
+Private Sub CheckMetaDataValid(metaData As String) As String
+	If metaData.IndexOf("error") <> -1 Then
+		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, Starter.clsi18nVar.GetI18nValueFromString( "i18n.no_station_information"))
+		hasIcyData = False
+		enableTimer(False)
+		Return "err"
+	End If
+
+	Return ""
+End Sub
+
+Public Sub CreateicyDataList (icy_by As String, icy_name As String, icy_playing As String, icy_genre As String, icy_br As String, icy_url As String, icy_maint As Int) As icyDataList
+	Dim t1 As icyDataList
+	t1.Initialize
+	t1.icy_by = icy_by
+	t1.icy_name = icy_name
+	t1.icy_playing = icy_playing
+	t1.icy_genre = icy_genre
+	t1.icy_br = icy_br
+	t1.icy_url = icy_url
+	t1.icy_maint = icy_maint
+	Return t1
 End Sub

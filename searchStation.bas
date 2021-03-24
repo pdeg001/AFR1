@@ -34,6 +34,8 @@ Sub Globals
 	Private lblKeepStream1, lblKeepStream2, lblKeepStream3 As Label
 	Private pnlBbScroll As Panel
 	Private lblPlaying As Label
+	Private pnlGenreBitrate As Panel
+	Private lblGenreBitrate As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -316,14 +318,15 @@ Private Sub lblStream3_Click
 End Sub
 
 Private Sub GetStreamPlay(lbl As Label)
+	'if there is no stream url for the selected play label
 	If lbl.TextColor <> 0xFF008EFF Then Return
+	'if stream is playing
 	If lbl.Text = Starter.clsi18nVar.GetI18nValueFromString("i18n.stop_stream") Then
 		StopStream
 		lbl.Text = Starter.clsi18nVar.GetI18nValueFromString("i18n.play_stream")
 		Return
 	End If
-	
-	'if stream is playing
+	lblPlaying.Text = "Opening selected stream"
 	SetStreamPlayingButtonText(lbl)
 	clsPlayer.playStreamUrl(lbl.Tag)
 End Sub
@@ -338,19 +341,35 @@ Public Sub GetNowPlaying As String
 End Sub
 
 Public Sub SetNowPlaying(playing As String)
-	cmGenFunctions.logDebug(playing & "***")
-	If playing = "null" Or playing = "" And cmGenFunctions.ExoPLayerIsPlaying Then
-		Return
-	End If
+	playing = Starter.clsIcyData.lstIcyData.icy_playing
+	
 	If lblPlaying.Text = playing Then Return
 	
-	'lblPlaying.Text = playing
 	cmGenFunctions.runMarquee(lblPlaying, playing, "MARQUEE")
+	
+	If Starter.clsIcyData.lstIcyData.icy_name = "" Then
+		SetNowPlayingGenreBitrate($""$)
+		Else
+		SetNowPlayingGenreBitrate($"GENRE : ${Starter.clsIcyData.lstIcyData.icy_genre}   ***   BITRATE : ${Starter.clsIcyData.lstIcyData.icy_br}"$)
+	End If
 	
 End Sub
 
+Public Sub SetNowPlayingGenreBitrate(genreBitrate As String)
+	If genreBitrate = "null" Or genreBitrate = "" And cmGenFunctions.ExoPLayerIsPlaying Then
+		Return
+	End If
+	If lblGenreBitrate.Text = genreBitrate Then Return
+	Sleep(300)
+	
+	cmGenFunctions.runMarquee(lblGenreBitrate, genreBitrate, "MARQUEE")
+End Sub
+
 Private Sub StopStream
+	Starter.clsIcyData.ResetIcyList
+	Starter.clsIcyData.lstIcyData.icy_playing = "klik stream"
 	clsPlayer.StopStream
+	SetNowPlaying("P")
 End Sub
 
 Private Sub lblKeepStream1_Click

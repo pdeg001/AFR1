@@ -40,7 +40,8 @@ Public Sub StopStream
 		
 		Starter.clsIcyData.enableTimer(False)
 		Sleep(200)
-		CallSubDelayed2(searchStation, "SetNowPlaying", "")
+		CallSubDelayed2($"${Starter.icyCallingActivity}"$, $"${Starter.icyCallingActivityCallback}"$, "")
+'		CallSubDelayed2(searchStation, "SetNowPlayingGenreBitrate", "")
 		Starter.phReleaseKeepAlive
 	End If
 End Sub
@@ -50,7 +51,8 @@ Sub PLAYER_Ready
 End Sub
 
 Sub PLAYER_Error (Message As String)
-	CallSub(searchStation, "ErrorPlayingStream")
+	Starter.clsIcyData.ResetIcyList
+	Starter.clsIcyData.lstIcyData.icy_playing = "Error playing stream"
 	StopStream
 '	Log("Error: " & Message)
 End Sub
