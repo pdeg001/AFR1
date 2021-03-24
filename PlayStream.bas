@@ -10,7 +10,6 @@ Sub Class_Globals
 End Sub
 
 Public Sub Initialize
-	'clsIcyData.Initialize
 End Sub
 
 Private Sub InitializePlayer
@@ -53,7 +52,6 @@ Sub PLAYER_Error (Message As String)
 	Starter.clsIcyData.ResetIcyList
 	Starter.clsIcyData.lstIcyData.icy_playing = "Error playing stream"
 	StopStream
-'	Log("Error: " & Message)
 End Sub
 
 Sub PLAYER_Complete
