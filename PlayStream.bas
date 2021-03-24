@@ -41,7 +41,6 @@ Public Sub StopStream
 		Starter.clsIcyData.enableTimer(False)
 		Sleep(200)
 		CallSubDelayed2($"${Starter.icyCallingActivity}"$, $"${Starter.icyCallingActivityCallback}"$, "")
-'		CallSubDelayed2(searchStation, "SetNowPlayingGenreBitrate", "")
 		Starter.phReleaseKeepAlive
 	End If
 End Sub
