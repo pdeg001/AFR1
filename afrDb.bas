@@ -1,5 +1,5 @@
 ﻿B4A=true
-Group=Default Group
+Group=classes
 ModulesStructureVersion=1
 Type=Class
 Version=10.6
@@ -86,7 +86,7 @@ rdo_id
 , stream1, stream2, stream3
 ,(case when stream1 = '-' then 0 else 1 end)+(case when stream2 = '-' then 0 else 1 end)+(case when stream3 = '-' then 0 else 1 end) as countstream
 FROM rdolist
-WHERE stname LIKE ? And country = ?"$
+WHERE stname LIKE ? COLLATE NOCASE And country = ? COLLATE NOCASE"$
 If findGenre.Length > 0 Then
 	qry = $"${qry}
 	AND genre = '${findGenre}'"$
@@ -102,6 +102,7 @@ ORDER BY stname"$
 	lstStation.Initialize
 	
 	Do While rs.NextRow
+		Log(rs.GetString("stname"))
 		lstStation.Add(CreatestationList(rs.GetString("rdo_id"), _
 										 rs.GetString("stname"), _
 										 rs.GetString("description"), _

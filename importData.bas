@@ -1,5 +1,5 @@
 ﻿B4A=true
-Group=Default Group
+Group=classes
 ModulesStructureVersion=1
 Type=Class
 Version=10.6
@@ -24,7 +24,8 @@ Public Sub ProcessXls As ResumableSub
 	
 	For row = 1 To sheet.RowsCount -1
 		stName = sheet.GetCellValue(0, row)
-		If stName = "-" Or stName.IndexOf("http") > -1 Then
+'		If stName = "-" Or stName.IndexOf("http") > -1 Then
+		If stName.IndexOf("http") > -1 Then
 			Continue
 		End If
 		
@@ -38,7 +39,7 @@ Public Sub ProcessXls As ResumableSub
 										  sheet.GetCellValue(7, row)))
 	Next
 	wait for (AddStationsToDb) Complete (result As Boolean)
-	File.Delete(Starter.filesFolder, Starter.xlsFileName)
+'	File.Delete(Starter.filesFolder, Starter.xlsFileName)
 	Return True
 End Sub
 
@@ -50,12 +51,13 @@ Private Sub AddStationsToDb As ResumableSub
 	sql.EndTransaction
 	Sleep(1000)
 	
-	
+	lstStation.SortTypeCaseInsensitive("station_name", True)
 	qry = $"INSERT INTO rdolist (stname, description, genre, country, language, stream1, stream2, stream3)
 	VALUES (?, ?, ?, ?, ?, ?, ?, ?)"$
 	
 	sql.BeginTransaction
 	For Each station As stationList In lstStation
+		
 		If station.station_url1.IndexOf("m3u8") > -1 Or _
 		   station.station_url2.IndexOf("m3u8") > -1 Or _
 		   station.station_url3.IndexOf("m3u8") > -1 Then

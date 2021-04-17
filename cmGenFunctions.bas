@@ -60,3 +60,7 @@ Public Sub runMarquee(view As Label, txt As String, mode As String)
 	r.RunMethod2("setMarqueeRepeatLimit", -1, "java.lang.int")
 	r.RunMethod2("setSelected", True, "java.lang.boolean")
 End Sub
+
+Public Sub Geti18NFromString(i18nString As String) As String
+	Return Starter.clsi18nVar.GetI18nValueFromString(i18nString)
+End Sub

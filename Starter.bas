@@ -13,14 +13,14 @@ Version=9.9
 Sub Process_Globals
 	Private xui As XUI
 	Private rp As RuntimePermissions
-	Public dbI18n, i18nXls, dbRdo As String
 	Private clsI18nXls As i18nXlsToDb
 	Private clsDb As afrDb
-	Public clsIcyData As GetIcyData
-	Public clsi18nVar As i18nGetSetVar
 	Private lstCountry As List
 	Private phWake As PhoneWakeState
 	
+	Public dbI18n, i18nXls, dbRdo As String
+	Public clsIcyData As GetIcyData
+	Public clsi18nVar As i18nGetSetVar
 	Public xlsFileName As String = "station.xls"
 	Public lstGenre, lstLanguage As List
 	Public locale, country, defaultCountry As String
@@ -30,6 +30,7 @@ Sub Process_Globals
 	Public hasInternet, enableDebugMessages As Boolean
 	Public icyCallingActivity As String
 	Public icyCallingActivityCallback As String
+	Public playerStatus As String = "not playing"
 End Sub
 
 Sub Service_Create
