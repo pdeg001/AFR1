@@ -64,3 +64,4 @@ End Sub
 Public Sub Geti18NFromString(i18nString As String) As String
 	Return Starter.clsi18nVar.GetI18nValueFromString(i18nString)
 End Sub
+

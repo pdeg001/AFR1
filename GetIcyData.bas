@@ -88,8 +88,6 @@ Private Sub IcyDataChanged(icyMetaData As String)
 		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, lstIcyData.icy_playing)
 	Else
 		Return
-		CallSub2(searchStation, "SetNowPlaying", "")
-			
 	End If
 End Sub
 

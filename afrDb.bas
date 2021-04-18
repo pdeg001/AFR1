@@ -102,7 +102,6 @@ ORDER BY stname"$
 	lstStation.Initialize
 	
 	Do While rs.NextRow
-		Log(rs.GetString("stname"))
 		lstStation.Add(CreatestationList(rs.GetString("rdo_id"), _
 										 rs.GetString("stname"), _
 										 rs.GetString("description"), _

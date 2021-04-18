@@ -58,11 +58,11 @@ Private Sub AddStationsToDb As ResumableSub
 	sql.BeginTransaction
 	For Each station As stationList In lstStation
 		
-		If station.station_url1.IndexOf("m3u8") > -1 Or _
-		   station.station_url2.IndexOf("m3u8") > -1 Or _
-		   station.station_url3.IndexOf("m3u8") > -1 Then
-		   Continue
-		 End If  
+'		If station.station_url1.IndexOf("m3u8") > -1 Or _
+'		   station.station_url2.IndexOf("m3u8") > -1 Or _
+'		   station.station_url3.IndexOf("m3u8") > -1 Then
+'		   Continue
+'		 End If  
 		sql.ExecNonQuery2(qry, Array As String(station.station_name, station.station_descr, _
 												station.station_genre, station.station_country, _
 												station.station_language, station.station_url1, _
