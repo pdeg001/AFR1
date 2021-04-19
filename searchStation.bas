@@ -382,14 +382,17 @@ Public Sub SetNowPlaying(playing As String)
 	If lblPlaying.Text = playing Then Return
 	
 	cmGenFunctions.runMarquee(lblPlaying, playing, "MARQUEE")
-	
-	If Starter.clsIcyData.lstIcyData.icy_name = "" Then
-		lblGenrePlaying.Text = ""
-		lblBitratePlaying.Text = ""
-	Else
-		lblGenrePlaying.Text = $"${clsI18nValue.GetI18nValueFromString("i18n.genre")}: ${Starter.clsIcyData.lstIcyData.icy_genre}"$
-		lblBitratePlaying.Text = $"${clsI18nValue.GetI18nValueFromString("i18n.bitrate")}: ${Starter.clsIcyData.lstIcyData.icy_br}"$
-	End If
+	Try
+		If Starter.clsIcyData.lstIcyData.icy_name = "" Or Starter.clsIcyData.lstIcyData.icy_name = Null Then
+			lblGenrePlaying.Text = ""
+			lblBitratePlaying.Text = ""
+		Else
+			lblGenrePlaying.Text = $"${clsI18nValue.GetI18nValueFromString("i18n.genre")}: ${Starter.clsIcyData.lstIcyData.icy_genre}"$
+			lblBitratePlaying.Text = $"${clsI18nValue.GetI18nValueFromString("i18n.bitrate")}: ${Starter.clsIcyData.lstIcyData.icy_br}"$
+		End If
+	Catch
+		Log(LastException.Message)
+	End Try
 	
 End Sub
 

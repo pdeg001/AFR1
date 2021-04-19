@@ -11,7 +11,7 @@ Sub Class_Globals
 	
 	Public lstIcyData As icyDataList
 	Private icyTimer As Timer
-	Private httpTimeOut As Int = 6*1000
+	Private httpTimeOut As Int = 30*1000
 	Private icyTimerTimeOut As Int = 5*1000
 	Private getIcyDataTries As Int = 0
 	Private hasIcyData As Boolean
