@@ -16,9 +16,12 @@ End Sub
 
 Sub Globals
 	Private clsI18n As i18nGetSetViews
+	Private clsI18nValue As i18nGetSetVar
 	Private clsPlayer As PlayStream
 	Private clsDb As afrDb
+
 	Private lstStation As List
+	Private lblStreamClick As Label
 	
 	Private pnlStreams, pnlStation, pnlGenreLanguage, pnlGenre, pnlStationStream As Panel
 	Private ftSeach As B4XFloatTextField
@@ -34,14 +37,17 @@ Sub Globals
 	Private lblKeepStream1, lblKeepStream2, lblKeepStream3 As Label
 	Private pnlBbScroll As Panel
 	Private lblPlaying As Label
-	Private pnlGenreBitrate As Panel
-	Private lblGenreBitrate As Label
+	Private lblGenrePlaying As Label
+	Private lblBitratePlaying As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	clsI18n.Initialize
+	clsI18nValue.Initialize
 	clsDb.Initialize
 	clsPlayer.Initialize
+	lblStreamClick.Initialize("")
+	
 	Activity.LoadLayout("searchStation")
 	lblStationFound.Visible = False
 	pnlStreams.Top = Activity.Height+300dip
@@ -75,17 +81,17 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean
 End Sub
 
 Private Sub InitTabView
-	TabSearch.LoadLayout("tabStations", Starter.clsi18nVar.GetI18nValueFromString("i18n.stations"))
-	TabSearch.LoadLayout("tabGenre", Starter.clsi18nVar.GetI18nValueFromString("i18n.genre"))
-	TabSearch.LoadLayout("tabLanguage", Starter.clsi18nVar.GetI18nValueFromString("i18n.language"))
+	TabSearch.LoadLayout("tabStations", cmGenFunctions.Geti18NFromString("i18n.stations"))
+	TabSearch.LoadLayout("tabGenre", cmGenFunctions.Geti18NFromString("i18n.genre"))
+	TabSearch.LoadLayout("tabLanguage", cmGenFunctions.Geti18NFromString("i18n.language"))
 	For Each lbl As Label In GetAllTabLabels(TabSearch)
 		lbl.Width=33%x
 	Next
 End Sub
 
 Private Sub TabI18n
-	lblRemoveGenre.Text = clsI18n.GetI18nValueFromString(lblRemoveGenre.Text)
-	lblRemoveLaguage.Text = clsI18n.GetI18nValueFromString(lblRemoveLaguage.Text)
+	lblRemoveGenre.Text = cmGenFunctions.Geti18NFromString(lblRemoveGenre.Text)
+	lblRemoveLaguage.Text = cmGenFunctions.Geti18NFromString(lblRemoveLaguage.Text)
 End Sub
 
 Private Sub GetGenre
@@ -128,7 +134,7 @@ Private Sub ftSeach_EnterPressed
 		Return
 	End If
 	
-	ProgressDialogShow2(clsI18n.GetI18nValueFromString("i18n.seaching_stations"), False)
+	ProgressDialogShow2(cmGenFunctions.Geti18NFromString("i18n.seaching_stations"), False)
 	Sleep(10)
 	lblStationFound.Visible = False
 	clvStation.Clear
@@ -140,9 +146,10 @@ Private Sub ftSeach_EnterPressed
 		rowNo = rowNo + 1
 	Next
 	clvStation.Refresh
-	lblStationFound.Text = $"${clsI18n.GetI18nValueFromString("i18n.found_count")} ${lstStation.Size}"$
+	lblStationFound.Text = $"${cmGenFunctions.Geti18NFromString("i18n.found_count")} ${lstStation.Size}"$
 	lblStationFound.SetVisibleAnimated(1000, True)
 '	TabSearch.ScrollTo(0, False)
+	clvStation.JumpToItem(0)
 	ProgressDialogHide
 End Sub
 
@@ -257,7 +264,12 @@ Private Sub lblSearch_Click
 End Sub
 
 Private Sub pnlStreams_Click
-	If cmGenFunctions.ExoPLayerIsPlaying Then Return
+'	If cmGenFunctions.ExoPLayerIsPlaying Then 
+'		StopStream
+'		GetStreamPlay
+'	End If
+	
+	clsPlayer.IsLabelKnown
 	pnlStationStream.Tag = ""
 	pnlStreams.SetLayoutAnimated(400, Activity.Width+400dip, 0dip, Activity.Width, Activity.Height)
 	Sleep(400)
@@ -268,8 +280,14 @@ Private Sub pnlStationStream_Click
 	
 End Sub
 
+Private Sub PlayLabelEnabled(enabledState As Boolean, lbl As Label)
+	lbl.Enabled=enabledState
+	lbl.Enabled=enabledState
+End Sub
+
 Private Sub ShowStreamPanel(station As stationList, index As Int)
-	lblClickStationName.Text = station.station_name
+'	lblClickStationName.Text = cmGenFunctions.runMarquee(station.station_name, "MARQUEE")
+	cmGenFunctions.runMarquee(lblClickStationName, station.station_name, "MARQUEE")
 	
 	'set play stream label to blue if there is a stream
 	Dim countStream As Int = cmGenFunctions.GetPanelLabelValue("streamCount", index, clvStation)
@@ -277,25 +295,37 @@ Private Sub ShowStreamPanel(station As stationList, index As Int)
 		lblKeepStream1.TextColor = 0xFF008EFF
 		lblStream1.TextColor = 0xFF008EFF
 		lblStream1.Tag = station.station_url1
+		PlayLabelEnabled(True,lblStream1)
+		PlayLabelEnabled(True,lblKeepStream1)
 	Else
 		lblKeepStream1.TextColor = 0xFFB0B0B0
 		lblStream1.TextColor = 0xFFB0B0B0
+		PlayLabelEnabled(False,lblStream1)
+		PlayLabelEnabled(False,lblKeepStream1)
 	End If
 	If countStream > 1 Then
 		lblKeepStream2.TextColor = 0xFF008EFF
 		lblStream2.TextColor = 0xFF008EFF
 		lblStream2.Tag = station.station_url2
+		PlayLabelEnabled(True,lblStream2)
+		PlayLabelEnabled(True,lblKeepStream2)
 	Else
 		lblKeepStream2.TextColor = 0xFFB0B0B0
 		lblStream2.TextColor = 0xFFB0B0B0
+		PlayLabelEnabled(False,lblStream2)
+		PlayLabelEnabled(False,lblKeepStream2)
 	End If
 	If countStream > 2 Then
 		lblKeepStream3.TextColor = 0xFF008EFF
 		lblStream3.TextColor = 0xFF008EFF
 		lblStream3.Tag = station.station_url3
+		PlayLabelEnabled(True,lblStream3)
+		PlayLabelEnabled(True,lblKeepStream3)
 	Else
 		lblKeepStream3.TextColor = 0xFFB0B0B0
 		lblStream3.TextColor = 0xFFB0B0B0
+		PlayLabelEnabled(False,lblStream3)
+		PlayLabelEnabled(False,lblKeepStream3)
 	End If
 	
 	pnlStreams.SetLayoutAnimated(700, 0dip, 0dip, Activity.Width, Activity.Height)
@@ -303,37 +333,34 @@ Private Sub ShowStreamPanel(station As stationList, index As Int)
 End Sub
 
 Private Sub lblStream1_Click
-	pnlStationStream.Tag = lblStream1
-	GetStreamPlay(lblStream1)
+	InitStream(Sender)
 End Sub
 
 Private Sub lblStream2_Click
-	pnlStationStream.Tag = lblStream2
-	GetStreamPlay(lblStream2)
+	InitStream(Sender)
 End Sub
 
 Private Sub lblStream3_Click
-	pnlStationStream.Tag = lblStream3
-	GetStreamPlay(lblStream3)
+	InitStream(Sender)
 End Sub
 
-Private Sub GetStreamPlay(lbl As Label)
+Private Sub InitStream(lbl As Label)
+	If clsPlayer.IsLabelKnown = True Then Return
+	clsPlayer.CreateLblPlayStation(lbl, "searchStation", "SetNowPlaying", "ResetCurrentPlayingLabels")
+	GetStreamPlay
+End Sub
+
+Private Sub GetStreamPlay
 	'if there is no stream url for the selected play label
-	If lbl.TextColor <> 0xFF008EFF Then Return
-	'if stream is playing
-	If lbl.Text = Starter.clsi18nVar.GetI18nValueFromString("i18n.stop_stream") Then
-		StopStream
-		lbl.Text = Starter.clsi18nVar.GetI18nValueFromString("i18n.play_stream")
+	If clsPlayer.lblPlayStationPlaying.lbl.TextColor <> 0xFF008EFF Or Starter.playerStatus = "error" Then
+		Starter.playerStatus = "not playing"
+		lblStreamClick.Text = cmGenFunctions.Geti18NFromString("i18n.play_stream")
+		If cmGenFunctions.ExoPLayerIsPlaying Then StopStream
 		Return
 	End If
-	lblPlaying.Text = "Opening selected stream"
-	SetStreamPlayingButtonText(lbl)
-	clsPlayer.playStreamUrl(lbl.Tag)
-End Sub
-
-Private Sub SetStreamPlayingButtonText(lbl As Label)
-	'TODO : test if stream is actually playing
-	lbl.Text = Starter.clsi18nVar.GetI18nValueFromString("i18n.stop_stream")
+	
+	lblPlaying.Text = cmGenFunctions.Geti18NFromString("i18n.opening_selected_stream")
+	clsPlayer.StartLabelStream
 End Sub
 
 Public Sub GetNowPlaying As String
@@ -341,44 +368,54 @@ Public Sub GetNowPlaying As String
 End Sub
 
 Public Sub SetNowPlaying(playing As String)
-	playing = Starter.clsIcyData.lstIcyData.icy_playing
+	If playing = Null Or playing = "null" Then
+		cmGenFunctions.runMarquee(lblPlaying, clsI18nValue.GetI18nValueFromString("i18n.no_station_information"), "MARQUEE")
+		Return
+	End If
+	If Starter.playerStatus = "error" Then
+		ErrorPlayingStream
+		Return
+	End If
 	
+	playing = Starter.clsIcyData.lstIcyData.icy_playing
+	clsPlayer.lblPlayStationPlaying.lbl.Text= cmGenFunctions.Geti18NFromString("i18n.stop_stream")
 	If lblPlaying.Text = playing Then Return
 	
 	cmGenFunctions.runMarquee(lblPlaying, playing, "MARQUEE")
 	
 	If Starter.clsIcyData.lstIcyData.icy_name = "" Then
-		SetNowPlayingGenreBitrate($""$)
-		Else
-		SetNowPlayingGenreBitrate($"GENRE : ${Starter.clsIcyData.lstIcyData.icy_genre}   ***   BITRATE : ${Starter.clsIcyData.lstIcyData.icy_br}"$)
+		lblGenrePlaying.Text = ""
+		lblBitratePlaying.Text = ""
+	Else
+		lblGenrePlaying.Text = $"${clsI18nValue.GetI18nValueFromString("i18n.genre")}: ${Starter.clsIcyData.lstIcyData.icy_genre}"$
+		lblBitratePlaying.Text = $"${clsI18nValue.GetI18nValueFromString("i18n.bitrate")}: ${Starter.clsIcyData.lstIcyData.icy_br}"$
 	End If
 	
 End Sub
 
-Public Sub SetNowPlayingGenreBitrate(genreBitrate As String)
-	If genreBitrate = "null" Or genreBitrate = "" And cmGenFunctions.ExoPLayerIsPlaying Then
-		Return
-	End If
-	If lblGenreBitrate.Text = genreBitrate Then Return
-	Sleep(300)
-	
-	cmGenFunctions.runMarquee(lblGenreBitrate, genreBitrate, "MARQUEE")
+'called from clsPlayer, and clears labels
+Private Sub ResetCurrentPlayingLabels 'ignore
+	lblGenrePlaying.Text = ""
+	lblBitratePlaying.Text = ""
+	lblPlaying.Text = cmGenFunctions.Geti18NFromString("i18n.click_stream")
+	clsPlayer.lblPlayStationPlaying.lbl.Text = cmGenFunctions.Geti18NFromString("i18n.play_stream")
 End Sub
+
 
 Private Sub StopStream
 	Starter.clsIcyData.ResetIcyList
-	Starter.clsIcyData.lstIcyData.icy_playing = "klik stream"
-	clsPlayer.StopStream
-	SetNowPlaying("P")
+	Starter.clsIcyData.lstIcyData.icy_playing = cmGenFunctions.Geti18NFromString("i18n.click_stream")
+	If cmGenFunctions.ExoPLayerIsPlaying Then
+		clsPlayer.StopStream
+	End If
 End Sub
 
 Private Sub lblKeepStream1_Click
-	StopStream
 End Sub
 
 Public Sub ErrorPlayingStream
-	Dim lbl As Label = 	pnlStationStream.Tag
-	GetStreamPlay(lbl)
+	GetStreamPlay
+	StopStream
 	Sleep(1000)
-	SetNowPlaying("Kan stream niet afspelen")
+	SetNowPlaying(cmGenFunctions.Geti18NFromString("i18n.unable_to_play_stream"))
 End Sub

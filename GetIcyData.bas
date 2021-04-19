@@ -1,5 +1,5 @@
 ﻿B4A=true
-Group=Default Group
+Group=classes
 ModulesStructureVersion=1
 Type=Class
 Version=10.7
@@ -37,8 +37,8 @@ Private Sub ICYTIMER_Tick
 	End If
 	If hasIcyData = False Then
 		If getIcyDataTries >= 3 Then
-			enableTimer(False)
-			CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, Starter.clsi18nVar.GetI18nValueFromString( "i18n.no_station_information"))
+			'enableTimer(False)
+			CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, cmGenFunctions.Geti18NFromString( "i18n.no_station_information"))
 			getIcyDataTries = 0
 			Return
 		End If
@@ -54,7 +54,6 @@ Public Sub GetIcyDataFromUrl
 	Dim url As String = $"http://ice.pdeg.nl/getIcy.php?url=${streamUrl}"$
 	Dim job As HttpJob
 	
-'	Log(url)
 	IcyDataHasChanged = False
 	job.Initialize("", Me)
 	job.Download(url)
@@ -63,7 +62,7 @@ Public Sub GetIcyDataFromUrl
 	Wait For (job) JobDone(job As HttpJob)
 	If job.Success Then
 		Dim icyData As String = job.GetString 
-
+		'cmGenFunctions.logDebug(icyData)
 		If icyData <> lastIcyData Then
 			lastIcyData = icyData
 			IcyDataHasChanged = True
@@ -74,7 +73,7 @@ Public Sub GetIcyDataFromUrl
 		End If
 	Else
 		lastIcyData = ""
-		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, Starter.clsi18nVar.GetI18nValueFromString( "i18n.no_station_information"))
+		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, cmGenFunctions.Geti18NFromString("i18n.no_station_information"))
 		job.Release
 	End If
 	
@@ -89,8 +88,6 @@ Private Sub IcyDataChanged(icyMetaData As String)
 		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, lstIcyData.icy_playing)
 	Else
 		Return
-		CallSub2(searchStation, "SetNowPlaying", "")
-			
 	End If
 End Sub
 
@@ -110,7 +107,7 @@ Public Sub parseIcy(metaData As String) As String
 	Try
 		Dim root As Map = parser.NextObject
 	Catch
-		Return Starter.clsi18nVar.GetI18nValueFromString( "i18n.no_station_information")
+		Return cmGenFunctions.Geti18NFromString("i18n.no_station_information")
 	End Try
 	
 	hasIcyData = True
@@ -128,7 +125,7 @@ Public Sub parseIcy(metaData As String) As String
 	
 	'there is icy data but icy_playing is empty
 	If icy_playing = "" Then
-		icy_playing = $"Geen 'Speelt nu' informatie gevonden"$
+		icy_playing = $"${cmGenFunctions.Geti18NFromString("i18n.no_playing_information")}"$
 	End If
 	
 	lstIcyData = CreateicyDataList(icy_br, icy_name,icy_playing, icy_genre, icy_br, icy_url, icy_maint)
@@ -137,15 +134,16 @@ Public Sub parseIcy(metaData As String) As String
 End Sub
 
 Public Sub ResetIcyList
-	lstIcyData = CreateicyDataList("", "", Starter.clsi18nVar.GetI18nValueFromString( "i18n.no_station_information"), "", "", "", 0)
+	lstIcyData = CreateicyDataList("", "", cmGenFunctions.Geti18NFromString("i18n.no_station_information"), "", "", "", 0)
 End Sub
 
 Private Sub CheckMetaDataValid(metaData As String) As String
-	If metaData.IndexOf("error") <> -1 Then
+	If metaData.IndexOf("error") <> -1 And getIcyDataTries >= 3 Then
 		CallSub2($"${Starter.icyCallingActivity}"$, Starter.icyCallingActivityCallback, Starter.clsi18nVar.GetI18nValueFromString( "i18n.no_station_information"))
-		hasIcyData = False
-		enableTimer(False)
+'		hasIcyData = False
+'		enableTimer(False)
 		Return "err"
+		getIcyDataTries = 0
 	End If
 
 	Return ""

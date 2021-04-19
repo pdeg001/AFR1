@@ -185,7 +185,7 @@ Private Sub GetStationList As ResumableSub
 	
 	'STATIONS LIJST NOT YET DOWNLOADED
 	'If lastStationDownload = "01" Then
-	Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.get_station_list"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_yes"), "", clsI18n.GetI18nValueFromString("i18n.btn_no"), Null, False)
+	Msgbox2Async(cmGenFunctions.Geti18NFromString("i18n.get_station_list"), Application.LabelName, cmGenFunctions.Geti18NFromString("i18n.btn_yes"), "", cmGenFunctions.Geti18NFromString("i18n.btn_no"), Null, False)
 	Wait For Msgbox_Result (Result As Int)
 	If Result = DialogResponse.NEGATIVE Then
 '			Msgbox2Async(clsI18n.GetI18nValueFromString("i18n.application_will_be_closed"), Application.LabelName, clsI18n.GetI18nValueFromString("i18n.btn_ok"), "", "", Null, False)
@@ -210,7 +210,7 @@ End Sub
 
 Public Sub UpdateLoadingIndicator(msg As String)
 	clsLoading.ShowIndicator(msg)
-	If msg = clsI18n.GetI18nValueFromString("i18n.download_done") Then
+	If msg = cmGenFunctions.Geti18NFromString("i18n.download_done") Then
 		Sleep(2000)
 		clsLoading.HideIndicator
 	End If
