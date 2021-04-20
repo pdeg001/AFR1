@@ -356,7 +356,10 @@ Private Sub lblStream3_Click
 End Sub
 
 Private Sub InitStream(lbl As Label)
-	If clsPlayer.IsLabelKnown = True Then Return
+	Dim currLabelTag As String = clsPlayer.IsLabelKnown
+'	If clsPlayer.IsLabelKnown = True Then Return
+'	clsPlayer.IsLabelKnown
+	If lbl.Tag = currLabelTag Then Return
 	clsPlayer.CreateLblPlayStation(lbl, "searchStation", "SetNowPlaying", "ResetCurrentPlayingLabels")
 	GetStreamPlay
 End Sub

@@ -54,23 +54,20 @@ End Sub
 Public Sub StopStream
 	If cmGenFunctions.ExoPLayerIsPlaying = False Then Return
 	player.Release
+	Starter.clsIcyData.enableTimer(False)
+	Starter.phReleaseKeepAlive
 	Sleep(200)
 
 	'check player status is "error"
 	If Starter.playerStatus = "error" Then
-		Starter.clsIcyData.enableTimer(False)
 		Return
-		
 	End If
 	
 	If player.IsPlaying Then
 		playStreamUrl("")
 		Starter.clsIcyData.lastIcyData = ""
 		Starter.clsIcyData.IcyDataHasChanged = False
-		Starter.clsIcyData.enableTimer(False)
 		Starter.playerStatus = "not playing"
-		
-		Starter.phReleaseKeepAlive
 	Else
 		
 	End If
@@ -105,15 +102,25 @@ Private Sub NoStreamUrlPassed As Boolean
 	Return True
 End Sub
 
-Public Sub IsLabelKnown As Boolean
+Public Sub IsLabelKnown As String
+	Dim currLabel As Label
 	'nothing is playing
-	If lblPlayStationPlaying.IsInitialized = False Or lblPlayStationPlaying.lbl.IsInitialized = False Then Return False
+	If lblPlayStationPlaying.IsInitialized = False Or lblPlayStationPlaying.lbl.IsInitialized = False Then Return ""
 	'reset labels
 	CallSub($"${lblPlayStationPlaying.act}"$, $"${lblPlayStationPlaying.callBackStop}"$)
+	'stop the ICY timer
+	Starter.clsIcyData.enableTimer(False)
 	'stop the stream
+	Log($"${DateTime.Now}"$)
 	StopStream
+	
+	Do While cmGenFunctions.ExoPLayerIsPlaying= True
+	Loop
+	Log($"${DateTime.Now}"$)
+	
+	currLabel = lblPlayStationPlaying.lbl
 	CreateLblPlayStation (Null, Null, Null, Null)
-	Return True
+	Return currLabel.Tag
 End Sub
 
 Public Sub StartLabelStream
