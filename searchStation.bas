@@ -139,6 +139,17 @@ Private Sub ftSeach_EnterPressed
 	lblStationFound.Visible = False
 	clvStation.Clear
 	lstStation = clsDb.GetStationByQuery(ftSeach.Text)
+	
+	If lstStation.Size = 0 Then
+		ProgressDialogHide
+		Msgbox2Async(cmGenFunctions.Geti18NFromString("i18n.nothing_found"), Application.LabelName, cmGenFunctions.Geti18NFromString("i18n.btn_ok"), "", "", Application.Icon, False)
+		Wait For Msgbox_Result (Result As Int)
+		If Result = DialogResponse.POSITIVE Then
+			Return
+		End If
+	End If
+	
+	
 	Dim rowNo As Int = 1
 	
 	For Each station As stationList In lstStation
