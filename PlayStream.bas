@@ -5,7 +5,7 @@ Type=Class
 Version=10.7
 @EndOfDesignText@
 Sub Class_Globals
-	Type lblPlayStation (lbl As Label, act As String, callBackStart As String, callBackStop As String)
+	Type lblPlayStation (lbl As Label, act As String, callBackStart As String, callBackStop As String, stream As String)
 	Private player As SimpleExoPlayer
 	Public lblPlayStationPlaying As lblPlayStation
 	Public isPLaying As Boolean
@@ -85,7 +85,8 @@ Sub player_Error (Message As String)
 	Starter.clsIcyData.ResetIcyList
 	Starter.clsIcyData.lstIcyData.icy_playing = "Error playing stream"
 	StopStream
-	
+	IsLabelKnown
+	ToastMessageShow(Starter.clsi18nVar.GetI18nValueFromString("i18n.unable_to_play_stream"), False)
 End Sub
 
 Sub player_Complete
@@ -111,15 +112,12 @@ Public Sub IsLabelKnown As String
 	'stop the ICY timer
 	Starter.clsIcyData.enableTimer(False)
 	'stop the stream
-	Log($"${DateTime.Now}"$)
 	StopStream
-	
 	Do While cmGenFunctions.ExoPLayerIsPlaying= True
 	Loop
-	Log($"${DateTime.Now}"$)
 	
 	currLabel = lblPlayStationPlaying.lbl
-	CreateLblPlayStation (Null, Null, Null, Null)
+	CreateLblPlayStation (Null, Null, Null, Null, Null)
 	Return currLabel.Tag
 End Sub
 
@@ -129,12 +127,13 @@ Public Sub StartLabelStream
 	CallSub2($"${lblPlayStationPlaying.act}"$, $"${lblPlayStationPlaying.callBackStart}"$, "")
 End Sub
 
-Public Sub CreateLblPlayStation (lbl As Label, act As String, callBackStart As String, callBackStop As String)
+Public Sub CreateLblPlayStation (lbl As Label, act As String, callBackStart As String, callBackStop As String, stream As String)
 	Dim t1 As lblPlayStation
 	t1.Initialize
 	t1.lbl = lbl
 	t1.act = act
 	t1.callBackStart = callBackStart
 	t1.callBackStop = callBackStop
+	t1.stream = stream
 	lblPlayStationPlaying = t1
 End Sub

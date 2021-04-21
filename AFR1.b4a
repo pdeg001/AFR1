@@ -141,7 +141,7 @@ Sub Activity_Create(FirstTime As Boolean)
 End Sub
 
 Sub Activity_Resume
-
+	Starter.GetLocale
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)

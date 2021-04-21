@@ -19,6 +19,8 @@ Sub Globals
 	Private clsI18nValue As i18nGetSetVar
 	Private clsPlayer As PlayStream
 	Private clsDb As afrDb
+	
+	Private ime as IME
 
 	Private lstStation As List
 	Private lblStreamClick As Label
@@ -39,6 +41,9 @@ Sub Globals
 	Private lblPlaying As Label
 	Private lblGenrePlaying As Label
 	Private lblBitratePlaying As Label
+	Private pnlFooter As Panel
+	Private lblSelectCountry As Label
+	Private edtDummyForFocus As EditText
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -134,6 +139,8 @@ Private Sub ftSeach_EnterPressed
 		Return
 	End If
 	
+	ime.HideKeyboard
+	
 	ProgressDialogShow2(cmGenFunctions.Geti18NFromString("i18n.seaching_stations"), False)
 	Sleep(10)
 	lblStationFound.Visible = False
@@ -162,6 +169,7 @@ Private Sub ftSeach_EnterPressed
 '	TabSearch.ScrollTo(0, False)
 	clvStation.JumpToItem(0)
 	ProgressDialogHide
+	edtDummyForFocus.RequestFocus
 End Sub
 
 Private Sub CreateStationList(station As stationList, rowNo As String) As Panel
@@ -360,21 +368,26 @@ Private Sub InitStream(lbl As Label)
 '	If clsPlayer.IsLabelKnown = True Then Return
 '	clsPlayer.IsLabelKnown
 	If lbl.Tag = currLabelTag Then Return
-	clsPlayer.CreateLblPlayStation(lbl, "searchStation", "SetNowPlaying", "ResetCurrentPlayingLabels")
+	clsPlayer.CreateLblPlayStation(lbl, "searchStation", "SetNowPlaying", "ResetCurrentPlayingLabels", lbl.Tag)
 	GetStreamPlay
 End Sub
 
 Private Sub GetStreamPlay
-	'if there is no stream url for the selected play label
-	If clsPlayer.lblPlayStationPlaying.lbl.TextColor <> 0xFF008EFF Or Starter.playerStatus = "error" Then
-		Starter.playerStatus = "not playing"
-		lblStreamClick.Text = cmGenFunctions.Geti18NFromString("i18n.play_stream")
-		If cmGenFunctions.ExoPLayerIsPlaying Then StopStream
-		Return
-	End If
+	Try
+		'if there is no stream url for the selected play label
+		If clsPlayer.lblPlayStationPlaying.act = Null And clsPlayer.lblPlayStationPlaying.lbl.TextColor <> 0xFF008EFF Or Starter.playerStatus = "error" Then
+			Starter.playerStatus = "not playing"
+			lblStreamClick.Text = cmGenFunctions.Geti18NFromString("i18n.play_stream")
+			If cmGenFunctions.ExoPLayerIsPlaying Then StopStream
+			Return
+		End If
 	
-	lblPlaying.Text = cmGenFunctions.Geti18NFromString("i18n.opening_selected_stream")
-	clsPlayer.StartLabelStream
+		clsPlayer.StartLabelStream
+		lblPlaying.Text = cmGenFunctions.Geti18NFromString("i18n.opening_selected_stream")
+	Catch
+		Log(LastException.Message)
+		Return	
+	End Try
 End Sub
 
 Public Sub GetNowPlaying As String
@@ -385,13 +398,21 @@ Public Sub SetNowPlaying(playing As String)
 	If playing = Null Or playing = "null" Then
 		cmGenFunctions.runMarquee(lblPlaying, clsI18nValue.GetI18nValueFromString("i18n.no_station_information"), "MARQUEE")
 		Return
+	Else
+		'cmGenFunctions.runMarquee(lblPlaying, playing, "MARQUEE")
 	End If
+
 	If Starter.playerStatus = "error" Then
 		ErrorPlayingStream
 		Return
 	End If
 	
-	playing = Starter.clsIcyData.lstIcyData.icy_playing
+	If Starter.clsIcyData.lstIcyData.icy_playing <> Null Then
+		playing = Starter.clsIcyData.lstIcyData.icy_playing
+	Else 
+		playing	= clsI18nValue.GetI18nValueFromString("i18n.no_station_information")
+	End If
+	
 	clsPlayer.lblPlayStationPlaying.lbl.Text= cmGenFunctions.Geti18NFromString("i18n.stop_stream")
 	If lblPlaying.Text = playing Then Return
 	
@@ -435,4 +456,14 @@ Public Sub ErrorPlayingStream
 	StopStream
 	Sleep(1000)
 	SetNowPlaying(cmGenFunctions.Geti18NFromString("i18n.unable_to_play_stream"))
+End Sub
+
+Private Sub lblSelectCountry_Click
+	Msgbox2Async(cmGenFunctions.Geti18NFromString("i18n.select_different_country"), Application.LabelName, cmGenFunctions.Geti18NFromString("i18n.btn_yes"), "", cmGenFunctions.Geti18NFromString("i18n.btn_no"), Application.Icon, False)
+	Wait For Msgbox_Result (Result As Int)
+	If Result = DialogResponse.NEGATIVE Then
+		Return
+	End If
+	Activity.Finish
+	StartActivity(selectCountry)
 End Sub

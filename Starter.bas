@@ -115,6 +115,10 @@ Public Sub InitRdoDb
 	End If
 End Sub
 
+Public Sub GetLocale
+	FindLocale2
+End Sub
+
 Private Sub FindLocale2
 	Dim jo As JavaObject
 	jo = jo.InitializeStatic("java.util.Locale").RunMethod("getDefault", Null)
