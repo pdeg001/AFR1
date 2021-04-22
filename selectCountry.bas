@@ -82,7 +82,7 @@ End Sub
 
 Private Sub GenAbbrev(abbrev As String) As Panel
 	Dim pnl As B4XView = xui.CreatePanel("")
-	pnl.SetLayoutAnimated(0, 2dip, 0, 110dip, 55dip)
+	pnl.SetLayoutAnimated(0, 0, 0, clvCountryAbbrev.AsView.Width, 70dip)
 	pnl.LoadLayout("pnlCountryAbbrev")
 	lblCountryAbbrev.Text = abbrev
 	
@@ -121,16 +121,16 @@ Private Sub clvCountriesScrollTo
 	If clvCountries.Size = 0 Then Return
 	
 	If defaultCountryIndex <> -1 And clvCountries.Size >= defaultCountryIndex Then
-		clvCountries.ScrollToItem(defaultCountryIndex)
+		clvCountries.jumpToItem(defaultCountryIndex)
 	Else
-		clvCountries.ScrollToItem(0)
+		clvCountries.jumpToItem(0)
 	End If
 	
 End Sub
 
 Private Sub GenCountryList(countryName As String) As Panel
 	Dim pnl As B4XView = xui.CreatePanel("")
-	pnl.SetLayoutAnimated(0, 0, 0, clvCountries.AsView.Width, 70dip)
+	pnl.SetLayoutAnimated(100, 0, 0, clvCountries.AsView.Width, 70dip)
 	pnl.LoadLayout("pnlCountry")
 	
 	lblCountry.Text = countryName
