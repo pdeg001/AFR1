@@ -20,7 +20,7 @@ Sub Globals
 	Private clsPlayer As PlayStream
 	Private clsDb As afrDb
 	
-	Private ime as IME
+	Private ime As IME
 
 	Private lstStation As List
 	Private lblStreamClick As Label
@@ -397,7 +397,7 @@ End Sub
 Public Sub SetNowPlaying(playing As String)
 	If playing = Null Or playing = "null" Then
 		cmGenFunctions.runMarquee(lblPlaying, clsI18nValue.GetI18nValueFromString("i18n.no_station_information"), "MARQUEE")
-		Return
+'		Return
 	Else
 		'cmGenFunctions.runMarquee(lblPlaying, playing, "MARQUEE")
 	End If

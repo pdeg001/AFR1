@@ -7,6 +7,7 @@ Version=10.7
 Sub Class_Globals
 	Type lblPlayStation (lbl As Label, act As String, callBackStart As String, callBackStop As String, stream As String)
 	Private player As SimpleExoPlayer
+	Private msStartStopSTream As Long
 	Public lblPlayStationPlaying As lblPlayStation
 	Public isPLaying As Boolean
 End Sub
@@ -46,7 +47,7 @@ End Sub
 Private Sub IsExoticExtension (url As String) As Boolean
 	If url.IndexOf(".m3u") > -1 Then Return True
 	If url.IndexOf(".ogg") > -1 Then Return True
-	If url.IndexOf("=pls") > -1 Then Return True
+'	If url.IndexOf("=pls") > -1 Then Return True
 	
 	Return False
 End Sub
@@ -104,6 +105,10 @@ Private Sub NoStreamUrlPassed As Boolean
 End Sub
 
 Public Sub IsLabelKnown As String
+	
+	Dim msStopStreamDiff ,msStopStreamDuration As Long = DateTime.Now
+	
+	
 	Dim currLabel As Label
 	'nothing is playing
 	If lblPlayStationPlaying.IsInitialized = False Or lblPlayStationPlaying.lbl.IsInitialized = False Then Return ""
@@ -113,8 +118,13 @@ Public Sub IsLabelKnown As String
 	Starter.clsIcyData.enableTimer(False)
 	'stop the stream
 	StopStream
-	Do While cmGenFunctions.ExoPLayerIsPlaying= True
+	msStartStopSTream = DateTime.Now
+	Do While cmGenFunctions.ExoPLayerIsPlaying= True Or msStopStreamDiff < 0 Or msStopStreamDiff >= 2000
+		msStopStreamDuration = DateTime.Now
+		msStopStreamDiff = msStopStreamDuration-msStartStopSTream
 	Loop
+	Log($"$DateTime{DateTime.Now}  ${msStopStreamDuration-msStartStopSTream}"$)
+	
 	
 	currLabel = lblPlayStationPlaying.lbl
 	CreateLblPlayStation (Null, Null, Null, Null, Null)
