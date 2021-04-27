@@ -24,7 +24,6 @@ Public Sub ProcessXls As ResumableSub
 	
 	For row = 1 To sheet.RowsCount -1
 		stName = sheet.GetCellValue(0, row)
-'		If stName = "-" Or stName.IndexOf("http") > -1 Then
 		If stName.IndexOf("http") > -1 Then
 			Continue
 		End If
@@ -58,11 +57,6 @@ Private Sub AddStationsToDb As ResumableSub
 	sql.BeginTransaction
 	For Each station As stationList In lstStation
 		
-'		If station.station_url1.IndexOf(".pls") > -1 Or _
-'		   station.station_url2.IndexOf(".pls") > -1 Or _
-'		   station.station_url3.IndexOf(".pls") > -1 Then
-'			Continue
-'		End If
 		sql.ExecNonQuery2(qry, Array As String(station.station_name, station.station_descr, _
 												station.station_genre, station.station_country, _
 												station.station_language, station.station_url1, _
@@ -80,11 +74,6 @@ Public Sub CreatestationList (station_name As String, station_descr As String, _
 							    station_genre As String, station_country As String, _
 								station_language As String, _
 								station_url1 As String, station_url2 As String, station_url3 As String) As stationList
-								
-	'EXCLUDE .PLS URL
-	If station_url1.IndexOf(".pls") > -1 Then station_url1 = "-"
-	If station_url2.IndexOf(".pls") > -1 Then station_url2 = "-"
-	If station_url3.IndexOf(".pls") > -1 Then station_url3 = "-"
 									
 	Dim t1 As stationList
 	t1.Initialize

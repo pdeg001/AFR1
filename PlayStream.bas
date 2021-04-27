@@ -47,7 +47,6 @@ End Sub
 Private Sub IsExoticExtension (url As String) As Boolean
 	If url.IndexOf(".m3u") > -1 Then Return True
 	If url.IndexOf(".ogg") > -1 Then Return True
-'	If url.IndexOf("=pls") > -1 Then Return True
 	
 	Return False
 End Sub
@@ -123,11 +122,10 @@ Public Sub IsLabelKnown As String
 		msStopStreamDuration = DateTime.Now
 		msStopStreamDiff = msStopStreamDuration-msStartStopSTream
 	Loop
-	Log($"$DateTime{DateTime.Now}  ${msStopStreamDuration-msStartStopSTream}"$)
-	
 	
 	currLabel = lblPlayStationPlaying.lbl
 	CreateLblPlayStation (Null, Null, Null, Null, Null)
+
 	Return currLabel.Tag
 End Sub
 

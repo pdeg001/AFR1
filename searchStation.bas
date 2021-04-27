@@ -18,6 +18,7 @@ Sub Globals
 	Private clsI18n As i18nGetSetViews
 	Private clsI18nValue As i18nGetSetVar
 	Private clsPlayer As PlayStream
+	Private clsPlsPlayer As PlsPlayer
 	Private clsDb As afrDb
 	
 	Private ime As IME
@@ -51,6 +52,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	clsI18nValue.Initialize
 	clsDb.Initialize
 	clsPlayer.Initialize
+	clsPlsPlayer.Initialize
 	lblStreamClick.Initialize("")
 	
 	Activity.LoadLayout("searchStation")
@@ -374,6 +376,11 @@ End Sub
 
 Private Sub GetStreamPlay
 	Try
+		If clsPlayer.lblPlayStationPlaying.stream.IndexOf(".pls") > -1 Then
+			Wait For ( clsPlsPlayer.GetPlsStream(clsPlayer.lblPlayStationPlaying.stream)) Complete (plsUrl As String)
+			clsPlayer.lblPlayStationPlaying.lbl.Tag = plsUrl
+		End If
+		
 		'if there is no stream url for the selected play label
 		If clsPlayer.lblPlayStationPlaying.act = Null And clsPlayer.lblPlayStationPlaying.lbl.TextColor <> 0xFF008EFF Or Starter.playerStatus = "error" Then
 			Starter.playerStatus = "not playing"
