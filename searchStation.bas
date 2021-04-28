@@ -25,6 +25,7 @@ Sub Globals
 
 	Private lstStation As List
 	Private lblStreamClick As Label
+	Private baseElevation = 1, activeElevation = 8 As Float
 	
 	Private pnlStreams, pnlStation, pnlGenreLanguage, pnlGenre, pnlStationStream As Panel
 	Private ftSeach As B4XFloatTextField
@@ -45,6 +46,9 @@ Sub Globals
 	Private pnlFooter As Panel
 	Private lblSelectCountry As Label
 	Private edtDummyForFocus As EditText
+	Private pnlPlayStream1 As Panel
+	Private pnlPlayStream2 As Panel
+	Private pnlPlayStream3 As Panel
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -56,6 +60,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	lblStreamClick.Initialize("")
 	
 	Activity.LoadLayout("searchStation")
+	ResetButtonElevation
 	lblStationFound.Visible = False
 	pnlStreams.Top = Activity.Height+300dip
 	InitTabView
@@ -354,15 +359,33 @@ Private Sub ShowStreamPanel(station As stationList, index As Int)
 End Sub
 
 Private Sub lblStream1_Click
+	ResetButtonElevation
+	'SetActiveElevation(Sender)
 	InitStream(Sender)
 End Sub
 
 Private Sub lblStream2_Click
+	ResetButtonElevation
+	'SetActiveElevation(Sender)
 	InitStream(Sender)
 End Sub
 
 Private Sub lblStream3_Click
+	ResetButtonElevation
+'	SetActiveElevation(Sender)
 	InitStream(Sender)
+End Sub
+
+Private Sub SetActiveElevation(lbl As Label)
+	Dim pnl As Panel = lbl.Parent
+	
+	pnl.SetElevationAnimated(500,activeElevation)
+End Sub
+
+Private Sub ResetButtonElevation
+	pnlPlayStream1.Elevation = baseElevation
+	pnlPlayStream2.Elevation = baseElevation
+	pnlPlayStream3.Elevation = baseElevation
 End Sub
 
 Private Sub InitStream(lbl As Label)
@@ -371,23 +394,15 @@ Private Sub InitStream(lbl As Label)
 '	clsPlayer.IsLabelKnown
 	If lbl.Tag = currLabelTag Then Return
 	clsPlayer.CreateLblPlayStation(lbl, "searchStation", "SetNowPlaying", "ResetCurrentPlayingLabels", lbl.Tag)
+	SetActiveElevation(lbl)
 	GetStreamPlay
 End Sub
 
 Private Sub GetStreamPlay
 	Try
-		If clsPlayer.lblPlayStationPlaying.stream.IndexOf(".pls") > -1 Then
-			Wait For ( clsPlsPlayer.GetPlsStream(clsPlayer.lblPlayStationPlaying.stream)) Complete (plsUrl As String)
-			clsPlayer.lblPlayStationPlaying.lbl.Tag = plsUrl
-		End If
-		
-		'if there is no stream url for the selected play label
-		If clsPlayer.lblPlayStationPlaying.act = Null And clsPlayer.lblPlayStationPlaying.lbl.TextColor <> 0xFF008EFF Or Starter.playerStatus = "error" Then
-			Starter.playerStatus = "not playing"
-			lblStreamClick.Text = cmGenFunctions.Geti18NFromString("i18n.play_stream")
-			If cmGenFunctions.ExoPLayerIsPlaying Then StopStream
-			Return
-		End If
+		wait for (CheckPls) Complete (cont As Boolean)
+		If cont = False Then Return
+		If CheckLblUrl = False Then Return
 	
 		clsPlayer.StartLabelStream
 		lblPlaying.Text = cmGenFunctions.Geti18NFromString("i18n.opening_selected_stream")
@@ -395,6 +410,30 @@ Private Sub GetStreamPlay
 		Log(LastException.Message)
 		Return	
 	End Try
+End Sub
+
+Private Sub CheckLblUrl As Boolean
+	'if there is no stream url for the selected play label
+	If clsPlayer.lblPlayStationPlaying.act = Null And clsPlayer.lblPlayStationPlaying.lbl.TextColor <> 0xFF008EFF Or Starter.playerStatus = "error" Then
+		Starter.playerStatus = "not playing"
+		lblStreamClick.Text = cmGenFunctions.Geti18NFromString("i18n.play_stream")
+		If cmGenFunctions.ExoPLayerIsPlaying Then StopStream
+		Return False
+	End If
+	Return True
+End Sub
+
+Private Sub CheckPls As ResumableSub
+	If clsPlayer.lblPlayStationPlaying.stream.IndexOf(".pls") > -1 Then
+		Wait For ( clsPlsPlayer.GetPlsStream(clsPlayer.lblPlayStationPlaying.stream)) Complete (plsUrl As String)
+		If plsUrl = "err" Then
+			cmGenFunctions.createCustomToast(cmGenFunctions.Geti18NFromString("i18n.unable_to_play_stream"), Colors.Red)
+			Return False
+		End If
+		clsPlayer.lblPlayStationPlaying.lbl.Tag = plsUrl
+		Return True
+		End If
+	Return True
 End Sub
 
 Public Sub GetNowPlaying As String
@@ -446,16 +485,12 @@ Private Sub ResetCurrentPlayingLabels 'ignore
 	clsPlayer.lblPlayStationPlaying.lbl.Text = cmGenFunctions.Geti18NFromString("i18n.play_stream")
 End Sub
 
-
 Private Sub StopStream
 	Starter.clsIcyData.ResetIcyList
 	Starter.clsIcyData.lstIcyData.icy_playing = cmGenFunctions.Geti18NFromString("i18n.click_stream")
 	If cmGenFunctions.ExoPLayerIsPlaying Then
 		clsPlayer.StopStream
 	End If
-End Sub
-
-Private Sub lblKeepStream1_Click
 End Sub
 
 Public Sub ErrorPlayingStream
@@ -473,4 +508,32 @@ Private Sub lblSelectCountry_Click
 	End If
 	Activity.Finish
 	StartActivity(selectCountry)
+End Sub
+
+Private Sub lblKeepStream1_Click
+	If GetPlayingElevation(Sender) = False Then Return
+	Msgbox2Async("STREAM NAAR FAVORIETEN LIJST", Application.LabelName, cmGenFunctions.Geti18NFromString("i18n.btn_yes"), "", cmGenFunctions.Geti18NFromString("i18n.btn_no"), Application.Icon, False)
+	Wait For Msgbox_Result (Result As Int)
+	If Result = DialogResponse.NEGATIVE Then
+		Return
+	End If
+End Sub
+
+Private Sub lblKeepStream2_Click
+	If GetPlayingElevation(Sender) = False Then Return
+	Log("playing")
+End Sub
+
+Private Sub lblKeepStream3_Click
+	If GetPlayingElevation(Sender) = False Then Return
+	Log("playing")
+End Sub
+
+Private Sub GetPlayingElevation(lbl As Label) As Boolean
+	Dim pnl As Panel = lbl.Parent
+	
+	If pnl.Elevation = activeElevation Then
+		Return True
+	End If
+	Return False
 End Sub

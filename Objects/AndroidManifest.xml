@@ -40,14 +40,14 @@
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
-			android:name=".selectcountry"
+			android:name=".searchstation"
 			android:label="AdFree Radio"
 			android:screenOrientation="portrait">
 		</activity>
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
-			android:name=".searchstation"
+			android:name=".selectcountry"
 			android:label="AdFree Radio"
 			android:screenOrientation="portrait">
 		</activity>

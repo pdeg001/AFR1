@@ -31,7 +31,6 @@ Public Sub GetPlsStream(url As String) As ResumableSub
 		pls = "err"
 	End If
 	
-	
 End Sub
 
 Private Sub GetUrlFromPls(pls As String) As String
