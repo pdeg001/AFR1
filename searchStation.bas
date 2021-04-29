@@ -509,10 +509,9 @@ Private Sub lblSelectCountry_Click
 	Activity.Finish
 	StartActivity(selectCountry)
 End Sub
-
 Private Sub lblKeepStream1_Click
 	If GetPlayingElevation(Sender) = False Then Return
-	Msgbox2Async("STREAM NAAR FAVORIETEN LIJST", Application.LabelName, cmGenFunctions.Geti18NFromString("i18n.btn_yes"), "", cmGenFunctions.Geti18NFromString("i18n.btn_no"), Application.Icon, False)
+	Msgbox2Async(cmGenFunctions.Geti18NFromString("i18n.add_stream_preflist"), Application.LabelName, cmGenFunctions.Geti18NFromString("i18n.btn_yes"), "", cmGenFunctions.Geti18NFromString("i18n.btn_no"), Application.Icon, False)
 	Wait For Msgbox_Result (Result As Int)
 	If Result = DialogResponse.NEGATIVE Then
 		Return

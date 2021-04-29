@@ -46,6 +46,6 @@ ModuleClosedNodes6=
 ModuleClosedNodes7=
 ModuleClosedNodes8=
 ModuleClosedNodes9=
-NavigationStack=searchStation,GetStreamPlay,404,6,searchStation,SetActiveElevation,375,6,searchStation,Globals,21,0,searchStation,StopStream,488,0,Visual Designer,searchStation.bal,-100,6,searchStation,GetPlayingElevation,518,6,searchStation,lblKeepStream2_Click,516,0,searchStation,lblSelectCountry_Click,497,0,searchStation,lblKeepStream1_Click,508,6,searchStation,lblKeepStream3_Click,524,0
+NavigationStack=searchStation,SetActiveElevation,375,6,searchStation,Globals,21,0,searchStation,StopStream,488,0,Visual Designer,searchStation.bal,-100,6,searchStation,GetPlayingElevation,518,6,searchStation,lblKeepStream2_Click,516,0,searchStation,lblKeepStream3_Click,524,0,searchStation,ErrorPlayingStream,493,0,searchStation,lblKeepStream1_Click,505,6,searchStation,lblSelectCountry_Click,504,0
 SelectedBuild=0
 VisibleModules=15,13
