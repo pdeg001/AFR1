@@ -19,7 +19,7 @@ ModuleBreakpoints1=
 ModuleBreakpoints10=
 ModuleBreakpoints11=
 ModuleBreakpoints12=
-ModuleBreakpoints13=
+ModuleBreakpoints13=390
 ModuleBreakpoints14=
 ModuleBreakpoints15=
 ModuleBreakpoints2=
@@ -31,11 +31,11 @@ ModuleBreakpoints7=
 ModuleBreakpoints8=
 ModuleBreakpoints9=
 ModuleClosedNodes0=8
-ModuleClosedNodes1=2,4,5,6
+ModuleClosedNodes1=1,2,3,4,5,6,7,8,9,10,11,12
 ModuleClosedNodes10=
 ModuleClosedNodes11=2,9
 ModuleClosedNodes12=
-ModuleClosedNodes13=1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,40
+ModuleClosedNodes13=1,2,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,28,29,40
 ModuleClosedNodes14=2,3,5,6,7,14,15,16,18
 ModuleClosedNodes15=5
 ModuleClosedNodes2=
@@ -46,6 +46,10 @@ ModuleClosedNodes6=
 ModuleClosedNodes7=
 ModuleClosedNodes8=
 ModuleClosedNodes9=
+<<<<<<< Updated upstream
 NavigationStack=searchStation,SetActiveElevation,375,6,searchStation,Globals,21,0,searchStation,StopStream,488,0,Visual Designer,searchStation.bal,-100,6,searchStation,GetPlayingElevation,518,6,searchStation,lblKeepStream2_Click,516,0,searchStation,lblKeepStream3_Click,524,0,searchStation,ErrorPlayingStream,493,0,searchStation,lblKeepStream1_Click,505,6,searchStation,lblSelectCountry_Click,504,0
+=======
+NavigationStack=searchStation,lblStream1_Click,354,0,searchStation,lblStream2_Click,363,0,searchStation,ResetButtonElevation,381,0,afrDb,AddStationToPreflist,176,0,PlayStream,CreateLblPlayStation,132,0,searchStation,InitStream,389,0,searchStation,lblKeepStream2_Click,513,0,searchStation,lblKeepStream3_Click,518,0,searchStation,lblKeepStream1_Click,508,6,searchStation,AddStreamToPreflist,521,6
+>>>>>>> Stashed changes
 SelectedBuild=0
-VisibleModules=15,13
+VisibleModules=15,13,6,1,11

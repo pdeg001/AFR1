@@ -294,7 +294,7 @@ Private Sub pnlStreams_Click
 '		StopStream
 '		GetStreamPlay
 '	End If
-	
+	ResetButtonElevation
 	clsPlayer.IsLabelKnown
 	pnlStationStream.Tag = ""
 	pnlStreams.SetLayoutAnimated(400, Activity.Width+400dip, 0dip, Activity.Width, Activity.Height)
@@ -383,9 +383,9 @@ Private Sub SetActiveElevation(lbl As Label)
 End Sub
 
 Private Sub ResetButtonElevation
-	pnlPlayStream1.Elevation = baseElevation
-	pnlPlayStream2.Elevation = baseElevation
-	pnlPlayStream3.Elevation = baseElevation
+	pnlPlayStream1.SetElevationAnimated(500,baseElevation)
+	pnlPlayStream2.SetElevationAnimated(500,baseElevation)
+	pnlPlayStream3.SetElevationAnimated(500,baseElevation)
 End Sub
 
 Private Sub InitStream(lbl As Label)
@@ -520,12 +520,21 @@ End Sub
 
 Private Sub lblKeepStream2_Click
 	If GetPlayingElevation(Sender) = False Then Return
-	Log("playing")
+	If AddStreamToPreflist = False Then Return
 End Sub
 
 Private Sub lblKeepStream3_Click
 	If GetPlayingElevation(Sender) = False Then Return
-	Log("playing")
+	If AddStreamToPreflist = False Then Return
+End Sub
+
+Private Sub AddStreamToPreflist(lbl as Label) 
+	Msgbox2Async("STREAM NAAR FAVORIETEN LIJST", Application.LabelName, cmGenFunctions.Geti18NFromString("i18n.btn_yes"), "", cmGenFunctions.Geti18NFromString("i18n.btn_no"), Application.Icon, False)
+	Wait For Msgbox_Result (Result As Int)
+	If Result = DialogResponse.NEGATIVE Then
+		Return False
+	End If
+	Return True
 End Sub
 
 Private Sub GetPlayingElevation(lbl As Label) As Boolean
