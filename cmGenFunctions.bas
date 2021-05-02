@@ -87,3 +87,4 @@ Sub ShowCustomToast(Text As Object, LongDuration As Boolean, BackgroundColor As 
 	' Bit.Or(Gravity.CENTER_HORIZONTAL, Gravity.CENTER_VERTICAL), 0, 0))
 	toast.RunMethod("show", Null)
 End Sub
+

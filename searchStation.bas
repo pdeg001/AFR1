@@ -6,7 +6,7 @@ Version=10.6
 @EndOfDesignText@
 'TODO : Documenteer code
 #Region  Activity Attributes 
-	#FullScreen: True
+	#FullScreen: False
 	#IncludeTitle: False
 #End Region
 
@@ -20,35 +20,30 @@ Sub Globals
 	Private clsPlayer As PlayStream
 	Private clsPlsPlayer As PlsPlayer
 	Private clsDb As afrDb
+	Private clsGen As GenFuncClass
 	
 	Private ime As IME
 
 	Private lstStation As List
-	Private lblStreamClick As Label
 	Private baseElevation = 1, activeElevation = 8 As Float
 	
 	Private pnlStreams, pnlStation, pnlGenreLanguage, pnlGenre, pnlStationStream As Panel
+	Private pnlBbScroll As Panel
+	Private pnlPlayStream1, pnlPlayStream2, pnlPlayStream3, pnlFooter As Panel
+	
 	Private ftSeach As B4XFloatTextField
 	Private clvStation, clvGenre, clvLanguage As CustomListView
 	Private TabSearch As TabStrip
+	Private edtDummyForFocus As EditText
 
+	Private lblStreamClick, lblSelectCountry As Label
 	Private lblHeader, lblDescription, lblGenre, lblLanguage, lblStationName As Label
 	Private lblStreamCount, lblStationFound, lblNo, lblPnlGenre, lblPnlLanguage As Label
 	Private lblChoosenGenre, lblChoosenLanguage, lblRemoveGenre, lblRemoveLaguage As Label
 	Private lblDefaultCountry,lblChoosenCountry, lblSearch As Label
-	Private lblClickStationName As Label
-	Private lblStream1, lblStream2, lblStream3 As Label
+	Private lblStream1, lblStream2, lblStream3, lblClickStationName As Label
 	Private lblKeepStream1, lblKeepStream2, lblKeepStream3 As Label
-	Private pnlBbScroll As Panel
-	Private lblPlaying As Label
-	Private lblGenrePlaying As Label
-	Private lblBitratePlaying As Label
-	Private pnlFooter As Panel
-	Private lblSelectCountry As Label
-	Private edtDummyForFocus As EditText
-	Private pnlPlayStream1 As Panel
-	Private pnlPlayStream2 As Panel
-	Private pnlPlayStream3 As Panel
+	Private lblPlaying, lblStreamExists, lblBitratePlaying, lblGenrePlaying As Label
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
@@ -57,6 +52,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	clsDb.Initialize
 	clsPlayer.Initialize
 	clsPlsPlayer.Initialize
+	clsGen.Initialize
 	lblStreamClick.Initialize("")
 	
 	Activity.LoadLayout("searchStation")
@@ -383,6 +379,7 @@ Private Sub SetActiveElevation(lbl As Label)
 End Sub
 
 Private Sub ResetButtonElevation
+	SetInPrefListVisible(False)
 	pnlPlayStream1.SetElevationAnimated(500,baseElevation)
 	pnlPlayStream2.SetElevationAnimated(500,baseElevation)
 	pnlPlayStream3.SetElevationAnimated(500,baseElevation)
@@ -390,9 +387,12 @@ End Sub
 
 Private Sub InitStream(lbl As Label)
 	Dim currLabelTag As String = clsPlayer.IsLabelKnown
-'	If clsPlayer.IsLabelKnown = True Then Return
-'	clsPlayer.IsLabelKnown
 	If lbl.Tag = currLabelTag Then Return
+	
+'	If clsDb.CheckStreamExistsInPreflist(lbl.Tag) > 0 Then
+		SetInPrefListVisible(clsDb.CheckStreamExistsInPreflist(lbl.Tag) > 0)
+'	End If
+	
 	clsPlayer.CreateLblPlayStation(lbl, "searchStation", "SetNowPlaying", "ResetCurrentPlayingLabels", lbl.Tag)
 	SetActiveElevation(lbl)
 	GetStreamPlay
@@ -479,6 +479,7 @@ End Sub
 
 'called from clsPlayer, and clears labels
 Private Sub ResetCurrentPlayingLabels 'ignore
+	SetInPrefListVisible(False)
 	lblGenrePlaying.Text = ""
 	lblBitratePlaying.Text = ""
 	lblPlaying.Text = cmGenFunctions.Geti18NFromString("i18n.click_stream")
@@ -509,32 +510,55 @@ Private Sub lblSelectCountry_Click
 	Activity.Finish
 	StartActivity(selectCountry)
 End Sub
+
 Private Sub lblKeepStream1_Click
 	If GetPlayingElevation(Sender) = False Then Return
-	Msgbox2Async(cmGenFunctions.Geti18NFromString("i18n.add_stream_preflist"), Application.LabelName, cmGenFunctions.Geti18NFromString("i18n.btn_yes"), "", cmGenFunctions.Geti18NFromString("i18n.btn_no"), Application.Icon, False)
-	Wait For Msgbox_Result (Result As Int)
-	If Result = DialogResponse.NEGATIVE Then
-		Return
-	End If
+	If CheckStreamInPreflist(clsPlayer.lblPlayStationPlaying.lbl.Tag) = True Then Return
+	Wait For (clsGen.GenYNCMess(cmGenFunctions.Geti18NFromString("i18n.add_stream_preflist"), 2)) Complete (result As Boolean)
+	If result = False Then Return
+	AddStreamToPreflist
 End Sub
 
 Private Sub lblKeepStream2_Click
 	If GetPlayingElevation(Sender) = False Then Return
-	If AddStreamToPreflist = False Then Return
+	If CheckStreamInPreflist(clsPlayer.lblPlayStationPlaying.lbl.Tag) = True Then Return
+	Wait For (clsGen.GenYNCMess(cmGenFunctions.Geti18NFromString("i18n.add_stream_preflist"), 2)) Complete (result As Boolean)
+	If result = False Then Return
+	AddStreamToPreflist
 End Sub
 
 Private Sub lblKeepStream3_Click
 	If GetPlayingElevation(Sender) = False Then Return
-	If AddStreamToPreflist = False Then Return
+	If CheckStreamInPreflist(clsPlayer.lblPlayStationPlaying.lbl.Tag) = True Then Return
+	Wait For (clsGen.GenYNCMess(cmGenFunctions.Geti18NFromString("i18n.add_stream_preflist"), 2)) Complete (result As Boolean)
+	If result = False Then Return
+	AddStreamToPreflist
 End Sub
 
-Private Sub AddStreamToPreflist(lbl as Label) 
-	Msgbox2Async("STREAM NAAR FAVORIETEN LIJST", Application.LabelName, cmGenFunctions.Geti18NFromString("i18n.btn_yes"), "", cmGenFunctions.Geti18NFromString("i18n.btn_no"), Application.Icon, False)
-	Wait For Msgbox_Result (Result As Int)
-	If Result = DialogResponse.NEGATIVE Then
-		Return False
+Private Sub CheckStreamInPreflist(stream As String) As Boolean
+	If clsDb.CheckStreamExistsInPreflist(stream) > 0 Then
+		clsGen.GenYNCMess(cmGenFunctions.Geti18NFromString("i18n.station_stream_exists_preflist"), 1)
+		Return True
 	End If
-	Return True
+	Return False
+End Sub
+
+Private Sub AddStreamToPreflist 
+	Dim stationUrl As String
+	
+	stationUrl = clsPlayer.lblPlayStationPlaying.lbl.Tag
+	If stationUrl = "" Or stationUrl = Null Then
+		clsGen.GenYNCMess(cmGenFunctions.Geti18NFromString("i18n.unable_to_add_preflist"), 1)
+		Return
+	End If
+	
+'	'check if stream exists in preflist
+'	If clsDb.CheckStreamExistsInPreflist(stationUrl) > 0 Then
+'		clsGen.GenYNCMess(cmGenFunctions.Geti18NFromString("i18n.station_stream_exists_preflist"), 1)
+'		Return
+'	End If
+	
+	clsDb.AddStationToPreflist(stationUrl)
 End Sub
 
 Private Sub GetPlayingElevation(lbl As Label) As Boolean
@@ -544,4 +568,8 @@ Private Sub GetPlayingElevation(lbl As Label) As Boolean
 		Return True
 	End If
 	Return False
+End Sub
+
+Private Sub SetInPrefListVisible (show As Boolean)
+	lblStreamExists.SetVisibleAnimated(500, show)
 End Sub

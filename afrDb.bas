@@ -6,7 +6,7 @@ Version=10.6
 @EndOfDesignText@
 Sub Class_Globals
 	Private sql As SQL
-	Private qry As String
+	Private qry, insertQry As String
 	Private rs As ResultSet
 	
 	Public findGenre="", findLanguage="" As String
@@ -179,6 +179,30 @@ Public Sub CreatelanugageList (language As String) As lanugageList
 	Return t1
 End Sub
 
-Public Sub AddStationToPreflist
+Public Sub AddStationToPreflist (url As String)
+If CheckStreamExistsInPreflist(url) = 1 Then
+	Log("url exists")
+	Return
+End If
 	
+	IsDbInitialized
+	insertQry = $"INSERT INTO preflist (rdo_id, stname, description, genre, country, stream1)
+VALUES(?, ?, ?, ?, ?, ?)"$
+	
+	qry = $"select rdo_id, stname, description, genre, country from rdolist
+WHERE stream1 = ? or stream2 = ? or stream3 = ?"$
+	
+	rs = sql.ExecQuery2(qry, Array As String(url))
+	Do While rs.NextRow
+		sql.ExecNonQuery2(insertQry, Array As String(rs.GetString("rdo_id"), rs.GetString("stname"), _
+		rs.GetString("description"), rs.GetString("genre"), rs.GetString("country"), url))
+	Loop
+	rs.Close
+End Sub
+
+Public Sub CheckStreamExistsInPreflist(url As String) As Int
+	IsDbInitialized
+	qry = $"select pref_id from preflist WHERE stream1 = ?"$
+	rs = sql.ExecQuery2(qry, Array As String(url))
+	Return rs.RowCount
 End Sub
