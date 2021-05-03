@@ -136,6 +136,7 @@ Sub Globals
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
+	IgnoreBatteryOptimizations
 	clsInetConnected.Initialize
 	clsI18n.Initialize
 	clsDb.Initialize
@@ -227,3 +228,20 @@ Public Sub CreatelanugageList (language As String) As lanugageList
 	Return t1
 End Sub
 
+Sub IgnoreBatteryOptimizations
+	Dim GetAndroidApiLevel As Phone
+'	Log($"BRAND : ${GetAndroidApiLevel.Manufacturer}, MODEL : ${GetAndroidApiLevel.Model}"$)
+	If GetAndroidApiLevel.SdkVersion>=23 Then
+		Dim JavaObject1 As JavaObject
+		JavaObject1.InitializeContext
+		Dim Ignoring As Boolean=JavaObject1.RunMethod("isIgnoringBatteryOptimizations", Null)
+		If Ignoring=False Then
+			MsgboxAsync("Please confirm the following form to exclude the app from battery optimization.", "Battery optimization")
+			'RuntimePermissions1.CheckAndRequest("android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS")
+			Dim JavaObject1 As JavaObject
+			JavaObject1.InitializeContext
+			JavaObject1.RunMethod("ShowPermissionDialog", Null)
+		End If
+	End If
+
+End Sub
