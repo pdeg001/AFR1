@@ -181,7 +181,8 @@ Private Sub CreateStationList(station As stationList, rowNo As String) As Panel
 	pnl.LoadLayout("pnlStation")
 	
 	pnl.Tag = station.id
-	lblStationName.Text = station.station_name
+	'lblStationName.Text = station.station_name
+	cmGenFunctions.runMarquee(lblStationName, station.station_name, "MARQUEE")
 	lblGenre.Text = station.station_genre
 	lblLanguage.Text = station.station_language
 	lblDescription.Text = station.station_descr
