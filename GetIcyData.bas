@@ -31,6 +31,7 @@ Public Sub enableTimer(enable As Boolean)
 End Sub
 
 Private Sub ICYTIMER_Tick
+	Log($"ICY PLAYING : ${lstIcyData.icy_playing}"$)
 	If cmGenFunctions.ExoPLayerIsPlaying = False Then 
 		Sleep(500)
 		Return

@@ -136,7 +136,7 @@ Sub Globals
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
-'	IgnoreBatteryOptimizations
+	IgnoreBatteryOptimizations
 	clsInetConnected.Initialize
 	clsI18n.Initialize
 	clsDb.Initialize
@@ -245,3 +245,36 @@ Sub IgnoreBatteryOptimizations
 	End If
 
 End Sub
+
+#If JAVA
+import android.content.Context;
+import android.content.Intent;
+import android.os.PowerManager;
+import android.provider.Settings;
+import android.net.Uri;
+import anywheresoftware.b4a.BA;
+
+public boolean isIgnoringBatteryOptimizations(){
+Context context=this;
+String packageName = context.getPackageName();
+PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+return pm.isIgnoringBatteryOptimizations(packageName);
+}
+
+public void ShowPermissionDialog(){
+    Intent intent = new Intent();
+    Context context=this;
+    String packageName = context.getPackageName();
+    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+    if (pm.isIgnoringBatteryOptimizations(packageName)){
+        BA.LogInfo("isIgnoringBatteryOptimizations TRUE");
+        intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+    } else {
+        BA.LogInfo("isIgnoringBatteryOptimizations FALSE");
+        intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+        intent.setData(Uri.parse("package:" + packageName));
+    }
+    context.startActivity(intent);
+}
+#End If
+

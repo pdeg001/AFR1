@@ -89,7 +89,7 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean
 End Sub
 
 Private Sub InitTabView
-	TabSearch.LoadLayout("tabStations", cmGenFunctions.Geti18NFromString("i18n.stations"))
+	TabSearch.LoadLayout("tabStations", cmGenFunctions.Geti18NFromString("i18n.searchstation_found"))
 	TabSearch.LoadLayout("tabGenre", cmGenFunctions.Geti18NFromString("i18n.genre"))
 	TabSearch.LoadLayout("tabLanguage", cmGenFunctions.Geti18NFromString("i18n.language"))
 	For Each lbl As Label In GetAllTabLabels(TabSearch)
