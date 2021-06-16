@@ -28,7 +28,7 @@ Public Sub GetPlsStream(url As String) As ResumableSub
 		Return GetUrlFromPls(pls)
 	Else
 		job.Release
-		pls = "err"
+		Return "err"
 	End If
 	
 End Sub

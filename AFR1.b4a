@@ -230,7 +230,7 @@ End Sub
 
 Sub IgnoreBatteryOptimizations
 	Dim GetAndroidApiLevel As Phone
-	Log($"BRAND : ${GetAndroidApiLevel.Manufacturer}, MODEL : ${GetAndroidApiLevel.Model}"$)
+'	Log($"BRAND : ${GetAndroidApiLevel.Manufacturer}, MODEL : ${GetAndroidApiLevel.Model}"$)
 	If GetAndroidApiLevel.SdkVersion>=23 Then
 		Dim JavaObject1 As JavaObject
 		JavaObject1.InitializeContext

@@ -17,7 +17,6 @@ End Sub
 
 Private Sub InitializePlayer
 	player.Initialize("player")
-	
 End Sub
 
 Public Sub playStreamUrl(streamUrl As String)
@@ -35,8 +34,8 @@ Public Sub playStreamUrl(streamUrl As String)
 		End If
 
 		player.Play
-		Starter.clsIcyData.enableTimer(True)
-		Starter.clsIcyData.GetIcyDataFromUrl
+'		Starter.clsIcyData.enableTimer(True)
+'		Starter.clsIcyData.GetIcyDataFromUrl
 	Catch
 		cmGenFunctions.logDebug(">>" &LastException.Message)
 		Starter.playerStatus = "error"
@@ -73,20 +72,29 @@ Public Sub StopStream
 	End If
 End Sub
 
+'Stream is playing
 Sub player_Ready
 	Starter.phKeepAlive
 	Starter.playerStatus = "ready"
 	cmGenFunctions.logDebug("Ready")
+	Starter.clsIcyData.enableTimer(True)
+	Starter.clsIcyData.GetIcyDataFromUrl
+	
+	'give feedback to calling activity
+	CallSub2($"${Starter.playerCallingActivity}"$, Starter.playerCallingActivityCallback, Starter.PLAYERREADY)
 End Sub
 
+'Unable to play stream
 Sub player_Error (Message As String)
-	cmGenFunctions.logDebug(">> "& Message)
+	Log("ERROR")
 	Starter.playerStatus = "error"
 	Starter.clsIcyData.ResetIcyList
 	Starter.clsIcyData.lstIcyData.icy_playing = "Error playing stream"
 	StopStream
-	IsLabelKnown
+'	IsLabelKnown
 	ToastMessageShow(Starter.clsi18nVar.GetI18nValueFromString("i18n.unable_to_play_stream"), False)
+	
+	CallSub2($"${Starter.playerCallingActivity}"$, Starter.playerCallingActivityCallback, Starter.PLAYERERROR)
 End Sub
 
 Sub player_Complete
@@ -104,15 +112,14 @@ Private Sub NoStreamUrlPassed As Boolean
 End Sub
 
 Public Sub IsLabelKnown As String
-	
 	Dim msStopStreamDiff ,msStopStreamDuration As Long = DateTime.Now
-	
-	
 	Dim currLabel As Label
+
 	'nothing is playing
 	If lblPlayStationPlaying.IsInitialized = False Or lblPlayStationPlaying.lbl.IsInitialized = False Then Return ""
 	'reset labels
-	CallSub($"${lblPlayStationPlaying.act}"$, $"${lblPlayStationPlaying.callBackStop}"$)
+	Log("reset label")
+	CallSubDelayed($"${lblPlayStationPlaying.act}"$, $"${lblPlayStationPlaying.callBackStop}"$)
 	'stop the ICY timer
 	Starter.clsIcyData.enableTimer(False)
 	'stop the stream
@@ -144,4 +151,13 @@ Public Sub CreateLblPlayStation (lbl As Label, act As String, callBackStart As S
 	t1.callBackStop = callBackStop
 	t1.stream = stream
 	lblPlayStationPlaying = t1
+End Sub
+
+Private Sub CheckIfStreamIsPlaying
+	If cmGenFunctions.ExoPLayerIsPlaying Then 
+		
+		CreateLblPlayStation (Null, Null, Null, Null, Null)
+		Return
+	End If
+	
 End Sub

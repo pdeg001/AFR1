@@ -27,7 +27,7 @@ message_key = ?"$
 	i18nReturnvalue = sql.ExecQuerySingleResult2(qry, Array As String(locale.ToLowerCase, i18NString))
 	If i18nReturnvalue = Null Then
 		Return "i18N Unknown"
-	Else
+	Else		
 		Return i18nReturnvalue
 	End If
 End Sub

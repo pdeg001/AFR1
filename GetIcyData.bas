@@ -13,7 +13,7 @@ Sub Class_Globals
 	Private icyTimer As Timer
 	Private httpTimeOut As Int = 30*1000
 	Private icyTimerTimeOut As Int = 5*1000
-	Private getIcyDataTries As Int = 0
+	Private getIcyDataTries, getIcyPlayingTries As Int = 0
 	Private hasIcyData As Boolean
 	Public lastIcyData As String
 	Public IcyDataHasChanged As Boolean
@@ -31,11 +31,11 @@ Public Sub enableTimer(enable As Boolean)
 End Sub
 
 Private Sub ICYTIMER_Tick
-	Log($"ICY PLAYING : ${lstIcyData.icy_playing}"$)
 	If cmGenFunctions.ExoPLayerIsPlaying = False Then 
-		Sleep(500)
+		Sleep(100)
 		Return
 	End If
+
 	If hasIcyData = False Then
 		If getIcyDataTries >= 3 Then
 			'enableTimer(False)

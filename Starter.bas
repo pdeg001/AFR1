@@ -11,6 +11,9 @@ Version=9.9
 #End Region
 
 Sub Process_Globals
+	Public const PLAYERREADY As Int = 1
+	Public const PLAYERERROR As Int = 2
+	
 	Private xui As XUI
 	Private rp As RuntimePermissions
 	Private clsI18nXls As i18nXlsToDb
@@ -28,9 +31,14 @@ Sub Process_Globals
 	Public filesFolder As String
 	Public doy As String ="pdegrootafr", moy As String ="hkWpXtB1!", ftp As String = "ftp.pdeg.nl"
 	Public hasInternet, enableDebugMessages As Boolean
+	Public playerStatus As String = "not playing"
+	
 	Public icyCallingActivity As String
 	Public icyCallingActivityCallback As String
-	Public playerStatus As String = "not playing"
+
+	Public playerCallingActivity As String
+	Public playerCallingActivityCallback As String
+	Public playerCallingActivityErrorCallback As String
 End Sub
 
 Sub Service_Create
